@@ -99,7 +99,7 @@ class CustomNavbar extends HTMLElement {
           <li><a href="../../../index.html">Home</a></li>
           <li><a href="../../../about.html">About</a></li>
           <li><a href="../../../vote/how-to-vote.html">How to Vote</a></li>
-          <li><a href="../../../results.html">Results</a></li>
+          <li><a href="../../../elections/results.html">Results</a></li>
           <li><a href="../../../contact.html">Contact</a></li>
         </ul>
       </nav>
