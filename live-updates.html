@@ -1,0 +1,3684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>2026 General Election Results | Square Country Electoral Commission</title>
+
+<link rel="icon" type="image/x-icon" href="images/electoral-commission.png">
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://unpkg.com/feather-icons"></script>
+
+<script>
+tailwind.config = {
+    theme: {
+        extend: {
+            colors: {
+                orangeEC: '#e86f00',
+                orangeDark: '#b95000',
+                orangeLight: '#fff4e8'
+            }
+        }
+    }
+}
+</script>
+
+<style>
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+        background: #f7f7f7;
+        color: #222;
+    }
+
+    .party-bar {
+        height: 8px;
+        border-radius: 999px;
+        background: #eeeeee;
+        overflow: hidden;
+    }
+
+    .party-fill {
+        height: 100%;
+        border-radius: 999px;
+        background: #e86f00;
+        transition: width 1.4s cubic-bezier(0.22, 1, 0.36, 1);
+        will-change: width;
+    }
+
+    .progress-fill {
+    height: 100%;
+    border-radius: 999px;
+    background: #e86f00;
+    transition: width 1.5s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: width;
+}
+
+.electorate-progress-fill {
+    height: 100%;
+    border-radius: 999px;
+    background: #e86f00;
+    transition: width 1.4s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: width;
+}
+
+.leader-progress-fill {
+    height: 100%;
+    border-radius: 999px;
+    background: #e86f00;
+    transition: width 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: width;
+}
+
+    .live-dot {
+        width: 9px;
+        height: 9px;
+        background: #e86f00;
+        border-radius: 50%;
+        display: inline-block;
+        animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+        0% { opacity: 1; }
+        50% { opacity: 0.35; }
+        100% { opacity: 1; }
+    }
+
+    .sticky-header {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+    }
+
+    .seat-number {
+        font-size: 2rem;
+        font-weight: 800;
+        line-height: 1;
+    }
+
+    .party-row {
+        transition: background 0.2s ease;
+    }
+
+    .party-row:hover {
+        background: #fafafa;
+    }
+
+    .table-header {
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        font-weight: 700;
+        color: #6b7280;
+    }
+</style>
+</head>
+
+<body>
+
+<!-- =========================================================
+     HEADER
+========================================================= -->
+
+<header class="sticky-header bg-white border-b border-gray-200">
+
+    <div class="bg-orangeEC text-white">
+        <div class="max-w-7xl mx-auto px-5 py-2 flex items-center justify-between text-sm">
+
+            <div class="flex items-center gap-2">
+                <span class="live-dot bg-white"></span>
+                <strong>LIVE RESULTS</strong>
+            </div>
+
+            <span>17 October 2026</span>
+
+        </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-5 py-4 flex items-center justify-between">
+
+        <a href="index.html" class="flex items-center gap-4">
+
+            <div class="w-12 h-12 rounded-lg bg-orangeLight flex items-center justify-center">
+                <i data-feather="check-square" class="text-orangeEC w-7 h-7"></i>
+            </div>
+
+            <div>
+                <div class="font-bold text-xl text-gray-900">
+                    Square Country
+                </div>
+
+                <div class="text-sm text-gray-500">
+                    Electoral Commission
+                </div>
+            </div>
+
+        </a>
+
+        <nav class="hidden md:flex items-center gap-7 text-sm font-semibold">
+
+            <a href="index.html" class="hover:text-orangeEC">
+                Home
+            </a>
+
+            <a href="#" class="text-orangeEC">
+                Election Results
+            </a>
+
+            <a href="#" class="hover:text-orangeEC">
+                Electorates
+            </a>
+
+            <a href="#" class="hover:text-orangeEC">
+                Candidates
+            </a>
+
+            <a href="#" class="hover:text-orangeEC">
+                About
+            </a>
+
+        </nav>
+
+        <button class="md:hidden">
+            <i data-feather="menu"></i>
+        </button>
+
+    </div>
+</header>
+
+
+<!-- =========================================================
+     PAGE TITLE
+========================================================= -->
+
+<section class="bg-orangeLight border-b border-orange-100">
+
+    <div class="max-w-7xl mx-auto px-5 py-10">
+
+        <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+
+            <div>
+
+                <p class="uppercase tracking-widest text-xs font-bold text-orangeDark mb-2">
+                    Square Country General Election
+                </p>
+
+                <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900">
+                    2026 Election Results
+                </h1>
+
+                <p class="mt-3 text-gray-600 max-w-2xl">
+                    Live results for the Square Country General Election.
+                    Results are updated as votes are counted and officially
+                    reported by the Electoral Commission.
+                </p>
+
+            </div>
+
+            <div class="bg-white border border-orange-200 rounded-xl px-5 py-4 min-w-[230px]">
+
+                <div class="text-xs uppercase tracking-wide text-gray-500">
+                    Counting progress
+                </div>
+
+                <div class="flex items-end justify-between mt-1">
+
+                    <strong id="progressText" class="text-2xl">
+                        0%
+                    </strong>
+
+                    <span id="electoratesCounted" class="text-sm text-gray-500">
+                        0 of 13 electorates
+                    </span>
+
+                </div>
+
+                <div class="w-full bg-gray-200 rounded-full h-2 mt-3">
+
+                    <div
+                      id="progressBar"
+                      class="progress-fill"
+                      style="width: 0%"
+                  ></div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     MAIN
+========================================================= -->
+
+<main class="max-w-7xl mx-auto px-5 py-8">
+
+
+    <!-- =====================================================
+         LIVE STATUS
+    ===================================================== -->
+
+    <div class="bg-white border border-gray-200 rounded-xl px-5 py-4 mb-7 flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+
+        <div class="flex items-center gap-3">
+
+            <span class="live-dot"></span>
+
+            <div>
+
+                <strong id="liveStatusTitle">
+                    Live counting
+                </strong>
+
+                <div id="liveStatusText" class="text-sm text-gray-500">
+                    Connecting to the Electoral Commission results service.
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="text-sm text-gray-500">
+
+            Last updated:
+
+            <strong id="lastUpdated">
+                Connecting...
+            </strong>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         DATABASE STATUS
+    ===================================================== -->
+
+    <div
+        id="databaseStatus"
+        class="hidden bg-red-50 border border-red-200 rounded-xl p-5 mb-7"
+    >
+
+        <div class="font-bold text-red-800">
+            Unable to load live results
+        </div>
+
+        <div
+            id="databaseStatusText"
+            class="text-sm text-red-700 mt-1"
+        ></div>
+
+    </div>
+
+
+    <!-- =====================================================
+         NATIONAL OVERVIEW
+    ===================================================== -->
+
+    <section class="mb-10">
+
+        <div class="flex items-center justify-between mb-4">
+
+            <h2 class="text-2xl font-bold">
+                National overview
+            </h2>
+
+            <span class="text-sm text-gray-500">
+                13 electorates · 26 seats
+            </span>
+
+        </div>
+
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+
+            <div class="bg-white border border-gray-200 rounded-xl p-5">
+
+                <div class="text-sm text-gray-500">
+                    Party votes counted
+                </div>
+
+                <div
+                    id="totalVotes"
+                    class="text-3xl font-extrabold mt-1"
+                >
+                    0
+                </div>
+
+            </div>
+
+
+            <div class="bg-white border border-gray-200 rounded-xl p-5">
+
+                <div class="text-sm text-gray-500">
+                    Electorates declared
+                </div>
+
+                <div
+                    id="declaredSeats"
+                    class="text-3xl font-extrabold mt-1"
+                >
+                    0
+                </div>
+
+            </div>
+
+
+            <div class="bg-white border border-gray-200 rounded-xl p-5">
+
+                <div class="text-sm text-gray-500">
+                    Seats allocated
+                </div>
+
+                <div
+                    id="allocatedSeats"
+                    class="text-3xl font-extrabold mt-1"
+                >
+                    0 / 26
+                </div>
+
+            </div>
+
+
+            <div class="bg-white border border-gray-200 rounded-xl p-5">
+
+                <div class="text-sm text-gray-500">
+                    Majority
+                </div>
+
+                <div class="text-3xl font-extrabold mt-1">
+                    14
+                </div>
+
+                <div class="text-xs text-gray-500 mt-1">
+                    seats
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         PARTY RESULTS
+========================================================= -->
+
+    <section class="mb-12">
+
+        <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-4">
+
+            <div>
+
+                <h2 class="text-2xl font-bold">
+                    Party vote and seats
+                </h2>
+
+                <p class="text-sm text-gray-500 mt-1">
+                    National party vote totals and current parliamentary seat allocation.
+                </p>
+
+            </div>
+
+
+            <select
+                id="sortSelect"
+                onchange="sortParties()"
+                class="border border-gray-300 rounded-lg px-3 py-2 text-sm bg-white"
+            >
+
+                <option value="seats">
+                    Sort by seats
+                </option>
+
+                <option value="votes">
+                    Sort by votes
+                </option>
+
+                <option value="percentage">
+                    Sort by vote %
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <!-- PARTY TABLE -->
+
+        <div class="bg-white border border-gray-200 rounded-xl overflow-hidden">
+
+            <!-- DESKTOP HEADER -->
+
+            <div class="hidden md:grid grid-cols-[minmax(220px,2fr)_1.1fr_.8fr_.7fr_.7fr_.7fr] gap-4 px-5 py-3 bg-gray-50 border-b border-gray-200 table-header">
+
+                <div>Party</div>
+
+                <div class="text-right">
+                    Party vote
+                </div>
+
+                <div class="text-right">
+                    Vote %
+                </div>
+
+                <div class="text-right">
+                    Electorate
+                </div>
+
+                <div class="text-right">
+                    List
+                </div>
+
+                <div class="text-right">
+                    Total seats
+                </div>
+
+            </div>
+
+
+            <div
+                id="partyResults"
+            >
+
+                <div class="p-6 text-gray-500">
+                    Waiting for live results...
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- EXPLANATION -->
+
+        <div class="mt-3 flex flex-col md:flex-row md:items-center md:justify-between gap-2 text-xs text-gray-500">
+
+            <span>
+                Party vote percentages are calculated from votes currently reported.
+            </span>
+
+            <span>
+                4% threshold · Sainte-Laguë allocation · 26 seats
+            </span>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         ELECTORATES
+========================================================= -->
+
+    <section class="mt-12">
+
+        <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-5 mb-5">
+
+            <div>
+
+                <div class="flex items-center gap-2 mb-2">
+
+                    <span class="live-dot"></span>
+
+                    <span class="text-xs font-bold uppercase tracking-wider text-orangeEC">
+                        Live electorate results
+                    </span>
+
+                </div>
+
+                <h2 class="text-3xl font-extrabold text-gray-900">
+                    Electorates
+                </h2>
+
+                <p class="text-gray-500 mt-1">
+                    All 13 electorates are shown simultaneously and update as counting progresses.
+                </p>
+
+            </div>
+
+
+            <div class="flex flex-col sm:flex-row gap-2">
+
+                <div class="relative">
+
+                    <i
+                        data-feather="search"
+                        class="absolute left-3 top-2.5 w-4 h-4 text-gray-400"
+                    ></i>
+
+                    <input
+                        id="electorateSearch"
+                        type="text"
+                        placeholder="Search electorates..."
+                        oninput="filterElectorates()"
+                        class="w-full sm:w-64 border border-gray-300 rounded-lg
+                               pl-9 pr-4 py-2.5 text-sm bg-white
+                               focus:outline-none focus:ring-2
+                               focus:ring-orange-200 focus:border-orangeEC"
+                    >
+
+                </div>
+
+
+                <select
+                    id="electorateFilter"
+                    onchange="filterElectorates()"
+                    class="border border-gray-300 rounded-lg px-3 py-2.5
+                           text-sm bg-white focus:outline-none
+                           focus:ring-2 focus:ring-orange-200"
+                >
+
+                    <option value="all">
+                        All electorates
+                    </option>
+
+                    <option value="counting">
+                        Counting
+                    </option>
+
+                    <option value="declared">
+                        Declared
+                    </option>
+
+                    <option value="close">
+                        Close races
+                    </option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+
+        <!-- COUNTING SUMMARY -->
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-5">
+
+            <div class="bg-white border border-gray-200 rounded-xl p-4">
+
+                <div class="text-xs uppercase tracking-wide text-gray-500">
+                    Declared
+                </div>
+
+                <div
+                    id="declaredCount"
+                    class="text-2xl font-extrabold mt-1"
+                >
+                    0
+                </div>
+
+            </div>
+
+
+            <div class="bg-white border border-gray-200 rounded-xl p-4">
+
+                <div class="text-xs uppercase tracking-wide text-gray-500">
+                    Counting
+                </div>
+
+                <div
+                    id="countingCount"
+                    class="text-2xl font-extrabold mt-1"
+                >
+                    0
+                </div>
+
+            </div>
+
+
+            <div class="bg-white border border-gray-200 rounded-xl p-4">
+
+                <div class="text-xs uppercase tracking-wide text-gray-500">
+                    Closest races
+                </div>
+
+                <div
+                    id="closeCount"
+                    class="text-2xl font-extrabold mt-1"
+                >
+                    0
+                </div>
+
+            </div>
+
+
+            <div class="bg-orangeLight border border-orange-100 rounded-xl p-4">
+
+                <div class="text-xs uppercase tracking-wide text-orangeDark">
+                    Seats decided
+                </div>
+
+                <div
+                    id="decidedCount"
+                    class="text-2xl font-extrabold text-orangeDark mt-1"
+                >
+                    0 / 13
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ALL 13 ARE RENDERED TOGETHER -->
+
+        <div
+            id="electorateResults"
+            class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4"
+        ></div>
+
+    </section>
+
+
+    <!-- =====================================================
+         ELECTORATE MODAL
+========================================================= -->
+
+    <div
+        id="electorateModal"
+        class="fixed inset-0 z-[100] hidden"
+    >
+
+        <div
+            onclick="closeElectorate()"
+            class="absolute inset-0 bg-black/50"
+        ></div>
+
+        <div class="
+            absolute
+            left-1/2
+            top-1/2
+            -translate-x-1/2
+            -translate-y-1/2
+            bg-white
+            rounded-2xl
+            shadow-2xl
+            w-[calc(100%-30px)]
+            max-w-2xl
+            max-h-[90vh]
+            overflow-y-auto
+        ">
+
+            <div
+                id="electorateModalContent"
+                class="p-6"
+            ></div>
+
+        </div>
+
+    </div>
+
+</main>
+
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
+<footer class="bg-gray-900 text-gray-300 mt-16">
+
+    <div class="max-w-7xl mx-auto px-5 py-10">
+
+        <div class="flex flex-col md:flex-row justify-between gap-8">
+
+            <div>
+
+                <div class="text-white font-bold text-lg">
+                    Square Country Electoral Commission
+                </div>
+
+                <p class="text-sm mt-2 max-w-md text-gray-400">
+                    Official election information and results for
+                    Square Country.
+                </p>
+
+            </div>
+
+            <div class="text-sm text-gray-400">
+
+                <div>
+                    2026 General Election
+                </div>
+
+                <div class="mt-1">
+                    17 October 2026
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="border-t border-gray-700 mt-8 pt-5 text-xs text-gray-500">
+
+            Results shown on this page are provisional until officially declared.
+
+        </div>
+
+    </div>
+
+</footer>
+
+
+<!-- =========================================================
+     FIREBASE + LIVE RESULTS JAVASCRIPT
+========================================================= -->
+
+<script>
+
+/* =========================================================
+   FIREBASE CONFIG
+========================================================= */
+
+const firebaseConfig = {
+
+    apiKey:
+        "AIzaSyCvx0ARD5thFtytMW1cw54DyG3ojWz-Fsk",
+
+    authDomain:
+        "square-country-election-2026.firebaseapp.com",
+
+    databaseURL:
+        "https://square-country-election-2026-default-rtdb.firebaseio.com",
+
+    projectId:
+        "square-country-election-2026",
+
+    storageBucket:
+        "square-country-election-2026.firebasestorage.app",
+
+    messagingSenderId:
+        "1080044317618",
+
+    appId:
+        "1:1080044317618:web:0b02e177a30bb8c91fd2ab",
+
+    measurementId:
+        "G-T2STD78H74"
+
+};
+
+
+/* =========================================================
+   ELECTION SETTINGS
+========================================================= */
+
+const ELECTION_PATH = "election2026";
+
+const LIVE_PATH =
+    `${ELECTION_PATH}/live`;
+
+const TOTAL_SEATS = 26;
+
+const ELECTORATE_SEATS = 13;
+
+const THRESHOLD = 4;
+
+
+/* =========================================================
+   ELECTORATES
+========================================================= */
+
+const ELECTORATES = [
+
+    { id: "western-beaches", name: "Western Beaches", number: 1 },
+    { id: "square-city", name: "Square City", number: 2 },
+    { id: "surish-bridge", name: "Surish Bridge", number: 3 },
+    { id: "masterton-central", name: "Masterton Central", number: 4 },
+    { id: "earlington", name: "Earlington", number: 5 },
+    { id: "new-dublin", name: "New Dublin", number: 6 },
+    { id: "wellingborough", name: "Wellingborough", number: 7 },
+    { id: "ertonmont", name: "Ertonmont", number: 8 },
+    { id: "doncastle", name: "Doncastle", number: 9 },
+    { id: "cunningham", name: "Cunningham", number: 10 },
+    { id: "queenstown", name: "Queenstown", number: 11 },
+    { id: "kingsford", name: "Kingsford", number: 12 },
+    { id: "uma-no-machi", name: "Uma no machi", number: 13 }
+
+];
+
+
+/* =========================================================
+   PARTIES
+========================================================= */
+
+const PARTY_META = {
+
+    liberty: {
+        name: "Liberty Party",
+        short: "LIB",
+        color: "#7fde20",
+        lightColor: "#eaf9db"
+    },
+
+    freedoms: {
+        name: "Freedoms Party",
+        short: "FRE",
+        color: "#c62828",
+        lightColor: "#fdeaea"
+    },
+
+    greens: {
+        name: "Green Party",
+        short: "GRE",
+        color: "#176b3a",
+        lightColor: "#e8f4ed"
+    },
+
+    innovation: {
+        name: "Innovation Party",
+        short: "INN",
+        color: "#d6a500",
+        lightColor: "#fff8d9"
+    },
+
+    scFirst: {
+        name: "SC First",
+        short: "SCF",
+        color: "#333333",
+        lightColor: "#eeeeee"
+    }
+
+};
+
+
+/* =========================================================
+   STATE
+========================================================= */
+
+let live = {};
+let baseElectorates = {};
+let parties = [];
+let electorates = [];
+let firebaseConnected = false;
+
+
+/* =========================================================
+   NUMBER
+========================================================= */
+
+function number(value) {
+
+    if (
+        value === null ||
+        value === undefined ||
+        value === ""
+    ) {
+        return 0;
+    }
+
+    if (
+        typeof value === "number"
+    ) {
+        return Number.isFinite(value)
+            ? value
+            : 0;
+    }
+
+    const cleaned =
+        String(value)
+            .replace(/,/g, "")
+            .trim();
+
+    if (!cleaned) {
+        return 0;
+    }
+
+    const parsed =
+        Number(cleaned);
+
+    return Number.isFinite(parsed)
+        ? parsed
+        : 0;
+
+}
+
+
+/* =========================================================
+   PARTY ID
+========================================================= */
+
+function partyId(value) {
+
+    if (!value) {
+        return null;
+    }
+
+    const v =
+        String(value)
+            .toLowerCase()
+            .trim();
+
+
+    if (
+        v === "liberty" ||
+        v === "liberty party" ||
+        v === "lib"
+    ) {
+        return "liberty";
+    }
+
+
+    if (
+        v === "freedoms" ||
+        v === "freedoms party" ||
+        v === "fre"
+    ) {
+        return "freedoms";
+    }
+
+
+    if (
+        v === "green" ||
+        v === "greens" ||
+        v === "green party" ||
+        v === "gre"
+    ) {
+        return "greens";
+    }
+
+
+    if (
+        v === "innovation" ||
+        v === "innovation party" ||
+        v === "inn"
+    ) {
+        return "innovation";
+    }
+
+
+    if (
+        v === "sc first" ||
+        v === "scfirst" ||
+        v === "scf"
+    ) {
+        return "scFirst";
+    }
+
+
+    return value;
+
+}
+
+
+/* =========================================================
+   PARTY NAME
+========================================================= */
+
+function partyName(id) {
+
+    const normalised =
+        partyId(id);
+
+    return PARTY_META[normalised]?.name ||
+        id ||
+        "Independent";
+
+}
+
+
+/* =========================================================
+   PARTY SHORT
+========================================================= */
+
+function partyShort(id) {
+
+    const normalised =
+        partyId(id);
+
+    return PARTY_META[normalised]?.short ||
+        String(id || "IND")
+            .slice(0, 3)
+            .toUpperCase();
+
+}
+
+
+/* =========================================================
+   LOAD FIREBASE
+========================================================= */
+
+function loadFirebase() {
+
+    return new Promise(
+        (resolve, reject) => {
+
+            if (
+                window.firebase &&
+                window.firebase.database
+            ) {
+                resolve();
+                return;
+            }
+
+
+            const appScript =
+                document.createElement("script");
+
+
+            appScript.src =
+                "https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js";
+
+
+            appScript.onload =
+                () => {
+
+                    const databaseScript =
+                        document.createElement("script");
+
+
+                    databaseScript.src =
+                        "https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js";
+
+
+                    databaseScript.onload =
+                        resolve;
+
+
+                    databaseScript.onerror =
+                        () =>
+                            reject(
+                                new Error(
+                                    "Firebase Realtime Database could not be loaded."
+                                )
+                            );
+
+
+                    document.head.appendChild(
+                        databaseScript
+                    );
+
+                };
+
+
+            appScript.onerror =
+                () =>
+                    reject(
+                        new Error(
+                            "Firebase could not be loaded."
+                        )
+                    );
+
+
+            document.head.appendChild(
+                appScript
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   PROCESS LIVE DATA
+========================================================= */
+
+function processLive(raw) {
+
+    raw = raw || {};
+
+    const liveElectorateNode =
+        raw.electorates || {};
+
+    /*
+       Build ALL 13 electorates.
+
+       The normal electorate database is the base.
+       The live database is then layered over it.
+
+       This means an electorate can exist on the page
+       before its election-night live feed begins.
+    */
+
+    electorates = ELECTORATES.map(meta => {
+
+        const base =
+            baseElectorates[meta.id] || {};
+
+        const liveData =
+            liveElectorateNode[meta.id] || {};
+
+        /*
+           Live data takes priority.
+           Base data is used as the fallback.
+        */
+
+        const candidateNode =
+            liveData.candidates ||
+            base.candidates ||
+            {};
+
+        const candidates =
+            Object.entries(candidateNode)
+                .map(([id, candidate]) => {
+
+                    candidate =
+                        candidate || {};
+
+                    return {
+                        id,
+
+                        name:
+                            candidate.name ||
+                            candidate.candidate ||
+                            id,
+
+                        party:
+                            partyId(
+                                candidate.party ||
+                                candidate.partyId
+                            ),
+
+                        votes:
+                            number(
+                                candidate.votes
+                            )
+                    };
+
+                })
+                .sort(
+                    (a, b) =>
+                        b.votes - a.votes
+                );
+
+        const calculatedTotal =
+            candidates.reduce(
+                (sum, candidate) =>
+                    sum + candidate.votes,
+                0
+            );
+
+        /*
+           Prefer explicitly supplied live total,
+           then base total, then calculated total.
+        */
+
+        const totalVotes =
+            liveData.totalVotes !== undefined
+                ? number(liveData.totalVotes)
+                : base.totalVotes !== undefined
+                    ? number(base.totalVotes)
+                    : calculatedTotal;
+
+        /*
+           Progress:
+           live progress wins.
+
+           If there isn't live progress yet,
+           use the base electorate's progress.
+        */
+
+        let progress;
+
+        if (
+            liveData.progress !== undefined
+        ) {
+
+            progress =
+                number(liveData.progress);
+
+        } else if (
+            base.progress !== undefined
+        ) {
+
+            progress =
+                number(base.progress);
+
+        } else {
+
+            progress = 0;
+
+        }
+
+        /*
+           If the base electorate is already declared,
+           keep it declared unless live data explicitly
+           says otherwise.
+        */
+
+        const status =
+            liveData.status ||
+            base.status ||
+            "Awaiting";
+
+        return {
+
+            id: meta.id,
+
+            name: meta.name,
+
+            number: meta.number,
+
+            status,
+
+            progress:
+                Math.min(
+                    100,
+                    Math.max(
+                        0,
+                        progress
+                    )
+                ),
+
+            totalVotes,
+
+            candidates
+
+        };
+
+    });
+
+
+    /*
+       =====================================================
+       PARTIES
+       =====================================================
+    */
+
+    const partyNode =
+        raw.parties || {};
+
+    parties =
+        Object.keys(PARTY_META)
+            .map(id => {
+
+                const stored =
+                    partyNode[id] || {};
+
+                return {
+
+                    id,
+
+                    name:
+                        stored.name ||
+                        PARTY_META[id].name,
+
+                    short:
+                        stored.abbreviation ||
+                        PARTY_META[id].short,
+
+                    votes:
+                        number(
+                            stored.partyVote
+                        ),
+
+                    percentage: 0,
+
+                    electorateSeats: 0,
+
+                    listSeats: 0,
+
+                    totalSeats: 0
+
+                };
+
+            });
+
+
+    /*
+       =====================================================
+       PARTY PERCENTAGES
+       =====================================================
+    */
+
+    const totalPartyVotes =
+        parties.reduce(
+            (sum, party) =>
+                sum + party.votes,
+            0
+        );
+
+
+    parties.forEach(party => {
+
+        party.percentage =
+            totalPartyVotes > 0
+                ? (
+                    party.votes /
+                    totalPartyVotes
+                ) * 100
+                : 0;
+
+    });
+
+
+    /*
+       =====================================================
+       DECLARED ELECTORATE SEATS
+       =====================================================
+    */
+
+    electorates.forEach(electorate => {
+
+        if (
+            electorate.status !==
+            "Declared"
+        ) {
+            return;
+        }
+
+        if (
+            electorate.candidates.length === 0
+        ) {
+            return;
+        }
+
+        const winner =
+            electorate.candidates[0];
+
+        const winnerParty =
+            partyId(
+                winner.party
+            );
+
+        const party =
+            parties.find(
+                item =>
+                    item.id ===
+                    winnerParty
+            );
+
+        if (party) {
+            party.electorateSeats++;
+        }
+
+    });
+
+
+    calculateLiveMMP();
+
+}
+
+
+/* =========================================================
+   SAINTE-LAGUË MMP
+========================================================= */
+
+function calculateLiveMMP() {
+
+    const totalVotes =
+        parties.reduce(
+            (sum, party) =>
+                sum +
+                party.votes,
+            0
+        );
+
+
+    if (
+        totalVotes <= 0
+    ) {
+
+        parties.forEach(
+            party => {
+
+                party.totalSeats = 0;
+                party.listSeats = 0;
+
+            }
+        );
+
+        return;
+
+    }
+
+
+    const eligible =
+        parties.filter(
+            party =>
+                party.percentage >=
+                    THRESHOLD ||
+                party.electorateSeats >= 1
+        );
+
+
+    const quotients = [];
+
+
+    eligible.forEach(
+        party => {
+
+            for (
+                let divisor = 1;
+                divisor <= TOTAL_SEATS * 2;
+                divisor += 2
+            ) {
+
+                quotients.push({
+
+                    party:
+                        party.id,
+
+                    quotient:
+                        party.votes /
+                        divisor
+
+                });
+
+            }
+
+        }
+    );
+
+
+    quotients.sort(
+        (a, b) => {
+
+            if (
+                b.quotient !==
+                a.quotient
+            ) {
+
+                return (
+                    b.quotient -
+                    a.quotient
+                );
+
+            }
+
+
+            return String(
+                a.party
+            ).localeCompare(
+                String(b.party)
+            );
+
+        }
+    );
+
+
+    const seats = {};
+
+
+    parties.forEach(
+        party => {
+            seats[party.id] = 0;
+        }
+    );
+
+
+    quotients
+        .slice(
+            0,
+            TOTAL_SEATS
+        )
+        .forEach(
+            item => {
+
+                seats[item.party]++;
+
+            }
+        );
+
+
+    parties.forEach(
+        party => {
+
+            party.totalSeats =
+                seats[party.id] ||
+                0;
+
+
+            party.listSeats =
+                Math.max(
+                    0,
+                    party.totalSeats -
+                    party.electorateSeats
+                );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   PARTY BADGE
+========================================================= */
+
+function partyBadge(id) {
+
+    const normalised =
+        partyId(id);
+
+    const meta =
+        PARTY_META[normalised] ||
+        {};
+
+    const color =
+        meta.color ||
+        "#6b7280";
+
+    const lightColor =
+        meta.lightColor ||
+        "#f3f4f6";
+
+    return `
+
+        <span
+            class="
+                inline-flex
+                items-center
+                justify-center
+                w-10
+                h-10
+                rounded-lg
+                text-xs
+                font-extrabold
+                shrink-0
+            "
+            style="
+                background-color: ${lightColor};
+                color: ${color};
+            "
+        >
+            ${partyShort(id)}
+        </span>
+
+    `;
+
+}
+
+
+/* =========================================================
+   RENDER PARTY RESULTS
+========================================================= */
+
+function renderParties() {
+
+    const container =
+        document.getElementById(
+            "partyResults"
+        );
+
+
+    if (!container) {
+        return;
+    }
+
+
+    const sort =
+        document.getElementById(
+            "sortSelect"
+        )?.value ||
+        "seats";
+
+
+    const list =
+        [...parties];
+
+
+    list.sort(
+        (a, b) => {
+
+            if (
+                sort === "votes"
+            ) {
+
+                return (
+                    b.votes -
+                    a.votes
+                );
+
+            }
+
+
+            if (
+                sort === "percentage"
+            ) {
+
+                return (
+                    b.percentage -
+                    a.percentage
+                );
+
+            }
+
+
+            return (
+                b.totalSeats -
+                a.totalSeats
+            ) || (
+                b.votes -
+                a.votes
+            );
+
+        }
+    );
+
+
+    if (
+        list.length === 0
+    ) {
+
+        renderWaitingParties();
+
+        return;
+
+    }
+
+
+    const maxVotes =
+        Math.max(
+            ...list.map(
+                party =>
+                    party.votes
+            ),
+            1
+        );
+
+
+    container.innerHTML =
+        list.map(
+            party => `
+
+                <!-- DESKTOP PARTY ROW -->
+
+                <div class="
+                    party-row
+                    hidden
+                    md:block
+                    border-b
+                    border-gray-100
+                    last:border-b-0
+                ">
+
+                    <div class="
+                        grid
+                        grid-cols-[minmax(220px,2fr)_1.1fr_.8fr_.7fr_.7fr_.7fr]
+                        gap-4
+                        items-center
+                        px-5
+                        py-5
+                    ">
+
+                        <!-- PARTY -->
+
+                        <div>
+
+                            <div class="
+                                flex
+                                items-center
+                                gap-3
+                            ">
+
+                                ${partyBadge(
+                                    party.id
+                                )}
+
+                                <div class="min-w-0">
+
+                                    <div class="
+                                        font-bold
+                                        text-gray-900
+                                    ">
+                                        ${party.name}
+                                    </div>
+
+                                    <div class="
+                                        text-xs
+                                        text-gray-500
+                                        mt-0.5
+                                    ">
+                                        ${party.short}
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="mt-3">
+
+                                <div class="
+                                    party-bar
+                                ">
+
+                                    <div
+                                        class="party-fill"
+                                        style="
+                                            width:
+                                            ${Math.min(
+                                                100,
+                                                (
+                                                    party.votes /
+                                                    maxVotes
+                                                ) * 100
+                                            )}%
+                                        "
+                                    ></div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- PARTY VOTE -->
+
+                        <div class="text-right">
+
+                            <div class="
+                                font-bold
+                                text-gray-900
+                            ">
+                                ${party.votes.toLocaleString()}
+                            </div>
+
+                            <div class="
+                                text-xs
+                                text-gray-500
+                                mt-0.5
+                            ">
+                                votes
+                            </div>
+
+                        </div>
+
+
+                        <!-- PERCENTAGE -->
+
+                        <div class="text-right">
+
+                            <div class="
+                                font-bold
+                                text-gray-900
+                            ">
+                                ${party.percentage.toFixed(1)}%
+                            </div>
+
+                        </div>
+
+
+                        <!-- ELECTORATE -->
+
+                        <div class="text-right">
+
+                            <div class="
+                                font-bold
+                                text-gray-900
+                            ">
+                                ${party.electorateSeats}
+                            </div>
+
+                        </div>
+
+
+                        <!-- LIST -->
+
+                        <div class="text-right">
+
+                            <div class="
+                                font-bold
+                                text-gray-900
+                            ">
+                                ${party.listSeats}
+                            </div>
+
+                        </div>
+
+
+                        <!-- TOTAL -->
+
+                        <div class="text-right">
+
+                            <div class="
+                                text-2xl
+                                font-extrabold
+                                text-gray-900
+                            ">
+                                ${party.totalSeats}
+                            </div>
+
+                            <div class="
+                                text-xs
+                                text-gray-500
+                            ">
+                                seats
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- MOBILE PARTY ROW -->
+
+                <div class="
+                    md:hidden
+                    border-b
+                    border-gray-100
+                    last:border-b-0
+                    p-5
+                ">
+
+                    <div class="
+                        flex
+                        items-center
+                        justify-between
+                        gap-4
+                    ">
+
+                        <div class="
+                            flex
+                            items-center
+                            gap-3
+                        ">
+
+                            ${partyBadge(
+                                party.id
+                            )}
+
+                            <div>
+
+                                <div class="font-bold">
+                                    ${party.name}
+                                </div>
+
+                                <div class="
+                                    text-xs
+                                    text-gray-500
+                                ">
+                                    ${party.short}
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="text-right">
+
+                            <div class="
+                                text-2xl
+                                font-extrabold
+                            ">
+                                ${party.totalSeats}
+                            </div>
+
+                            <div class="
+                                text-xs
+                                text-gray-500
+                            ">
+                                seats
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="mt-4">
+
+                        <div class="
+                            flex
+                            justify-between
+                            text-sm
+                            mb-2
+                        ">
+
+                            <span class="text-gray-500">
+                                Party vote
+                            </span>
+
+                            <strong>
+                                ${party.percentage.toFixed(1)}%
+                            </strong>
+
+                        </div>
+
+
+                        <div class="party-bar">
+
+                            <div
+                                class="party-fill"
+                                style="
+                                    width:
+                                    ${Math.min(
+                                        100,
+                                        (
+                                            party.votes /
+                                            maxVotes
+                                        ) * 100
+                                    )}%
+                                "
+                            ></div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="
+                        grid
+                        grid-cols-3
+                        gap-3
+                        mt-4
+                        pt-4
+                        border-t
+                        border-gray-100
+                    ">
+
+                        <div>
+
+                            <div class="
+                                text-xs
+                                text-gray-500
+                            ">
+                                Party votes
+                            </div>
+
+                            <div class="
+                                font-bold
+                                mt-1
+                            ">
+                                ${party.votes.toLocaleString()}
+                            </div>
+
+                        </div>
+
+
+                        <div>
+
+                            <div class="
+                                text-xs
+                                text-gray-500
+                            ">
+                                Electorate
+                            </div>
+
+                            <div class="
+                                font-bold
+                                mt-1
+                            ">
+                                ${party.electorateSeats}
+                            </div>
+
+                        </div>
+
+
+                        <div>
+
+                            <div class="
+                                text-xs
+                                text-gray-500
+                            ">
+                                List
+                            </div>
+
+                            <div class="
+                                font-bold
+                                mt-1
+                            ">
+                                ${party.listSeats}
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            `
+        )
+        .join("");
+
+}
+
+
+/* =========================================================
+   SORT PARTIES
+========================================================= */
+
+function sortParties() {
+
+    renderParties();
+
+}
+
+
+/* =========================================================
+   MARGIN
+========================================================= */
+
+function getMargin(electorate) {
+
+    if (
+        electorate.candidates.length <
+        2
+    ) {
+        return 0;
+    }
+
+
+    return Math.max(
+        0,
+        electorate.candidates[0].votes -
+        electorate.candidates[1].votes
+    );
+
+}
+
+
+/* =========================================================
+   MARGIN %
+========================================================= */
+
+function getMarginPercent(electorate) {
+
+    if (
+        electorate.totalVotes <= 0
+    ) {
+        return 0;
+    }
+
+
+    return (
+        getMargin(electorate) /
+        electorate.totalVotes
+    ) * 100;
+
+}
+
+
+/* =========================================================
+   CLOSE RACE
+========================================================= */
+
+function isCloseRace(electorate) {
+
+    return (
+        electorate.candidates.length >= 2 &&
+        getMarginPercent(electorate) < 5
+    );
+
+}
+
+
+/* =========================================================
+   RENDER ELECTORATES
+========================================================= */
+
+function renderElectorates(
+    list = electorates
+) {
+
+    const container =
+        document.getElementById(
+            "electorateResults"
+        );
+
+
+    if (!container) {
+        return;
+    }
+
+
+    container.innerHTML = "";
+
+
+    if (
+        list.length === 0
+    ) {
+
+        container.innerHTML = `
+
+            <div class="
+                col-span-full
+                bg-white
+                border
+                border-gray-200
+                rounded-xl
+                p-10
+                text-center
+            ">
+
+                <i
+                    data-feather="search"
+                    class="w-8 h-8 mx-auto text-gray-300"
+                ></i>
+
+                <div class="font-bold mt-3">
+                    No electorates found
+                </div>
+
+                <div class="text-sm text-gray-500 mt-1">
+                    Try a different search or filter.
+                </div>
+
+            </div>
+
+        `;
+
+        feather.replace();
+
+        return;
+
+    }
+
+
+    list.forEach(
+        electorate => {
+
+            const leader =
+                electorate.candidates[0] ||
+                null;
+
+
+            const second =
+                electorate.candidates[1] ||
+                null;
+
+
+            const margin =
+                getMargin(
+                    electorate
+                );
+
+
+            const marginPercent =
+                getMarginPercent(
+                    electorate
+                );
+
+
+            const close =
+                isCloseRace(
+                    electorate
+                );
+
+
+            const leaderPercent =
+                electorate.totalVotes > 0 &&
+                leader
+                    ? (
+                        leader.votes /
+                        electorate.totalVotes
+                    ) * 100
+                    : 0;
+
+
+            const card =
+                document.createElement(
+                    "button"
+                );
+
+
+            card.type = "button";
+
+
+            card.className = `
+                text-left
+                bg-white
+                border
+                border-gray-200
+                rounded-xl
+                p-5
+                hover:border-orange-300
+                hover:shadow-md
+                transition
+                group
+            `;
+
+
+            card.onclick =
+                () =>
+                    openElectorate(
+                        electorate.id
+                    );
+
+
+            let statusClass =
+                "bg-gray-100 text-gray-500";
+
+
+            if (
+                electorate.status ===
+                "Counting"
+            ) {
+
+                statusClass =
+                    "bg-orange-100 text-orangeDark";
+
+            }
+
+
+            if (
+                electorate.status ===
+                "Declared"
+            ) {
+
+                statusClass =
+                    "bg-gray-100 text-gray-700";
+
+            }
+
+
+            card.innerHTML = `
+
+                <div class="
+                    flex
+                    justify-between
+                    items-start
+                    gap-3
+                ">
+
+                    <div>
+
+                        <div class="
+                            text-lg
+                            font-extrabold
+                            text-gray-900
+                            group-hover:text-orangeDark
+                        ">
+                            ${electorate.name}
+                        </div>
+
+                        <div class="
+                            text-xs
+                            text-gray-500
+                            mt-1
+                        ">
+                            Electorate
+                            ${electorate.number}
+                        </div>
+
+                    </div>
+
+
+                    <div class="flex items-center gap-2">
+
+                        ${
+                            close
+                            ? `
+                                <span class="
+                                    text-[10px]
+                                    uppercase
+                                    font-bold
+                                    px-2
+                                    py-1
+                                    rounded-full
+                                    bg-yellow-100
+                                    text-yellow-700
+                                ">
+                                    Close
+                                </span>
+                            `
+                            : ""
+                        }
+
+
+                        <span class="
+                            text-[10px]
+                            uppercase
+                            font-bold
+                            px-2
+                            py-1
+                            rounded-full
+                            ${statusClass}
+                        ">
+                            ${electorate.status}
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="mt-5">
+
+                    <div class="
+                        flex
+                        justify-between
+                        text-xs
+                        text-gray-500
+                    ">
+
+                        <span>
+                            ${electorate.totalVotes.toLocaleString()}
+                            votes counted
+                        </span>
+
+                        <span>
+                            ${Math.round(
+                                electorate.progress
+                            )}%
+                        </span>
+
+                    </div>
+
+
+                    <div class="
+                        h-2
+                        bg-gray-100
+                        rounded-full
+                        mt-2
+                        overflow-hidden
+                    ">
+
+                        <div class="electorate-progress-fill"
+                            style="
+                                width:
+                                ${Math.min(
+                                    100,
+                                    electorate.progress
+                                )}%
+                            "
+                        ></div>
+
+                    </div>
+
+                </div>
+
+
+                ${
+                    leader
+                    ? `
+
+                        <div class="
+                            border-t
+                            border-gray-100
+                            mt-5
+                            pt-4
+                        ">
+
+                            <div class="
+                                text-xs
+                                text-gray-500
+                            ">
+                                ${
+                                    electorate.status ===
+                                    "Declared"
+                                    ? "Elected"
+                                    : "Leading"
+                                }
+                            </div>
+
+
+                            <div class="
+                                font-bold
+                                mt-1
+                            ">
+                                ${leader.name}
+                            </div>
+
+
+                            <div class="
+                                text-xs
+                                text-gray-500
+                            ">
+                                ${partyName(
+                                    leader.party
+                                )}
+                            </div>
+
+
+                            <div class="
+                                flex
+                                justify-between
+                                mt-3
+                                text-sm
+                            ">
+
+                                <span>
+                                    ${leader.votes.toLocaleString()}
+                                    votes
+                                </span>
+
+
+                                ${
+                                    second
+                                    ? `
+                                        <span class="text-gray-500">
+                                            +${margin.toLocaleString()}
+                                            (${marginPercent.toFixed(1)}%)
+                                        </span>
+                                    `
+                                    : ""
+                                }
+
+                            </div>
+
+
+                            <div class="
+                                h-1.5
+                                bg-gray-100
+                                rounded-full
+                                overflow-hidden
+                                mt-3
+                            ">
+
+                                <div class="leader-progress-fill"
+                                    style="
+                                        width:
+                                        ${Math.min(
+                                            100,
+                                            leaderPercent
+                                        )}%
+                                    "
+                                ></div>
+
+                            </div>
+
+                        </div>
+
+                    `
+                    : `
+
+                        <div class="
+                            text-sm
+                            text-gray-400
+                            mt-5
+                        ">
+                            Awaiting results
+                        </div>
+
+                    `
+                }
+
+            `;
+
+
+            container.appendChild(
+                card
+            );
+
+        }
+    );
+
+
+    feather.replace();
+
+}
+
+
+/* =========================================================
+   FILTER ELECTORATES
+========================================================= */
+
+function filterElectorates() {
+
+    const search =
+        document.getElementById(
+            "electorateSearch"
+        )?.value
+            .toLowerCase()
+            .trim() ||
+        "";
+
+
+    const filter =
+        document.getElementById(
+            "electorateFilter"
+        )?.value ||
+        "all";
+
+
+    const filtered =
+        electorates.filter(
+            electorate => {
+
+                const matchesSearch =
+                    electorate.name
+                        .toLowerCase()
+                        .includes(search);
+
+
+                if (
+                    !matchesSearch
+                ) {
+                    return false;
+                }
+
+
+                if (
+                    filter ===
+                    "all"
+                ) {
+                    return true;
+                }
+
+
+                if (
+                    filter ===
+                    "counting"
+                ) {
+
+                    return (
+                        electorate.status ===
+                        "Counting"
+                    );
+
+                }
+
+
+                if (
+                    filter ===
+                    "declared"
+                ) {
+
+                    return (
+                        electorate.status ===
+                        "Declared"
+                    );
+
+                }
+
+
+                if (
+                    filter ===
+                    "close"
+                ) {
+
+                    return isCloseRace(
+                        electorate
+                    );
+
+                }
+
+
+                return true;
+
+            }
+        );
+
+
+    renderElectorates(
+        filtered
+    );
+
+}
+
+
+/* =========================================================
+   UPDATE SUMMARY
+========================================================= */
+
+function updateSummary() {
+
+    const totalVotes =
+        parties.reduce(
+            (sum, party) =>
+                sum +
+                party.votes,
+            0
+        );
+
+
+    const declared =
+        electorates.filter(
+            electorate =>
+                electorate.status ===
+                "Declared"
+        ).length;
+
+
+    const allocated =
+        parties.reduce(
+            (sum, party) =>
+                sum +
+                party.totalSeats,
+            0
+        );
+
+
+    /*
+       Average progress across all 13 electorates.
+       Because all 13 electorates are represented,
+       every electorate contributes to this figure.
+    */
+
+    const totalProgress =
+        electorates.length
+            ? electorates.reduce(
+                (sum, electorate) =>
+                    sum +
+                    Math.min(
+                        100,
+                        Math.max(
+                            0,
+                            electorate.progress
+                        )
+                    ),
+                0
+            ) /
+            electorates.length
+            : 0;
+
+
+    document.getElementById(
+        "totalVotes"
+    ).textContent =
+        totalVotes.toLocaleString();
+
+
+    document.getElementById(
+        "declaredSeats"
+    ).textContent =
+        declared;
+
+
+    document.getElementById(
+        "allocatedSeats"
+    ).textContent =
+        `${allocated} / ${TOTAL_SEATS}`;
+
+
+    document.getElementById(
+        "progressText"
+    ).textContent =
+        `${Math.round(
+            totalProgress
+        )}%`;
+
+
+    document.getElementById(
+        "progressBar"
+    ).style.width =
+        `${Math.min(
+            100,
+            totalProgress
+        )}%`;
+
+
+    document.getElementById(
+        "electoratesCounted"
+    ).textContent =
+        `${declared} of ${ELECTORATE_SEATS} electorates`;
+
+
+    const counting =
+        electorates.filter(
+            electorate =>
+                electorate.status ===
+                "Counting"
+        ).length;
+
+
+    const close =
+        electorates.filter(
+            electorate =>
+                isCloseRace(
+                    electorate
+                )
+        ).length;
+
+
+    document.getElementById(
+        "declaredCount"
+    ).textContent =
+        declared;
+
+
+    document.getElementById(
+        "countingCount"
+    ).textContent =
+        counting;
+
+
+    document.getElementById(
+        "closeCount"
+    ).textContent =
+        close;
+
+
+    document.getElementById(
+        "decidedCount"
+    ).textContent =
+        `${declared} / ${ELECTORATE_SEATS}`;
+
+}
+
+
+/* =========================================================
+   OPEN ELECTORATE
+========================================================= */
+
+function openElectorate(id) {
+
+    const electorate =
+        electorates.find(
+            item =>
+                item.id === id
+        );
+
+
+    if (!electorate) {
+        return;
+    }
+
+
+    const modal =
+        document.getElementById(
+            "electorateModal"
+        );
+
+
+    const content =
+        document.getElementById(
+            "electorateModalContent"
+        );
+
+
+    const candidates =
+        electorate.candidates;
+
+
+    const leader =
+        candidates[0] ||
+        null;
+
+
+    const margin =
+        getMargin(
+            electorate
+        );
+
+
+    const marginPercent =
+        getMarginPercent(
+            electorate
+        );
+
+
+    content.innerHTML = `
+
+        <div class="
+            flex
+            justify-between
+            items-start
+            border-b
+            border-gray-200
+            pb-5
+            gap-4
+        ">
+
+            <div>
+
+                <div class="
+                    text-xs
+                    uppercase
+                    tracking-wide
+                    font-bold
+                    text-orangeEC
+                ">
+                    ${electorate.status}
+                </div>
+
+                <h2 class="
+                    text-3xl
+                    font-extrabold
+                    mt-1
+                ">
+                    ${electorate.name}
+                </h2>
+
+                <div class="
+                    text-sm
+                    text-gray-500
+                    mt-1
+                ">
+                    ${electorate.totalVotes.toLocaleString()}
+                    votes counted
+                </div>
+
+            </div>
+
+
+            <button
+                onclick="closeElectorate()"
+                class="
+                    w-9
+                    h-9
+                    rounded-lg
+                    hover:bg-gray-100
+                    text-gray-500
+                    flex
+                    items-center
+                    justify-center
+                "
+            >
+                ✕
+            </button>
+
+        </div>
+
+
+        ${
+            leader
+            ? `
+
+                <div class="
+                    bg-orangeLight
+                    rounded-xl
+                    p-5
+                    mt-5
+                ">
+
+                    <div class="
+                        text-xs
+                        uppercase
+                        tracking-wide
+                        text-orangeDark
+                        font-bold
+                    ">
+                        ${
+                            electorate.status ===
+                            "Declared"
+                            ? "Elected"
+                            : "Current leader"
+                        }
+                    </div>
+
+
+                    <div class="
+                        text-2xl
+                        font-extrabold
+                        mt-1
+                    ">
+                        ${leader.name}
+                    </div>
+
+
+                    <div class="
+                        text-sm
+                        text-gray-600
+                    ">
+                        ${partyName(
+                            leader.party
+                        )}
+                    </div>
+
+
+                    <div class="
+                        flex
+                        justify-between
+                        mt-4
+                        text-sm
+                    ">
+
+                        <span>
+                            ${leader.votes.toLocaleString()}
+                            votes
+                        </span>
+
+                        <strong>
+                            Margin
+                            ${margin.toLocaleString()}
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            `
+            : ""
+        }
+
+
+        <div class="mt-6">
+
+            <div class="
+                flex
+                justify-between
+                items-center
+                mb-5
+            ">
+
+                <h3 class="
+                    font-bold
+                    text-xl
+                ">
+                    Candidates
+                </h3>
+
+                <span class="
+                    text-sm
+                    text-gray-500
+                ">
+                    ${marginPercent.toFixed(1)}% margin
+                </span>
+
+            </div>
+
+
+            ${
+                candidates.length
+                ? candidates.map(
+                    (candidate, index) => {
+
+                        const percentage =
+                            electorate.totalVotes
+                                ? (
+                                    candidate.votes /
+                                    electorate.totalVotes
+                                ) * 100
+                                : 0;
+
+
+                        return `
+
+                            <div class="mb-5">
+
+                                <div class="
+                                    flex
+                                    justify-between
+                                    mb-2
+                                    gap-4
+                                ">
+
+                                    <div>
+
+                                        <div class="font-bold">
+                                            ${candidate.name}
+                                        </div>
+
+                                        <div class="
+                                            text-xs
+                                            text-gray-500
+                                        ">
+                                            ${partyName(
+                                                candidate.party
+                                            )}
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="
+                                        text-right
+                                        shrink-0
+                                    ">
+
+                                        <div class="font-bold">
+                                            ${candidate.votes.toLocaleString()}
+                                        </div>
+
+                                        <div class="
+                                            text-xs
+                                            text-gray-500
+                                        ">
+                                            ${percentage.toFixed(1)}%
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+
+                                <div class="
+                                    h-3
+                                    bg-gray-100
+                                    rounded-full
+                                    overflow-hidden
+                                ">
+
+                                    <div
+                                        class="
+                                            h-full
+                                            rounded-full
+                                            transition-all
+                                            ${
+                                                index === 0
+                                                ? "bg-orangeEC"
+                                                : "bg-gray-400"
+                                            }
+                                        "
+                                        style="
+                                            width:
+                                            ${Math.min(
+                                                100,
+                                                percentage
+                                            )}%
+                                        "
+                                    ></div>
+
+                                </div>
+
+                            </div>
+
+                        `;
+
+                    }
+                ).join("")
+                : `
+
+                    <div class="
+                        text-center
+                        py-10
+                        text-gray-500
+                    ">
+                        No votes reported yet.
+                    </div>
+
+                `
+            }
+
+        </div>
+
+
+        <div class="
+            border-t
+            border-gray-200
+            mt-6
+            pt-5
+        ">
+
+            <div class="flex justify-between text-sm">
+
+                <span class="text-gray-500">
+                    Counting progress
+                </span>
+
+                <strong>
+                    ${Math.round(
+                        electorate.progress
+                    )}%
+                </strong>
+
+            </div>
+
+            <div class="
+                h-2
+                bg-gray-100
+                rounded-full
+                mt-2
+                overflow-hidden
+            ">
+
+                <div
+                    class="
+                        h-full
+                        bg-orangeEC
+                        rounded-full
+                    "
+                    style="
+                        width:
+                        ${Math.min(
+                            100,
+                            electorate.progress
+                        )}%
+                    "
+                ></div>
+
+            </div>
+
+        </div>
+
+    `;
+
+
+    modal.classList.remove(
+        "hidden"
+    );
+
+}
+
+
+/* =========================================================
+   CLOSE ELECTORATE
+========================================================= */
+
+function closeElectorate() {
+
+    document.getElementById(
+        "electorateModal"
+    ).classList.add(
+        "hidden"
+    );
+
+}
+
+
+/* =========================================================
+   ESCAPE KEY
+========================================================= */
+
+document.addEventListener(
+    "keydown",
+    event => {
+
+        if (
+            event.key ===
+            "Escape"
+        ) {
+
+            closeElectorate();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   WAITING PARTY TABLE
+========================================================= */
+
+function renderWaitingParties() {
+
+    const container =
+        document.getElementById(
+            "partyResults"
+        );
+
+
+    if (!container) {
+        return;
+    }
+
+
+    container.innerHTML =
+        Object.entries(
+            PARTY_META
+        )
+        .map(
+            ([id, meta]) => `
+
+                <div class="
+                    border-b
+                    border-gray-100
+                    last:border-b-0
+                    p-5
+                ">
+
+                    <div class="
+                        flex
+                        items-center
+                        justify-between
+                    ">
+
+                        <div class="
+                            flex
+                            items-center
+                            gap-3
+                        ">
+
+                            ${partyBadge(id)}
+
+                            <div>
+
+                                <div class="font-bold">
+                                    ${meta.name}
+                                </div>
+
+                                <div class="
+                                    text-xs
+                                    text-gray-500
+                                ">
+                                    Awaiting votes
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="
+                            text-right
+                        ">
+
+                            <div class="
+                                text-2xl
+                                font-extrabold
+                            ">
+                                0
+                            </div>
+
+                            <div class="
+                                text-xs
+                                text-gray-500
+                            ">
+                                seats
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            `
+        )
+        .join("");
+
+}
+
+
+/* =========================================================
+   WAITING STATE
+========================================================= */
+
+function showWaitingState() {
+
+    document.getElementById(
+        "liveStatusTitle"
+    ).textContent =
+        "Awaiting election night";
+
+
+    document.getElementById(
+        "liveStatusText"
+    ).textContent =
+        "The Electoral Commission has not yet begun publishing live results.";
+
+
+    document.getElementById(
+        "lastUpdated"
+    ).textContent =
+        "Waiting";
+
+
+    renderWaitingParties();
+
+
+    /*
+       IMPORTANT:
+
+       We deliberately render ALL 13 electorates
+       here even before Firebase has supplied
+       any results.
+    */
+
+    processLive({});
+
+
+    renderElectorates(
+        electorates
+    );
+
+
+    updateSummary();
+
+}
+
+
+/* =========================================================
+   LIVE STATUS
+========================================================= */
+
+function updateLiveStatus() {
+
+    const title =
+        document.getElementById(
+            "liveStatusTitle"
+        );
+
+
+    const text =
+        document.getElementById(
+            "liveStatusText"
+        );
+
+
+    if (!title || !text) {
+        return;
+    }
+
+
+    if (
+        live.finished === true ||
+        live.complete === true
+    ) {
+
+        title.textContent =
+            "Results complete";
+
+
+        text.textContent =
+            "The election-night count has finished.";
+
+        return;
+
+    }
+
+
+    if (
+        live.running === true ||
+        live.status === "running"
+    ) {
+
+        title.textContent =
+            "Live counting";
+
+
+        text.textContent =
+            "Results are being received from returning officers.";
+
+        return;
+
+    }
+
+
+    if (
+        live.status
+    ) {
+
+        title.textContent =
+            live.status;
+
+
+        text.textContent =
+            "Live election results are being updated.";
+
+    }
+
+}
+
+
+/* =========================================================
+   FIREBASE ERROR
+========================================================= */
+
+function showFirebaseError(error) {
+
+    const box =
+        document.getElementById(
+            "databaseStatus"
+        );
+
+
+    const text =
+        document.getElementById(
+            "databaseStatusText"
+        );
+
+
+    if (!box || !text) {
+        return;
+    }
+
+
+    box.classList.remove(
+        "hidden"
+    );
+
+
+    text.textContent =
+        error?.message ||
+        "The Electoral Commission results database could not be reached.";
+
+
+    document.getElementById(
+        "liveStatusTitle"
+    ).textContent =
+        "Connection error";
+
+
+    document.getElementById(
+        "liveStatusText"
+    ).textContent =
+        "The live results service could not be reached.";
+
+}
+
+
+/* =========================================================
+   LAST UPDATED
+========================================================= */
+
+function updateLastUpdated() {
+
+    const element =
+        document.getElementById(
+            "lastUpdated"
+        );
+
+
+    if (!element) {
+        return;
+    }
+
+
+    if (
+        !live.updatedAt
+    ) {
+
+        element.textContent =
+            "Just now";
+
+        return;
+
+    }
+
+
+    let date;
+
+
+    if (
+        typeof live.updatedAt ===
+        "object" &&
+        live.updatedAt.seconds
+    ) {
+
+        date =
+            new Date(
+                live.updatedAt.seconds *
+                1000
+            );
+
+    } else {
+
+        date =
+            new Date(
+                live.updatedAt
+            );
+
+    }
+
+
+    if (
+        Number.isNaN(
+            date.getTime()
+        )
+    ) {
+
+        element.textContent =
+            "Just now";
+
+        return;
+
+    }
+
+
+    element.textContent =
+        date.toLocaleTimeString(
+            [],
+            {
+                hour: "numeric",
+                minute: "2-digit",
+                second: "2-digit"
+            }
+        );
+
+}
+
+
+/* =========================================================
+   FIREBASE CONNECTION
+========================================================= */
+
+async function connectFirebase() {
+
+    try {
+
+        await loadFirebase();
+
+        if (!firebase.apps.length) {
+
+            firebase.initializeApp(
+                firebaseConfig
+            );
+
+        }
+
+        const database =
+            firebase.database();
+
+        firebaseConnected = true;
+
+        document
+            .getElementById("databaseStatus")
+            .classList.add("hidden");
+
+
+        /*
+           =================================================
+           BASE ELECTORATES
+           =================================================
+
+           This contains all 13 electorates.
+
+           They are loaded independently of the
+           election-night live feed.
+        */
+
+        database
+            .ref(`${ELECTION_PATH}/electorates`)
+            .on(
+                "value",
+                snapshot => {
+
+                    baseElectorates =
+                        snapshot.val() || {};
+
+                    /*
+                       Immediately rebuild the entire
+                       13-electorate view.
+                    */
+
+                    processLive(live);
+
+                    renderParties();
+
+                    renderElectorates();
+
+                    updateSummary();
+
+                },
+                error => {
+
+                    console.error(
+                        "Base electorate database error:",
+                        error
+                    );
+
+                }
+            );
+
+
+        /*
+           =================================================
+           LIVE ELECTION DATA
+           =================================================
+
+           This is the election-night feed.
+
+           Every update is merged with the complete
+           electorate list above.
+        */
+
+        database
+            .ref(LIVE_PATH)
+            .on(
+                "value",
+                snapshot => {
+
+                    live =
+                        snapshot.val() ||
+                        {};
+
+
+                    processLive(live);
+
+                    renderParties();
+
+                    renderElectorates();
+
+                    updateSummary();
+
+                    updateLastUpdated();
+
+                    updateLiveStatus();
+
+                },
+                error => {
+
+                    console.error(
+                        "Firebase live results error:",
+                        error
+                    );
+
+                    showFirebaseError(
+                        error
+                    );
+
+                }
+            );
+
+
+    } catch (error) {
+
+        console.error(
+            "Firebase connection failed:",
+            error
+        );
+
+        showFirebaseError(
+            error
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   INITIALISE PAGE
+========================================================= */
+
+feather.replace();
+
+
+/*
+   Immediately build all 13 electorate cards.
+
+   They will initially show "Awaiting".
+
+   Once Firebase starts sending data, the cards
+   are updated in place rather than appearing
+   one by one.
+*/
+
+processLive({});
+
+renderElectorates(
+    electorates
+);
+
+updateSummary();
+
+renderWaitingParties();
+
+
+connectFirebase();
+
+</script>
+
+</body>
+</html>
