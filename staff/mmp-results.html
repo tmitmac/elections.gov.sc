@@ -1,0 +1,2648 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>2026 MMP Seat Calculator | Square Country Electoral Commission</title>
+
+  <link rel="icon" href="SCL.png">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f3f5f7;
+      color: #17202a;
+    }
+
+    header {
+      background: #ff7b25;
+      color: white;
+      padding: 18px 40px;
+      border-bottom: 5px solid #e56717;
+    }
+
+    .header-inner {
+      max-width: 1250px;
+      margin: auto;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .logo {
+      width: 55px;
+      height: 55px;
+      object-fit: contain;
+      background: white;
+      border-radius: 4px;
+      padding: 5px;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 24px;
+      font-weight: 700;
+    }
+
+    header p {
+      margin: 4px 0 0;
+      font-size: 14px;
+      opacity: 0.95;
+    }
+
+    nav {
+      background: #0e172a;
+      color: white;
+    }
+
+    nav .nav-inner {
+      max-width: 1250px;
+      margin: auto;
+      display: flex;
+      align-items: center;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      padding: 15px 20px;
+      display: block;
+      font-size: 14px;
+    }
+
+    nav a:hover {
+      background: #1b2940;
+    }
+
+    main {
+      max-width: 1250px;
+      margin: 35px auto;
+      padding: 0 20px 60px;
+    }
+
+    .page-title {
+      margin-bottom: 25px;
+    }
+
+    .page-title h2 {
+      margin: 0 0 8px;
+      font-size: 32px;
+      color: #0e172a;
+    }
+
+    .page-title p {
+      margin: 0;
+      color: #59636e;
+      font-size: 16px;
+    }
+
+    .status {
+      background: white;
+      border-left: 5px solid #28a745;
+      padding: 15px 18px;
+      margin-bottom: 25px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    }
+
+    .status.loading {
+      border-left-color: #f0ad4e;
+    }
+
+    .status.error {
+      border-left-color: #dc3545;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+
+    .stat {
+      background: white;
+      padding: 20px;
+      border-top: 4px solid #ff7b25;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    }
+
+    .stat-label {
+      color: #68727d;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .stat-value {
+      font-size: 30px;
+      font-weight: bold;
+      margin-top: 7px;
+      color: #0e172a;
+    }
+
+    .section {
+      background: white;
+      margin-bottom: 25px;
+      box-shadow: 0 1px 5px rgba(0,0,0,0.08);
+    }
+
+    .section-header {
+      padding: 17px 20px;
+      background: #0e172a;
+      color: white;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .section-body {
+      padding: 20px;
+    }
+
+    .table-wrapper {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 850px;
+    }
+
+    th {
+      background: #eef1f4;
+      color: #263442;
+      font-size: 13px;
+      text-align: left;
+      padding: 12px;
+      border-bottom: 2px solid #d6dbe0;
+    }
+
+    td {
+      padding: 13px 12px;
+      border-bottom: 1px solid #e1e5e8;
+      font-size: 14px;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    .party-name {
+      font-weight: bold;
+    }
+
+    .eligible {
+      display: inline-block;
+      background: #d9f2df;
+      color: #146c2e;
+      padding: 4px 8px;
+      border-radius: 3px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    .not-eligible {
+      display: inline-block;
+      background: #f0f1f2;
+      color: #67717b;
+      padding: 4px 8px;
+      border-radius: 3px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    .warning {
+      background: #fff4d6;
+      border-left: 5px solid #e5a900;
+      padding: 15px 18px;
+      margin-bottom: 20px;
+      color: #5c4700;
+    }
+
+    .danger {
+      background: #fde4e4;
+      border-left: 5px solid #dc3545;
+      padding: 15px 18px;
+      margin-bottom: 20px;
+      color: #721c24;
+    }
+
+    .success {
+      background: #e0f3e5;
+      border-left: 5px solid #28a745;
+      padding: 15px 18px;
+      margin-bottom: 20px;
+      color: #155724;
+    }
+
+    .seat-number {
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .list-seat {
+      font-weight: bold;
+      color: #1261a0;
+    }
+
+    .overhang {
+      font-weight: bold;
+      color: #c62828;
+    }
+
+    .electorate-complete {
+      color: #198754;
+      font-weight: bold;
+    }
+
+    .electorate-missing {
+      color: #777;
+      font-weight: bold;
+    }
+
+    .winner {
+      font-weight: bold;
+    }
+
+    .controls {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    button {
+      border: none;
+      padding: 12px 18px;
+      font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 3px;
+    }
+
+    .primary {
+      background: #ff7b25;
+      color: white;
+    }
+
+    .primary:hover {
+      background: #e56717;
+    }
+
+    .secondary {
+      background: #0e172a;
+      color: white;
+    }
+
+    .secondary:hover {
+      background: #1b2940;
+    }
+
+    button:disabled {
+      background: #aeb5bc;
+      cursor: not-allowed;
+    }
+
+    .calculation-box {
+      background: #f7f8f9;
+      border: 1px solid #dce1e5;
+      padding: 18px;
+      margin-top: 15px;
+    }
+
+    .calculation-box h4 {
+      margin: 0 0 10px;
+      color: #0e172a;
+    }
+
+    .formula {
+      font-family: "Courier New", monospace;
+      background: #ffffff;
+      border: 1px solid #ddd;
+      padding: 12px;
+      margin-top: 10px;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+
+    footer {
+      background: #0e172a;
+      color: #d9dee5;
+      padding: 30px 20px;
+      text-align: center;
+      font-size: 13px;
+    }
+
+    @media (max-width: 800px) {
+      header {
+        padding: 15px 20px;
+      }
+
+      .stats {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      nav .nav-inner {
+        overflow-x: auto;
+      }
+
+      nav a {
+        white-space: nowrap;
+      }
+    }
+
+    @media (max-width: 500px) {
+      .stats {
+        grid-template-columns: 1fr;
+      }
+
+      .page-title h2 {
+        font-size: 25px;
+      }
+    }
+  </style>
+
+</head>
+
+<body>
+
+<header>
+  <div class="header-inner">
+<div>
+  <h1>Square Country Electoral Commission</h1>
+  <p>Independent election administration</p>
+</div>
+
+
+  </div>
+</header>
+
+<nav>
+  <div class="nav-inner">
+    <a href="staff.html">Home</a>
+    <a href="admin-results.html">Results Entry</a>
+  </div>
+</nav>
+
+<main>
+
+  <div class="page-title">
+    <h2>2026 General Election — MMP Seat Calculator</h2>
+    <p>Proportional representation calculation using the Sainte-Laguë method.</p>
+  </div>
+
+  <div id="status" class="status loading">
+    Connecting to the election database...
+  </div>
+
+  <div class="stats">
+
+
+<div class="stat">
+  <div class="stat-label">Total Seats</div>
+  <div class="stat-value">26</div>
+</div>
+
+<div class="stat">
+  <div class="stat-label">Electorate Seats</div>
+  <div class="stat-value">13</div>
+</div>
+
+<div class="stat">
+  <div class="stat-label">List Seats</div>
+  <div class="stat-value">13</div>
+</div>
+
+<div class="stat">
+  <div class="stat-label">Party Vote Threshold</div>
+  <div class="stat-value">4%</div>
+</div>
+
+
+  </div>
+
+  <div id="messageArea"></div>
+
+  <section class="section">
+
+
+<div class="section-header">
+  Party Vote &amp; Seat Allocation
+</div>
+
+<div class="section-body">
+
+  <div class="table-wrapper">
+
+    <table>
+
+      <thead>
+        <tr>
+          <th>Party</th>
+          <th>Party Votes</th>
+          <th>Party Vote %</th>
+          <th>Electorate Seats</th>
+          <th>Eligibility</th>
+          <th>Total Seats</th>
+          <th>List Seats</th>
+          <th>Overhang</th>
+        </tr>
+      </thead>
+
+      <tbody id="partyTable">
+        <tr>
+          <td colspan="8">Loading...</td>
+        </tr>
+      </tbody>
+
+    </table>
+
+  </div>
+
+</div>
+
+
+  </section>
+
+  <section class="section">
+
+
+<div class="section-header">
+  Electorate Results
+</div>
+
+<div class="section-body">
+
+  <div class="table-wrapper">
+
+    <table>
+
+      <thead>
+        <tr>
+          <th>No.</th>
+          <th>Electorate</th>
+          <th>Status</th>
+          <th>Winner</th>
+          <th>Party</th>
+          <th>Votes</th>
+        </tr>
+      </thead>
+
+      <tbody id="electorateTable">
+        <tr>
+          <td colspan="6">Loading...</td>
+        </tr>
+      </tbody>
+
+    </table>
+
+  </div>
+
+</div>
+
+
+  </section>
+
+  <section class="section">
+
+
+<div class="section-header">
+  Sainte-Laguë Calculation
+</div>
+
+<div class="section-body">
+
+  <div class="calculation-box">
+
+    <h4>Method used</h4>
+
+    <p>
+      Eligible parties receive seats according to their share of the
+      nationwide party vote using Sainte-Laguë divisors.
+    </p>
+
+    <div class="formula">
+      Votes ÷ 1, Votes ÷ 3, Votes ÷ 5, Votes ÷ 7, Votes ÷ 9, ...
+    </div>
+
+    <p>
+      The 26 highest quotients receive the 26 initial parliamentary seats.
+      Electorate seats are then compared with each party's proportional
+      entitlement to determine its required list seats and any overhang.
+    </p>
+
+  </div>
+
+  <div id="calculationSummary" style="margin-top:20px;">
+    Calculating...
+  </div>
+
+  <div class="controls">
+
+    <button class="primary" id="refreshButton">
+      Recalculate
+    </button>
+
+    <button class="secondary" id="saveButton" disabled>
+      Save Final Allocation
+    </button>
+
+  </div>
+
+</div>
+
+
+  </section>
+
+</main>
+
+<footer>
+
+  <p>
+    <strong>Disclaimer:</strong> This website is a fictional representation
+    of the Government of Square Country. Square Country is a fictional country
+    and this website, its Ministries, agencies, legislation, services, and
+    other content are created for fictional and entertainment purposes only.
+    It does not represent a real government, country, institution, or
+    organisation.
+  </p>
+
+  <p>
+    Square Country Electoral Commission · 2026 General Election
+  </p>
+
+</footer>
+
+<script type="module">
+
+  import {
+    initializeApp
+  } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+  import {
+    getDatabase,
+    ref,
+    get,
+    update
+  } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+
+  // ============================================================
+  // FIREBASE
+  // ============================================================
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyCvx0ARD5thFtytMW1cw54DyG3ojWz-Fsk",
+    authDomain: "square-country-election-2026.firebaseapp.com",
+    databaseURL: "https://square-country-election-2026-default-rtdb.firebaseio.com",
+    projectId: "square-country-election-2026",
+    storageBucket: "square-country-election-2026.firebasestorage.app",
+    messagingSenderId: "1080044317618",
+    appId: "1:1080044317618:web:0b02e177a30bb8c91fd2ab",
+    measurementId: "G-T2STD78H74"
+  };
+
+
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
+
+
+  // ============================================================
+  // CONSTANTS
+  // ============================================================
+
+  const TOTAL_SEATS = 26;
+  const ELECTORATE_SEATS = 13;
+  const LIST_SEATS = 13;
+  const THRESHOLD = 4;
+
+
+  const electorateOrder = [
+    "western-beaches",
+    "square-city",
+    "surish-bridge",
+    "masterton-central",
+    "earlington",
+    "new-dublin",
+    "wellingborough",
+    "ertonmont",
+    "doncastle",
+    "cunningham",
+    "queenstown",
+    "kingsford",
+    "uma-no-machi"
+  ];
+
+
+  const partyOrder = [
+    "liberty",
+    "freedoms",
+    "greens",
+    "innovation",
+    "scFirst"
+  ];
+
+
+  const partyNames = {
+    liberty: "Liberty",
+    freedoms: "Freedoms",
+    greens: "Greens",
+    innovation: "Innovation",
+    scFirst: "SC First"
+  };
+
+
+  const partyAbbreviations = {
+    liberty: "LIB",
+    freedoms: "FRE",
+    greens: "GRE",
+    innovation: "INN",
+    scFirst: "SCF"
+  };
+
+
+  // ============================================================
+  // PARTY NORMALISATION
+  // ============================================================
+
+  function normalizePartyId(value) {
+
+    if (value === null || value === undefined) {
+      return null;
+    }
+
+
+    if (typeof value === "object") {
+
+      return normalizePartyId(
+        value.id ||
+        value.partyId ||
+        value.name ||
+        value.party ||
+        value.abbreviation ||
+        value.code
+      );
+
+    }
+
+
+    const normalized = String(value)
+      .trim()
+      .toLowerCase()
+      .replace(/[^a-z0-9]/g, "");
+
+
+    const partyMap = {
+
+      liberty: "liberty",
+      lib: "liberty",
+
+      freedoms: "freedoms",
+      freedom: "freedoms",
+      fre: "freedoms",
+
+      greens: "greens",
+      green: "greens",
+      gre: "greens",
+
+      innovation: "innovation",
+      innovations: "innovation",
+      inn: "innovation",
+
+      scfirst: "scFirst",
+      scfirstparty: "scFirst",
+      scf: "scFirst",
+      squarecountryfirst: "scFirst"
+
+    };
+
+
+    return partyMap[normalized] || null;
+
+  }
+
+
+  function getPartyFromCandidate(candidate) {
+
+    if (!candidate) {
+      return null;
+    }
+
+
+    const possibleValues = [
+
+      candidate.partyId,
+      candidate.party,
+      candidate.partyName,
+      candidate.candidatePartyId,
+      candidate.candidateParty,
+      candidate.abbreviation,
+      candidate.partyAbbreviation,
+      candidate.partyCode
+
+    ];
+
+
+    for (const value of possibleValues) {
+
+      const normalized =
+        normalizePartyId(value);
+
+
+      if (normalized) {
+        return normalized;
+      }
+
+    }
+
+
+    return null;
+
+  }
+
+
+  // ============================================================
+  // VARIABLES
+  // ============================================================
+
+  let electionData = null;
+  let calculation = null;
+
+
+  // ============================================================
+  // SAFE NUMBER CONVERSION
+  // ============================================================
+
+  function number(value) {
+
+    if (
+      value === null ||
+      value === undefined ||
+      value === ""
+    ) {
+      return 0;
+    }
+
+
+    if (typeof value === "number") {
+
+      return Number.isFinite(value)
+        ? value
+        : 0;
+
+    }
+
+
+    const cleaned =
+      String(value)
+        .replace(/,/g, "")
+        .trim();
+
+
+    if (cleaned === "") {
+      return 0;
+    }
+
+
+    const parsed =
+      Number(cleaned);
+
+
+    return Number.isFinite(parsed)
+      ? parsed
+      : 0;
+
+  }
+
+
+  function formatNumber(value) {
+
+    return Math.round(number(value))
+      .toLocaleString("en-NZ");
+
+  }
+
+
+  function formatPercent(value) {
+
+    const safeValue =
+      number(value);
+
+    return safeValue.toFixed(2) + "%";
+
+  }
+
+
+  function escapeHTML(value) {
+
+    return String(value ?? "")
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#039;");
+
+  }
+
+
+  function slugToName(slug) {
+
+    return slug
+      .split("-")
+      .map(
+        word =>
+          word.charAt(0).toUpperCase() +
+          word.slice(1)
+      )
+      .join(" ");
+
+  }
+
+
+  // ============================================================
+  // LOAD DATABASE
+  // ============================================================
+
+  async function loadElection() {
+
+    const status =
+      document.getElementById("status");
+
+
+    status.className =
+      "status loading";
+
+
+    status.innerHTML =
+      "Connecting to the election database...";
+
+
+    try {
+
+      const snapshot =
+        await get(
+          ref(db, "election2026")
+        );
+
+
+      if (!snapshot.exists()) {
+
+        throw new Error(
+          "The election2026 database could not be found."
+        );
+
+      }
+
+
+      electionData =
+        snapshot.val();
+
+
+      status.className =
+        "status";
+
+
+      status.innerHTML =
+        "<strong>Database connected.</strong> " +
+        "Election data loaded successfully.";
+
+
+      calculateElection();
+
+    } catch (error) {
+
+      console.error(error);
+
+
+      status.className =
+        "status error";
+
+
+      status.innerHTML =
+        "<strong>Database error.</strong> " +
+        escapeHTML(error.message);
+
+    }
+
+  }
+
+
+  // ============================================================
+  // GET ELECTORATE RESULTS
+  // ============================================================
+
+  function getElectorateResults() {
+
+    const results = [];
+
+
+    const electorates =
+      electionData.electorates || {};
+
+
+    electorateOrder.forEach((id, index) => {
+
+      const electorate =
+        electorates[id];
+
+
+      // --------------------------------------------------------
+      // Missing electorate
+      // --------------------------------------------------------
+
+      if (!electorate) {
+
+        results.push({
+
+          id,
+
+          number: index + 1,
+
+          name: slugToName(id),
+
+          complete: false,
+
+          winner: null
+
+        });
+
+        return;
+
+      }
+
+
+      // --------------------------------------------------------
+      // Saved winner
+      // --------------------------------------------------------
+
+      const savedWinner =
+        electorate.winner;
+
+
+      if (
+        savedWinner &&
+        typeof savedWinner === "object"
+      ) {
+
+        const winnerName =
+          savedWinner.name ||
+          savedWinner.candidateName ||
+          savedWinner.winnerName;
+
+
+        if (winnerName) {
+
+          const winnerParty =
+            getPartyFromCandidate(
+              savedWinner
+            );
+
+
+          const winnerVotes =
+            number(
+              savedWinner.votes ??
+              savedWinner.voteCount ??
+              savedWinner.candidateVotes
+            );
+
+
+          results.push({
+
+            id,
+
+            number:
+              number(
+                electorate.number ||
+                index + 1
+              ),
+
+            name:
+              electorate.name ||
+              slugToName(id),
+
+            complete: true,
+
+            winner: {
+
+              id:
+                savedWinner.id ||
+                savedWinner.candidateId ||
+                savedWinner.winnerId ||
+                null,
+
+              name:
+                winnerName,
+
+              party:
+                winnerParty,
+
+              originalParty:
+                savedWinner.party ||
+                savedWinner.partyId ||
+                savedWinner.partyName ||
+                null,
+
+              votes:
+                winnerVotes
+
+            }
+
+          });
+
+
+          return;
+
+        }
+
+      }
+
+
+      // --------------------------------------------------------
+      // Calculate winner from candidates
+      // --------------------------------------------------------
+
+      const candidates =
+        electorate.candidates || {};
+
+
+      const candidateList =
+        Object.entries(candidates)
+
+          .map(
+            ([candidateId, candidate]) => {
+
+              const party =
+                getPartyFromCandidate(
+                  candidate
+                );
+
+
+              return {
+
+                id: candidateId,
+
+                ...candidate,
+
+                normalizedParty:
+                  party,
+
+                votes:
+                  number(
+                    candidate.votes ??
+                    candidate.voteCount ??
+                    candidate.candidateVotes
+                  )
+
+              };
+
+            }
+          )
+
+          .filter(candidate =>
+            candidate.name ||
+            candidate.candidateName
+          );
+
+
+      // --------------------------------------------------------
+      // No candidates
+      // --------------------------------------------------------
+
+      if (candidateList.length === 0) {
+
+        results.push({
+
+          id,
+
+          number:
+            number(
+              electorate.number ||
+              index + 1
+            ),
+
+          name:
+            electorate.name ||
+            slugToName(id),
+
+          complete: false,
+
+          winner: null
+
+        });
+
+
+        return;
+
+      }
+
+
+      // --------------------------------------------------------
+      // Sort by votes
+      // --------------------------------------------------------
+
+      candidateList.sort(
+        (a, b) =>
+          number(b.votes) -
+          number(a.votes)
+      );
+
+
+      const highestVotes =
+        number(candidateList[0].votes);
+
+
+      const tied =
+        candidateList.filter(
+          candidate =>
+            number(candidate.votes) ===
+            highestVotes
+        );
+
+
+      // --------------------------------------------------------
+      // Tie
+      // --------------------------------------------------------
+
+      if (tied.length > 1) {
+
+        results.push({
+
+          id,
+
+          number:
+            number(
+              electorate.number ||
+              index + 1
+            ),
+
+          name:
+            electorate.name ||
+            slugToName(id),
+
+          complete: false,
+
+          tie: true,
+
+          winner: null,
+
+          tiedCandidates: tied
+
+        });
+
+
+        return;
+
+      }
+
+
+      // --------------------------------------------------------
+      // Winner
+      // --------------------------------------------------------
+
+      const winner =
+        candidateList[0];
+
+
+      results.push({
+
+        id,
+
+        number:
+          number(
+            electorate.number ||
+            index + 1
+          ),
+
+        name:
+          electorate.name ||
+          slugToName(id),
+
+        complete: true,
+
+        winner: {
+
+          id:
+            winner.id,
+
+          name:
+            winner.name ||
+            winner.candidateName ||
+            "Unknown",
+
+          party:
+            winner.normalizedParty,
+
+          originalParty:
+            winner.party ||
+            winner.partyId ||
+            winner.partyName ||
+            null,
+
+          votes:
+            number(winner.votes)
+
+        }
+
+      });
+
+    });
+
+
+    return results;
+
+  }
+
+
+  // ============================================================
+  // GET PARTY VOTES
+  // ============================================================
+
+  function getPartyVotes() {
+
+    const parties =
+      electionData.parties || {};
+
+
+    return partyOrder.map(id => {
+
+      const party =
+        parties[id] || {};
+
+
+      return {
+
+        id,
+
+        name:
+          party.name ||
+          partyNames[id],
+
+        abbreviation:
+          party.abbreviation ||
+          partyAbbreviations[id],
+
+        votes:
+          number(party.partyVote),
+
+        // IMPORTANT:
+        // This MUST start at zero because
+        // electorate winners are counted later.
+        electorateSeats: 0,
+
+        totalSeats: 0,
+
+        listSeats: 0,
+
+        overhang: 0,
+
+        percentage: 0,
+
+        eligible: false
+
+      };
+
+    });
+
+  }
+
+
+  // ============================================================
+  // SAINTE-LAGUË
+  // ============================================================
+
+  function calculateSainteLague(parties) {
+
+    const totalPartyVotes =
+      parties.reduce(
+        (sum, party) =>
+          sum + number(party.votes),
+        0
+      );
+
+
+    parties.forEach(party => {
+
+      party.percentage =
+        totalPartyVotes > 0
+          ? (
+              number(party.votes) /
+              totalPartyVotes
+            ) * 100
+          : 0;
+
+
+      // DO NOT RESET electorateSeats HERE.
+      //
+      // They were calculated from the electorate
+      // results before this function was called.
+
+
+      party.totalSeats = 0;
+      party.listSeats = 0;
+      party.overhang = 0;
+
+    });
+
+
+    const quotients = [];
+
+
+    parties
+      .filter(party => party.eligible)
+      .forEach(party => {
+
+        for (
+          let divisor = 1;
+          divisor <= 51;
+          divisor += 2
+        ) {
+
+          quotients.push({
+
+            partyId:
+              party.id,
+
+            quotient:
+              number(party.votes) /
+              divisor,
+
+            divisor
+
+          });
+
+        }
+
+      });
+
+
+    quotients.sort((a, b) => {
+
+      if (b.quotient !== a.quotient) {
+
+        return b.quotient -
+          a.quotient;
+
+      }
+
+
+      return a.partyId.localeCompare(
+        b.partyId
+      );
+
+    });
+
+
+    const selected =
+      quotients.slice(
+        0,
+        TOTAL_SEATS
+      );
+
+
+    selected.forEach(quotient => {
+
+      const party =
+        parties.find(
+          p =>
+            p.id ===
+            quotient.partyId
+        );
+
+
+      if (party) {
+
+        party.totalSeats++;
+
+      }
+
+    });
+
+
+    return {
+
+      totalPartyVotes,
+
+      quotients,
+
+      selected
+
+    };
+
+  }
+
+
+  // ============================================================
+  // MAIN CALCULATION
+  // ============================================================
+
+  function calculateElection() {
+
+    try {
+
+      const electorateResults =
+        getElectorateResults();
+
+
+      const parties =
+        getPartyVotes();
+
+
+      // --------------------------------------------------------
+      // Count electorate winners
+      // --------------------------------------------------------
+
+      electorateResults.forEach(result => {
+
+        if (
+          !result.complete ||
+          !result.winner
+        ) {
+
+          return;
+
+        }
+
+
+        const partyId =
+          normalizePartyId(
+            result.winner.party
+          );
+
+
+        console.log(
+          "Electorate:",
+          result.name,
+          "| Winner:",
+          result.winner.name,
+          "| Stored party:",
+          result.winner.originalParty,
+          "| Normalized party:",
+          partyId
+        );
+
+
+        if (!partyId) {
+          return;
+        }
+
+
+        const party =
+          parties.find(
+            p =>
+              p.id === partyId
+          );
+
+
+        if (party) {
+
+          party.electorateSeats =
+            number(
+              party.electorateSeats
+            ) + 1;
+
+        }
+
+      });
+
+
+      // --------------------------------------------------------
+      // Calculate party vote percentages
+      // --------------------------------------------------------
+
+      const totalPartyVotes =
+        parties.reduce(
+          (sum, party) =>
+            sum + number(party.votes),
+          0
+        );
+
+
+      parties.forEach(party => {
+
+        party.percentage =
+          totalPartyVotes > 0
+            ? (
+                number(party.votes) /
+                totalPartyVotes
+              ) * 100
+            : 0;
+
+
+        // A party qualifies if it:
+        //
+        // 1. receives at least 4% of the party vote
+        // OR
+        // 2. wins at least one electorate seat
+
+        party.eligible =
+          party.percentage >= THRESHOLD ||
+          number(party.electorateSeats) >= 1;
+
+      });
+
+
+      // --------------------------------------------------------
+      // Sainte-Laguë
+      // --------------------------------------------------------
+
+      calculateSainteLague(
+        parties
+      );
+
+
+      // --------------------------------------------------------
+      // List seats and overhang
+      // --------------------------------------------------------
+
+      parties.forEach(party => {
+
+        party.listSeats =
+          Math.max(
+            number(party.totalSeats) -
+            number(party.electorateSeats),
+            0
+          );
+
+
+        party.overhang =
+          Math.max(
+            number(party.electorateSeats) -
+            number(party.totalSeats),
+            0
+          );
+
+      });
+
+
+      // --------------------------------------------------------
+      // Total overhang
+      // --------------------------------------------------------
+
+      const totalOverhang =
+        parties.reduce(
+          (sum, party) =>
+            sum + number(party.overhang),
+          0
+        );
+
+
+      // --------------------------------------------------------
+      // Completed electorates
+      // --------------------------------------------------------
+
+      const completedElectorates =
+        electorateResults.filter(
+          e => e.complete
+        ).length;
+
+
+      // --------------------------------------------------------
+      // Independent electorate seats
+      // --------------------------------------------------------
+
+      const independentSeats =
+        electorateResults.filter(
+          e =>
+            e.complete &&
+            e.winner &&
+            !normalizePartyId(
+              e.winner.party
+            )
+        ).length;
+
+
+      // --------------------------------------------------------
+      // Store calculation
+      // --------------------------------------------------------
+
+      calculation = {
+
+        parties,
+
+        electorateResults,
+
+        totalPartyVotes,
+
+        completedElectorates,
+
+        totalOverhang,
+
+        independentSeats,
+
+        actualParliamentSize:
+          TOTAL_SEATS +
+          totalOverhang,
+
+        final:
+          completedElectorates ===
+          ELECTORATE_SEATS
+
+      };
+
+
+      // --------------------------------------------------------
+      // Render
+      // --------------------------------------------------------
+
+      renderPartyTable();
+
+      renderElectorateTable();
+
+      renderSummary();
+
+    } catch (error) {
+
+      console.error(
+        "Election calculation error:",
+        error
+      );
+
+
+      document.getElementById(
+        "status"
+      ).className =
+        "status error";
+
+
+      document.getElementById(
+        "status"
+      ).innerHTML =
+        "<strong>Calculation error.</strong> " +
+        escapeHTML(
+          error.message
+        );
+
+    }
+
+  }
+
+
+  // ============================================================
+  // PARTY TABLE
+  // ============================================================
+
+  function renderPartyTable() {
+
+    const tbody =
+      document.getElementById(
+        "partyTable"
+      );
+
+
+    tbody.innerHTML = "";
+
+
+    calculation.parties.forEach(
+      party => {
+
+        const row =
+          document.createElement("tr");
+
+
+        row.innerHTML = `
+
+          <td>
+
+            <span class="party-name">
+              ${escapeHTML(
+                party.name
+              )}
+            </span>
+
+            <br>
+
+            <small>
+              ${escapeHTML(
+                party.abbreviation
+              )}
+            </small>
+
+          </td>
+
+
+          <td>
+            ${formatNumber(
+              party.votes
+            )}
+          </td>
+
+
+          <td>
+            ${formatPercent(
+              party.percentage
+            )}
+          </td>
+
+
+          <td>
+
+            <span class="seat-number">
+              ${number(
+                party.electorateSeats
+              )}
+            </span>
+
+          </td>
+
+
+          <td>
+
+            ${
+              party.eligible
+
+                ? `<span class="eligible">
+                    Eligible
+                  </span>`
+
+                : `<span class="not-eligible">
+                    Not eligible
+                  </span>`
+            }
+
+          </td>
+
+
+          <td>
+
+            <span class="seat-number">
+              ${number(
+                party.totalSeats
+              )}
+            </span>
+
+          </td>
+
+
+          <td>
+
+            <span class="list-seat">
+              ${number(
+                party.listSeats
+              )}
+            </span>
+
+          </td>
+
+
+          <td>
+
+            ${
+              number(party.overhang) > 0
+
+                ? `<span class="overhang">
+                    ${number(
+                      party.overhang
+                    )}
+                  </span>`
+
+                : "—"
+            }
+
+          </td>
+
+        `;
+
+
+        tbody.appendChild(row);
+
+      }
+    );
+
+
+    // ----------------------------------------------------------
+    // TOTAL ROW
+    // ----------------------------------------------------------
+
+    const totalRow =
+      document.createElement("tr");
+
+
+    totalRow.style.fontWeight =
+      "bold";
+
+
+    totalRow.style.background =
+      "#f7f8f9";
+
+
+    const totalElectorateSeats =
+      calculation.parties.reduce(
+        (sum, party) =>
+          sum +
+          number(
+            party.electorateSeats
+          ),
+        0
+      );
+
+
+    const totalAllocatedSeats =
+      calculation.parties.reduce(
+        (sum, party) =>
+          sum +
+          number(
+            party.totalSeats
+          ),
+        0
+      );
+
+
+    const totalListSeats =
+      calculation.parties.reduce(
+        (sum, party) =>
+          sum +
+          number(
+            party.listSeats
+          ),
+        0
+      );
+
+
+    totalRow.innerHTML = `
+
+      <td>TOTAL</td>
+
+      <td>
+        ${formatNumber(
+          calculation.totalPartyVotes
+        )}
+      </td>
+
+      <td>100.00%</td>
+
+      <td>
+        ${totalElectorateSeats}
+      </td>
+
+      <td>—</td>
+
+      <td>
+        ${totalAllocatedSeats}
+      </td>
+
+      <td>
+        ${totalListSeats}
+      </td>
+
+      <td>
+
+        ${
+          calculation.totalOverhang > 0
+
+            ? calculation.totalOverhang
+
+            : "—"
+        }
+
+      </td>
+
+    `;
+
+
+    tbody.appendChild(totalRow);
+
+  }
+
+
+  // ============================================================
+  // ELECTORATE TABLE
+  // ============================================================
+
+  function renderElectorateTable() {
+
+    const tbody =
+      document.getElementById(
+        "electorateTable"
+      );
+
+
+    tbody.innerHTML = "";
+
+
+    calculation.electorateResults.forEach(
+      result => {
+
+        const row =
+          document.createElement("tr");
+
+
+        // ------------------------------------------------------
+        // TIE
+        // ------------------------------------------------------
+
+        if (result.tie) {
+
+          row.innerHTML = `
+
+            <td>
+              ${result.number}
+            </td>
+
+            <td>
+              <strong>
+                ${escapeHTML(
+                  result.name
+                )}
+              </strong>
+            </td>
+
+            <td>
+              <span class="overhang">
+                TIE
+              </span>
+            </td>
+
+            <td colspan="3">
+
+              Tie between:
+
+              ${result.tiedCandidates
+                .map(
+                  candidate =>
+                    escapeHTML(
+                      candidate.name ||
+                      candidate.candidateName ||
+                      "Unknown"
+                    )
+                )
+                .join(", ")}
+
+            </td>
+
+          `;
+
+        }
+
+
+        // ------------------------------------------------------
+        // COMPLETE
+        // ------------------------------------------------------
+
+        else if (
+          result.complete &&
+          result.winner
+        ) {
+
+          const partyName =
+            partyNames[
+              result.winner.party
+            ] ||
+            result.winner.party ||
+            "Independent";
+
+
+          row.innerHTML = `
+
+            <td>
+              ${result.number}
+            </td>
+
+            <td>
+              <strong>
+                ${escapeHTML(
+                  result.name
+                )}
+              </strong>
+            </td>
+
+            <td>
+
+              <span class="electorate-complete">
+                COMPLETE
+              </span>
+
+            </td>
+
+            <td class="winner">
+
+              ${escapeHTML(
+                result.winner.name
+              )}
+
+            </td>
+
+            <td>
+
+              ${escapeHTML(
+                partyName
+              )}
+
+            </td>
+
+            <td>
+
+              ${formatNumber(
+                result.winner.votes
+              )}
+
+            </td>
+
+          `;
+
+        }
+
+
+        // ------------------------------------------------------
+        // NOT COMPLETE
+        // ------------------------------------------------------
+
+        else {
+
+          row.innerHTML = `
+
+            <td>
+              ${result.number}
+            </td>
+
+            <td>
+              <strong>
+                ${escapeHTML(
+                  result.name
+                )}
+              </strong>
+            </td>
+
+            <td>
+
+              <span class="electorate-missing">
+                NOT ENTERED
+              </span>
+
+            </td>
+
+            <td colspan="3">
+              —
+            </td>
+
+          `;
+
+        }
+
+
+        tbody.appendChild(row);
+
+      }
+    );
+
+  }
+
+
+  // ============================================================
+  // SUMMARY
+  // ============================================================
+
+  function renderSummary() {
+
+    const container =
+      document.getElementById(
+        "calculationSummary"
+      );
+
+
+    const missing =
+      Math.max(
+        ELECTORATE_SEATS -
+        calculation.completedElectorates,
+        0
+      );
+
+
+    let html = "";
+
+
+    // ----------------------------------------------------------
+    // COMPLETION STATUS
+    // ----------------------------------------------------------
+
+    if (missing > 0) {
+
+      html += `
+
+        <div class="warning">
+
+          <strong>
+            Provisional calculation
+          </strong>
+
+          <br><br>
+
+          ${missing}
+          electorate
+          ${missing === 1 ? "is" : "s are"}
+          still missing.
+
+          The Sainte-Laguë calculation shown above is therefore
+          <strong>provisional</strong> and should not be treated as
+          the final composition of Parliament.
+
+        </div>
+
+      `;
+
+    } else {
+
+      html += `
+
+        <div class="success">
+
+          <strong>
+            All 13 electorates are complete.
+          </strong>
+
+          <br><br>
+
+          The MMP allocation can now be finalized and saved to
+          Firebase.
+
+        </div>
+
+      `;
+
+    }
+
+
+    // ----------------------------------------------------------
+    // INDEPENDENTS
+    // ----------------------------------------------------------
+
+    if (
+      calculation.independentSeats > 0
+    ) {
+
+      html += `
+
+        <div class="warning">
+
+          <strong>
+            Independent electorate seats:
+          </strong>
+
+          ${calculation.independentSeats}
+
+          <br><br>
+
+          Independent candidates are not included in the
+          party-vote Sainte-Laguë allocation.
+
+        </div>
+
+      `;
+
+    }
+
+
+    // ----------------------------------------------------------
+    // OVERHANG
+    // ----------------------------------------------------------
+
+    if (
+      calculation.totalOverhang > 0
+    ) {
+
+      html += `
+
+        <div class="danger">
+
+          <strong>
+            Overhang detected.
+          </strong>
+
+          <br><br>
+
+          The electorate results produce
+
+          <strong>
+            ${calculation.totalOverhang}
+          </strong>
+
+          overhang
+          seat
+          ${
+            calculation.totalOverhang === 1
+              ? ""
+              : "s"
+          }.
+
+          The resulting Parliament would contain
+
+          <strong>
+            ${calculation.actualParliamentSize}
+          </strong>
+
+          seats rather than the nominal 26.
+
+        </div>
+
+      `;
+
+    } else {
+
+      html += `
+
+        <div class="success">
+
+          <strong>
+            No overhang.
+          </strong>
+
+          <br><br>
+
+          The calculated Parliament remains at 26 seats.
+
+        </div>
+
+      `;
+
+    }
+
+
+    // ----------------------------------------------------------
+    // CURRENT COMPOSITION
+    // ----------------------------------------------------------
+
+    html += `
+
+      <div class="calculation-box">
+
+        <h4>
+          Current parliamentary composition
+        </h4>
+
+
+        <p>
+
+          Electorate results entered:
+
+          <strong>
+
+            ${calculation.completedElectorates}
+            /
+            ${ELECTORATE_SEATS}
+
+          </strong>
+
+        </p>
+
+
+        <p>
+
+          Nominal Parliament:
+
+          <strong>
+            ${TOTAL_SEATS} seats
+          </strong>
+
+        </p>
+
+
+        <p>
+
+          Current calculated Parliament:
+
+          <strong>
+            ${calculation.actualParliamentSize} seats
+          </strong>
+
+        </p>
+
+
+        <p>
+
+          Party-vote total:
+
+          <strong>
+
+            ${formatNumber(
+              calculation.totalPartyVotes
+            )}
+
+          </strong>
+
+        </p>
+
+      </div>
+
+    `;
+
+
+    container.innerHTML =
+      html;
+
+
+    document.getElementById(
+      "saveButton"
+    ).disabled =
+      !calculation.final;
+
+  }
+
+
+  // ============================================================
+  // SAVE FINAL RESULT
+  // ============================================================
+
+  async function saveFinalAllocation() {
+
+    if (
+      !calculation ||
+      !calculation.final
+    ) {
+
+      alert(
+        "All 13 electorate results must be complete before the final allocation can be saved."
+      );
+
+
+      return;
+
+    }
+
+
+    const confirmed =
+      confirm(
+        "Save this MMP allocation as the final 2026 election result?"
+      );
+
+
+    if (!confirmed) {
+      return;
+    }
+
+
+    const seatsAllocated = {};
+
+
+    calculation.parties.forEach(
+      party => {
+
+        seatsAllocated[
+          party.id
+        ] = {
+
+          party:
+            party.name,
+
+          abbreviation:
+            party.abbreviation,
+
+          partyVotes:
+            number(party.votes),
+
+          partyVotePercentage:
+            Number(
+              number(
+                party.percentage
+              ).toFixed(4)
+            ),
+
+          eligible:
+            Boolean(
+              party.eligible
+            ),
+
+          electorateSeats:
+            number(
+              party.electorateSeats
+            ),
+
+          totalSeats:
+            number(
+              party.totalSeats
+            ),
+
+          listSeats:
+            number(
+              party.listSeats
+            ),
+
+          overhang:
+            number(
+              party.overhang
+            )
+
+        };
+
+      }
+    );
+
+
+    const electorateWinners = {};
+
+
+    calculation.electorateResults.forEach(
+      result => {
+
+        if (
+          result.complete &&
+          result.winner
+        ) {
+
+          electorateWinners[
+            result.id
+          ] = {
+
+            candidateId:
+              result.winner.id,
+
+            candidateName:
+              result.winner.name,
+
+            party:
+              result.winner.party ||
+              "independent",
+
+            votes:
+              number(
+                result.winner.votes
+              )
+
+          };
+
+        }
+
+      }
+    );
+
+
+    // ----------------------------------------------------------
+    // Calculate total votes cast across candidates
+    // ----------------------------------------------------------
+
+    const electorateVoteTotal =
+      calculation.electorateResults.reduce(
+        (total, electorate) => {
+
+          const electorateData =
+            electionData.electorates[
+              electorate.id
+            ];
+
+
+          if (!electorateData) {
+            return total;
+          }
+
+
+          const candidates =
+            electorateData.candidates ||
+            {};
+
+
+          const candidateVotes =
+            Object.values(candidates)
+              .reduce(
+                (sum, candidate) =>
+                  sum +
+                  number(
+                    candidate.votes ??
+                    candidate.voteCount ??
+                    candidate.candidateVotes
+                  ),
+                0
+              );
+
+
+          return total +
+            candidateVotes;
+
+        },
+        0
+      );
+
+
+    const updates = {
+
+      "election2026/results/final":
+        true,
+
+      "election2026/results/partyVoteTotal":
+        number(
+          calculation.totalPartyVotes
+        ),
+
+      "election2026/results/electorateVoteTotal":
+        number(
+          electorateVoteTotal
+        ),
+
+      "election2026/results/seatsAllocated":
+        seatsAllocated,
+
+      "election2026/results/electorateWinners":
+        electorateWinners,
+
+      "election2026/results/mmp": {
+
+        totalSeats:
+          TOTAL_SEATS,
+
+        electorateSeats:
+          ELECTORATE_SEATS,
+
+        listSeats:
+          LIST_SEATS,
+
+        threshold:
+          THRESHOLD,
+
+        calculated:
+          true,
+
+        overhang:
+          number(
+            calculation.totalOverhang
+          ),
+
+        actualParliamentSize:
+          number(
+            calculation.actualParliamentSize
+          ),
+
+        calculatedAt:
+          new Date().toISOString()
+
+      }
+
+    };
+
+
+    try {
+
+      await update(
+        ref(db),
+        updates
+      );
+
+
+      alert(
+        "Final MMP allocation saved successfully."
+      );
+
+
+      document.getElementById(
+        "status"
+      ).className =
+        "status";
+
+
+      document.getElementById(
+        "status"
+      ).innerHTML =
+        "<strong>Final result saved.</strong> " +
+        "The 2026 MMP allocation is now stored in Firebase.";
+
+    } catch (error) {
+
+      console.error(error);
+
+
+      alert(
+        "Could not save the final result: " +
+        error.message
+      );
+
+    }
+
+  }
+
+
+  // ============================================================
+  // BUTTONS
+  // ============================================================
+
+  document
+    .getElementById(
+      "refreshButton"
+    )
+    .addEventListener(
+      "click",
+      loadElection
+    );
+
+
+  document
+    .getElementById(
+      "saveButton"
+    )
+    .addEventListener(
+      "click",
+      saveFinalAllocation
+    );
+
+
+  // ============================================================
+  // START
+  // ============================================================
+
+  loadElection();
+
+</script>
+
+</body>
+</html>

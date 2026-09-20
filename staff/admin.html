@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Election Administration | Square Country Electoral Commission</title>
+
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f3f4f6;
+      color: #172033;
+    }
+
+    header {
+      background: #0b1f3a;
+      color: white;
+      padding: 22px 40px;
+      border-bottom: 5px solid #ff7b25;
+    }
+
+    header .top {
+      max-width: 1200px;
+      margin: auto;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .logo {
+      width: 58px;
+      height: 58px;
+      object-fit: contain;
+    }
+
+    .commission-name {
+      font-size: 15px;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      opacity: 0.85;
+    }
+
+    h1 {
+      margin: 4px 0 0;
+      font-size: 28px;
+    }
+
+    main {
+      max-width: 1200px;
+      margin: 35px auto;
+      padding: 0 20px;
+    }
+
+    .notice {
+      background: white;
+      border-left: 5px solid #ff7b25;
+      padding: 20px;
+      margin-bottom: 25px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    }
+
+    .notice h2 {
+      margin-top: 0;
+    }
+
+    .status-card {
+      background: white;
+      padding: 24px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+      margin-bottom: 25px;
+    }
+
+    .status-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      font-weight: bold;
+    }
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #999;
+    }
+
+    .dot.connected {
+      background: #16803c;
+    }
+
+    .dot.error {
+      background: #c62828;
+    }
+
+    .dot.loading {
+      background: #e0a000;
+    }
+
+    .status-text {
+      font-size: 17px;
+    }
+
+    button {
+      border: none;
+      padding: 13px 22px;
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 3px;
+    }
+
+    .primary {
+      background: #ff7b25;
+      color: white;
+    }
+
+    .primary:hover {
+      background: #e56817;
+    }
+
+    .primary:disabled {
+      background: #aaa;
+      cursor: not-allowed;
+    }
+
+    .danger {
+      background: #b42318;
+      color: white;
+    }
+
+    .secondary {
+      background: #e5e7eb;
+      color: #172033;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-bottom: 25px;
+    }
+
+    .stat {
+      background: white;
+      padding: 25px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    }
+
+    .stat-number {
+      font-size: 35px;
+      font-weight: bold;
+      color: #0b1f3a;
+    }
+
+    .stat-label {
+      margin-top: 6px;
+      color: #555;
+    }
+
+    .panel {
+      background: white;
+      padding: 25px;
+      margin-bottom: 25px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    }
+
+    .panel h2 {
+      margin-top: 0;
+      color: #0b1f3a;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 12px;
+    }
+
+    .party {
+      display: flex;
+      justify-content: space-between;
+      padding: 13px 0;
+      border-bottom: 1px solid #eee;
+    }
+
+    .party:last-child {
+      border-bottom: none;
+    }
+
+    .party-name {
+      font-weight: bold;
+    }
+
+    .party-code {
+      color: #777;
+      font-family: monospace;
+    }
+
+    .electorate-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px 30px;
+    }
+
+    .electorate {
+      padding: 11px 0;
+      border-bottom: 1px solid #eee;
+    }
+
+    .message {
+      display: none;
+      padding: 16px;
+      margin-bottom: 20px;
+      border-radius: 3px;
+      font-weight: bold;
+    }
+
+    .message.success {
+      display: block;
+      background: #e7f6ec;
+      color: #146c2e;
+      border-left: 5px solid #16803c;
+    }
+
+    .message.error {
+      display: block;
+      background: #fdecec;
+      color: #9b1c1c;
+      border-left: 5px solid #c62828;
+    }
+
+    .message.info {
+      display: block;
+      background: #eef5ff;
+      color: #174a8b;
+      border-left: 5px solid #2463a6;
+    }
+
+    .database-preview {
+      background: #111827;
+      color: #d1d5db;
+      padding: 20px;
+      overflow-x: auto;
+      font-family: "Courier New", monospace;
+      font-size: 13px;
+      line-height: 1.6;
+      border-radius: 3px;
+    }
+
+    footer {
+      margin-top: 50px;
+      background: #0b1f3a;
+      color: white;
+      padding: 25px;
+      text-align: center;
+      font-size: 13px;
+    }
+
+    @media (max-width: 800px) {
+      header {
+        padding: 18px 20px;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .electorate-list {
+        grid-template-columns: 1fr;
+      }
+
+      .status-row {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="top">
+    <div>
+      <div class="commission-name">
+        Square Country Electoral Commission
+      </div>
+      <h1>Election Administration</h1>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <div id="message" class="message"></div>
+
+  <section class="notice">
+    <h2>2026 General Election</h2>
+
+    <p>
+      This administration system manages the fictional Square Country
+      2026 General Election.
+    </p>
+
+    <p>
+      The Parliament of Square Country consists of <strong>26 seats</strong>,
+      elected under the Mixed-Member Proportional (MMP) system.
+    </p>
+
+    <p>
+      The database can be initialised automatically from this page.
+      <strong>Do not manually create the database structure in Firebase.</strong>
+    </p>
+  </section>
+
+  <section class="status-card">
+
+    <div class="status-row">
+
+      <div>
+        <div class="status">
+          <span id="statusDot" class="dot loading"></span>
+          <span id="statusText" class="status-text">
+            Connecting to Firebase...
+          </span>
+        </div>
+
+        <div id="databaseInfo" style="margin-top:8px;color:#666;">
+          Checking database connection...
+        </div>
+      </div>
+
+      <button
+        id="initialiseButton"
+        class="primary"
+        disabled
+        onclick="initialiseElection()">
+        Initialise Election
+      </button>
+
+    </div>
+
+  </section>
+
+  <section class="grid">
+
+    <div class="stat">
+      <div class="stat-number">26</div>
+      <div class="stat-label">Total Parliament seats</div>
+    </div>
+
+    <div class="stat">
+      <div class="stat-number">13</div>
+      <div class="stat-label">Electorate seats</div>
+    </div>
+
+    <div class="stat">
+      <div class="stat-number">13</div>
+      <div class="stat-label">List seats</div>
+    </div>
+
+  </section>
+
+  <section class="panel">
+
+    <h2>Election System</h2>
+
+    <table style="width:100%;border-collapse:collapse;">
+
+      <tr>
+        <td style="padding:12px 0;border-bottom:1px solid #eee;">
+          Electoral system
+        </td>
+        <td style="padding:12px 0;border-bottom:1px solid #eee;font-weight:bold;">
+          Mixed-Member Proportional
+        </td>
+      </tr>
+
+      <tr>
+        <td style="padding:12px 0;border-bottom:1px solid #eee;">
+          Total seats
+        </td>
+        <td style="padding:12px 0;border-bottom:1px solid #eee;font-weight:bold;">
+          26
+        </td>
+      </tr>
+
+      <tr>
+        <td style="padding:12px 0;border-bottom:1px solid #eee;">
+          Electorate seats
+        </td>
+        <td style="padding:12px 0;border-bottom:1px solid #eee;font-weight:bold;">
+          13
+        </td>
+      </tr>
+
+      <tr>
+        <td style="padding:12px 0;border-bottom:1px solid #eee;">
+          List seats
+        </td>
+        <td style="padding:12px 0;border-bottom:1px solid #eee;font-weight:bold;">
+          13
+        </td>
+      </tr>
+
+      <tr>
+        <td style="padding:12px 0;">
+          Party vote threshold
+        </td>
+        <td style="padding:12px 0;font-weight:bold;">
+          4%
+        </td>
+      </tr>
+
+    </table>
+
+  </section>
+
+  <section class="panel">
+
+    <h2>Political Parties</h2>
+
+    <div class="party">
+      <span class="party-name">Liberty</span>
+      <span class="party-code">LIB</span>
+    </div>
+
+    <div class="party">
+      <span class="party-name">Freedoms</span>
+      <span class="party-code">FRE</span>
+    </div>
+
+    <div class="party">
+      <span class="party-name">Greens</span>
+      <span class="party-code">GRE</span>
+    </div>
+
+    <div class="party">
+      <span class="party-name">Innovation</span>
+      <span class="party-code">INN</span>
+    </div>
+
+    <div class="party">
+      <span class="party-name">SC First</span>
+      <span class="party-code">SCF</span>
+    </div>
+
+  </section>
+
+  <section class="panel">
+
+    <h2>Electorates</h2>
+
+    <div class="electorate-list">
+
+      <div class="electorate">1. Western Beaches</div>
+      <div class="electorate">2. Square City</div>
+      <div class="electorate">3. Surish Bridge</div>
+      <div class="electorate">4. Masterton Central</div>
+      <div class="electorate">5. Earlington</div>
+      <div class="electorate">6. New Dublin</div>
+      <div class="electorate">7. Wellingborough</div>
+      <div class="electorate">8. Ertonmont</div>
+      <div class="electorate">9. Doncastle</div>
+      <div class="electorate">10. Cunningham</div>
+      <div class="electorate">11. Queenstown</div>
+      <div class="electorate">12. Kingsford</div>
+      <div class="electorate">13. Uma no machi</div>
+
+    </div>
+
+  </section>
+
+  <section class="panel">
+
+    <h2>Firebase Database Structure</h2>
+
+    <p>
+      Once initialised, the election data will be stored under:
+    </p>
+
+    <div class="database-preview">
+election2026/
+<br>
+├── settings/
+<br>
+│   ├── totalSeats
+<br>
+│   ├── electorateSeats
+<br>
+│   ├── listSeats
+<br>
+│   ├── threshold
+<br>
+│   └── initialized
+<br>
+│
+<br>
+├── parties/
+<br>
+│   ├── liberty/
+<br>
+│   ├── freedoms/
+<br>
+│   ├── greens/
+<br>
+│   ├── innovation/
+<br>
+│   └── scFirst/
+<br>
+│
+<br>
+├── electorates/
+<br>
+│   ├── western-beaches/
+<br>
+│   ├── square-city/
+<br>
+│   ├── surish-bridge/
+<br>
+│   ├── masterton-central/
+<br>
+│   ├── earlington/
+<br>
+│   ├── new-dublin/
+<br>
+│   ├── wellingborough/
+<br>
+│   ├── ertonmont/
+<br>
+│   ├── doncastle/
+<br>
+│   ├── cunningham/
+<br>
+│   ├── queenstown/
+<br>
+│   ├── kingsford/
+<br>
+│   └── uma-no-machi/
+<br>
+│
+<br>
+└── results/
+    </div>
+
+  </section>
+
+</main>
+
+<footer>
+
+  <strong>Square Country Electoral Commission</strong>
+  <br><br>
+
+  <strong>Disclaimer:</strong> This website is a fictional representation
+  of the Government of Square Country. Square Country is a fictional country
+  and this website, its Ministries, agencies, legislation, services, and
+  other content are created for fictional and entertainment purposes only.
+  It does not represent a real government, country, institution, or
+  organisation.
+
+</footer>
+
+
+<!-- Firebase -->
+<script type="module">
+
+  import { initializeApp } from
+    "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+  import {
+    getDatabase,
+    ref,
+    get,
+    set
+  } from
+    "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+
+  // ==========================================
+  // FIREBASE CONFIGURATION
+  // ==========================================
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyCvx0ARD5thFtytMW1cw54DyG3ojWz-Fsk",
+    authDomain: "square-country-election-2026.firebaseapp.com",
+    databaseURL: "https://square-country-election-2026-default-rtdb.firebaseio.com",
+    projectId: "square-country-election-2026",
+    storageBucket: "square-country-election-2026.firebasestorage.app",
+    messagingSenderId: "1080044317618",
+    appId: "1:1080044317618:web:0b02e177a30bb8c91fd2ab",
+    measurementId: "G-T2STD78H74"
+  };
+
+
+  // ==========================================
+  // INITIALISE FIREBASE
+  // ==========================================
+
+  const app = initializeApp(firebaseConfig);
+  const database = getDatabase(app);
+
+
+  const statusDot =
+    document.getElementById("statusDot");
+
+  const statusText =
+    document.getElementById("statusText");
+
+  const databaseInfo =
+    document.getElementById("databaseInfo");
+
+  const initialiseButton =
+    document.getElementById("initialiseButton");
+
+
+  // ==========================================
+  // CHECK DATABASE CONNECTION
+  // ==========================================
+
+  async function checkDatabase() {
+
+    try {
+
+      const electionRef =
+        ref(database, "election2026");
+
+      const snapshot =
+        await get(electionRef);
+
+
+      statusDot.className = "dot connected";
+
+      statusText.textContent =
+        "Database Connected ✓";
+
+      if (snapshot.exists()) {
+
+        databaseInfo.textContent =
+          "An election database already exists.";
+
+        initialiseButton.textContent =
+          "Election Already Initialised";
+
+        initialiseButton.disabled = true;
+
+        showMessage(
+          "The election database already contains data. No changes have been made.",
+          "info"
+        );
+
+      } else {
+
+        databaseInfo.textContent =
+          "Firebase is connected. The election database is ready to be initialised.";
+
+        initialiseButton.disabled = false;
+
+      }
+
+    } catch (error) {
+
+      console.error(error);
+
+      statusDot.className = "dot error";
+
+      statusText.textContent =
+        "Database Connection Failed";
+
+      databaseInfo.textContent =
+        error.message;
+
+      showMessage(
+        "Firebase could not be accessed. Check your Realtime Database rules.",
+        "error"
+      );
+
+    }
+
+  }
+
+
+  // ==========================================
+  // INITIALISE ELECTION
+  // ==========================================
+
+  window.initialiseElection = async function() {
+
+    const confirmed =
+      confirm(
+        "Initialise the Square Country 2026 General Election?\n\n" +
+        "This will create the election settings, five parties, " +
+        "13 electorates and an empty results structure in Firebase."
+      );
+
+    if (!confirmed) {
+      return;
+    }
+
+
+    initialiseButton.disabled = true;
+
+    initialiseButton.textContent =
+      "Initialising...";
+
+
+    try {
+
+      // --------------------------------------
+      // PARTIES
+      // --------------------------------------
+
+      const parties = {
+
+        liberty: {
+          name: "Liberty",
+          abbreviation: "LIB",
+          partyVote: 0,
+          seats: 0
+        },
+
+        freedoms: {
+          name: "Freedoms",
+          abbreviation: "FRE",
+          partyVote: 0,
+          seats: 0
+        },
+
+        greens: {
+          name: "Greens",
+          abbreviation: "GRE",
+          partyVote: 0,
+          seats: 0
+        },
+
+        innovation: {
+          name: "Innovation",
+          abbreviation: "INN",
+          partyVote: 0,
+          seats: 0
+        },
+
+        scFirst: {
+          name: "SC First",
+          abbreviation: "SCF",
+          partyVote: 0,
+          seats: 0
+        }
+
+      };
+
+
+      // --------------------------------------
+      // ELECTORATES
+      // --------------------------------------
+
+      const electorateNames = [
+
+        "Western Beaches",
+        "Square City",
+        "Surish Bridge",
+        "Masterton Central",
+        "Earlington",
+        "New Dublin",
+        "Wellingborough",
+        "Ertonmont",
+        "Doncastle",
+        "Cunningham",
+        "Queenstown",
+        "Kingsford",
+        "Uma no machi"
+
+      ];
+
+
+      const electorates = {};
+
+
+      electorateNames.forEach(
+        (name, index) => {
+
+          const id =
+            name
+              .toLowerCase()
+              .replace(/[^a-z0-9]+/g, "-")
+              .replace(/^-|-$/g, "");
+
+          electorates[id] = {
+
+            name: name,
+
+            number: index + 1,
+
+            seats: 1,
+
+            candidates: {},
+
+            votes: {},
+
+            winner: null
+
+          };
+
+        }
+      );
+
+
+      // --------------------------------------
+      // COMPLETE DATABASE
+      // --------------------------------------
+
+      const electionData = {
+
+        settings: {
+
+          name:
+            "2026 General Election",
+
+          year:
+            2026,
+
+          system:
+            "MMP",
+
+          totalSeats:
+            26,
+
+          electorateSeats:
+            13,
+
+          listSeats:
+            13,
+
+          threshold:
+            4,
+
+          initialized:
+            true,
+
+          initializedAt:
+            new Date().toISOString()
+
+        },
+
+
+        parties: parties,
+
+
+        electorates: electorates,
+
+
+        results: {
+
+          final: false,
+
+          partyVoteTotal: 0,
+
+          electorateVoteTotal: 0,
+
+          seatsAllocated: {},
+
+          electorateWinners: {},
+
+          mmp: {
+
+            totalSeats: 26,
+
+            threshold: 4,
+
+            calculated: false
+
+          }
+
+        }
+
+      };
+
+
+      // --------------------------------------
+      // WRITE TO FIREBASE
+      // --------------------------------------
+
+      await set(
+        ref(database, "election2026"),
+        electionData
+      );
+
+
+      // --------------------------------------
+      // SUCCESS
+      // --------------------------------------
+
+      showMessage(
+        "Election database successfully initialised. The 2026 election structure has been created in Firebase.",
+        "success"
+      );
+
+
+      initialiseButton.textContent =
+        "Election Initialised ✓";
+
+
+      databaseInfo.textContent =
+        "13 electorates, 5 parties and the 26-seat Parliament structure have been created.";
+
+
+    } catch (error) {
+
+      console.error(error);
+
+      showMessage(
+        "The election could not be initialised: " +
+        error.message,
+        "error"
+      );
+
+      initialiseButton.disabled = false;
+
+      initialiseButton.textContent =
+        "Initialise Election";
+
+    }
+
+  };
+
+
+  // ==========================================
+  // MESSAGE SYSTEM
+  // ==========================================
+
+  function showMessage(message, type) {
+
+    const box =
+      document.getElementById("message");
+
+    box.textContent =
+      message;
+
+    box.className =
+      "message " + type;
+
+  }
+
+
+  // ==========================================
+  // START
+  // ==========================================
+
+  checkDatabase();
+
+</script>
+
+</body>
+</html>

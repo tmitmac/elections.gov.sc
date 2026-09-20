@@ -1,0 +1,1868 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Election Night Control | Square Country Electoral Commission</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<script>
+tailwind.config = {
+    theme: {
+        extend: {
+            colors: {
+                orangeEC: '#e86f00',
+                orangeDark: '#b95000'
+            }
+        }
+    }
+}
+</script>
+
+<style>
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f5f5f5;
+}
+
+.control-card {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+}
+
+.progress-track {
+    height: 10px;
+    background: #eee;
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: #e86f00;
+    border-radius: 999px;
+    transition: width 1s cubic-bezier(.22, 1, .36, 1);
+    will-change: width;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- HEADER -->
+
+<header class="bg-white border-b border-gray-200">
+
+    <div class="bg-orangeEC text-white">
+
+        <div class="max-w-6xl mx-auto px-5 py-3">
+
+            <div class="flex justify-between items-center">
+
+                <div class="font-bold">
+                    SQUARE COUNTRY ELECTORAL COMMISSION
+                </div>
+
+                <div class="text-sm">
+                    ELECTION NIGHT CONTROL
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="max-w-6xl mx-auto px-5 py-6">
+
+        <div class="flex justify-between items-end">
+
+            <div>
+
+                <div class="text-xs uppercase tracking-widest
+                            font-bold text-orangeDark">
+                    2026 General Election
+                </div>
+
+                <h1 class="text-3xl font-extrabold mt-1">
+                    Election Night Control
+                </h1>
+
+                <p class="text-gray-500 mt-2">
+                    Control the progressive release of live election results. <strong>Tab must remain open at all times.</strong>
+                </p>
+
+            </div>
+
+            <div
+                id="connectionStatus"
+                class="px-3 py-2 rounded-lg
+                       bg-yellow-100 text-yellow-800
+                       text-sm font-bold"
+            >
+                Connecting...
+            </div>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+<main class="max-w-6xl mx-auto px-5 py-8">
+
+
+    <!-- STATUS -->
+
+    <div class="control-card p-6 mb-6">
+
+        <div class="flex flex-col md:flex-row
+                    md:items-center
+                    md:justify-between
+                    gap-5">
+
+            <div>
+
+                <div class="text-sm text-gray-500">
+                    Current status
+                </div>
+
+                <div
+                    id="runStatus"
+                    class="text-2xl font-extrabold mt-1"
+                >
+                    Stopped
+                </div>
+
+                <div
+                    id="activeElectorate"
+                    class="text-sm text-gray-500 mt-1"
+                >
+                    No electorate currently counting.
+                </div>
+
+            </div>
+
+
+            <div class="flex gap-3">
+
+                <button
+                    id="startButton"
+                    onclick="startElection()"
+                    class="bg-orangeEC hover:bg-orangeDark
+                           text-white font-bold
+                           px-6 py-3 rounded-lg"
+                >
+                    ▶ Start Election
+                </button>
+
+                <button
+                    id="pauseButton"
+                    onclick="pauseElection()"
+                    class="bg-gray-800 hover:bg-gray-900
+                           text-white font-bold
+                           px-6 py-3 rounded-lg
+                           hidden"
+                >
+                    ❚❚ Pause
+                </button>
+
+                <button
+                    onclick="resetElection()"
+                    class="border border-red-300
+                           text-red-700
+                           hover:bg-red-50
+                           font-bold
+                           px-6 py-3 rounded-lg"
+                >
+                    Reset
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- PROGRESS -->
+
+    <div class="control-card p-6 mb-6">
+
+        <div class="flex justify-between items-end">
+
+            <div>
+
+                <div class="text-sm text-gray-500">
+                    Election progress
+                </div>
+
+                <div
+                    id="overallProgressText"
+                    class="text-3xl font-extrabold mt-1"
+                >
+                    0%
+                </div>
+
+            </div>
+
+            <div
+                id="electorateProgressText"
+                class="text-sm text-gray-500"
+            >
+                0 / 13 electorates declared
+            </div>
+
+        </div>
+
+
+        <div class="progress-track mt-4">
+
+            <div
+                id="overallProgressBar"
+                class="progress-fill"
+                style="width:0%"
+            ></div>
+
+        </div>
+
+    </div>
+
+
+    <!-- SETTINGS -->
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-6">
+
+
+        <div class="control-card p-5">
+
+            <label class="text-sm font-bold text-gray-700">
+                Count speed
+            </label>
+
+            <select
+                id="speedSelect"
+                class="w-full border border-gray-300
+                       rounded-lg px-3 py-3 mt-2"
+            >
+
+                <option value="10000" selected>
+                    Slowest — 10 seconds (Default)
+                </option>
+
+                <option value="5000">
+                    Very slow — 5 seconds
+                </option>
+
+                <option value="2500">
+                    Slow — 2.5 seconds
+                </option>
+
+                <option value="1000">
+                    Normal — 1 second
+                </option>
+
+                <option value="500">
+                    Fast — 0.5 seconds
+                </option>
+
+            </select>
+
+            <p class="text-xs text-gray-500 mt-2">
+                How frequently new votes are reported across all electorates.
+            </p>
+
+        </div>
+
+
+        <div class="control-card p-5">
+
+            <label class="text-sm font-bold text-gray-700">
+                Votes per update
+            </label>
+
+            <select
+                id="votesSelect"
+                class="w-full border border-gray-300
+                       rounded-lg px-3 py-3 mt-2"
+            >
+
+                <option value="2500">
+                    2,500 votes
+                </option>
+
+                <option value="5000" selected>
+                    5,000 votes
+                </option>
+
+                <option value="10000">
+                    10,000 votes
+                </option>
+
+                <option value="25000">
+                    25,000 votes
+                </option>
+
+            </select>
+
+            <p class="text-xs text-gray-500 mt-2">
+                Approximate votes added to each candidate in every electorate per update.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- CURRENT COUNT -->
+
+    <div class="control-card p-6 mb-6">
+
+        <h2 class="text-xl font-extrabold">
+            Current count
+        </h2>
+
+        <div
+            id="currentCount"
+            class="mt-5 text-gray-500"
+        >
+            Waiting for election to begin.
+        </div>
+
+    </div>
+
+
+    <!-- ELECTORATES -->
+
+    <div class="control-card p-6">
+
+        <div class="flex justify-between items-center mb-5">
+
+            <h2 class="text-xl font-extrabold">
+                Electorates
+            </h2>
+
+            <span
+                id="electorateCount"
+                class="text-sm text-gray-500"
+            >
+                0 / 13
+            </span>
+
+        </div>
+
+        <div
+            id="electorateList"
+            class="space-y-3"
+        ></div>
+
+    </div>
+
+</main>
+
+
+<script>
+
+/* =========================================================
+   FIREBASE
+========================================================= */
+
+const firebaseConfig = {
+
+    apiKey: "AIzaSyCvx0ARD5thFtytMW1cw54DyG3ojWz-Fsk",
+
+    authDomain:
+        "square-country-election-2026.firebaseapp.com",
+
+    databaseURL:
+        "https://square-country-election-2026-default-rtdb.firebaseio.com",
+
+    projectId:
+        "square-country-election-2026",
+
+    storageBucket:
+        "square-country-election-2026.firebasestorage.app",
+
+    messagingSenderId:
+        "1080044317618",
+
+    appId:
+        "1:1080044317618:web:0b02e177a30bb8c91fd2ab",
+
+    measurementId:
+        "G-T2STD78H74"
+
+};
+
+
+/* =========================================================
+   SETTINGS
+========================================================= */
+
+const ELECTION_PATH = "election2026";
+
+const ELECTORATES = [
+
+    ["western-beaches", "Western Beaches"],
+    ["square-city", "Square City"],
+    ["surish-bridge", "Surish Bridge"],
+    ["masterton-central", "Masterton Central"],
+    ["earlington", "Earlington"],
+    ["new-dublin", "New Dublin"],
+    ["wellingborough", "Wellingborough"],
+    ["ertonmont", "Ertonmont"],
+    ["doncastle", "Doncastle"],
+    ["cunningham", "Cunningham"],
+    ["queenstown", "Queenstown"],
+    ["kingsford", "Kingsford"],
+    ["uma-no-machi", "Uma no machi"]
+
+];
+
+
+const PARTY_IDS = [
+
+    "liberty",
+    "freedoms",
+    "greens",
+    "innovation",
+    "scFirst"
+
+];
+
+
+let db = null;
+
+let finalElectorates = {};
+
+let finalParties = {};
+
+let liveData = {};
+
+let running = false;
+
+let timer = null;
+
+
+/* =========================================================
+   NUMBER
+========================================================= */
+
+function number(value) {
+
+    if (
+        value === null ||
+        value === undefined ||
+        value === ""
+    ) {
+        return 0;
+    }
+
+    const parsed =
+        Number(
+            String(value)
+                .replace(/,/g, "")
+                .trim()
+        );
+
+    return Number.isFinite(parsed)
+        ? parsed
+        : 0;
+
+}
+
+
+/* =========================================================
+   PARTY NORMALISATION
+========================================================= */
+
+function partyId(value) {
+
+    if (!value) return null;
+
+    const v =
+        String(value)
+            .toLowerCase()
+            .trim();
+
+    if (
+        v === "liberty" ||
+        v === "liberty party" ||
+        v === "lib"
+    ) return "liberty";
+
+    if (
+        v === "freedoms" ||
+        v === "freedoms party" ||
+        v === "fre"
+    ) return "freedoms";
+
+    if (
+        v === "green" ||
+        v === "greens" ||
+        v === "green party" ||
+        v === "gre"
+    ) return "greens";
+
+    if (
+        v === "innovation" ||
+        v === "innovation party" ||
+        v === "inn"
+    ) return "innovation";
+
+    if (
+        v === "sc first" ||
+        v === "scfirst" ||
+        v === "scf"
+    ) return "scFirst";
+
+    return value;
+
+}
+
+
+/* =========================================================
+   LOAD FIREBASE
+========================================================= */
+
+function loadFirebase() {
+
+    return new Promise((resolve, reject) => {
+
+        if (
+            window.firebase &&
+            window.firebase.database
+        ) {
+            resolve();
+            return;
+        }
+
+        const app =
+            document.createElement("script");
+
+        app.src =
+            "https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js";
+
+        app.onload = () => {
+
+            const database =
+                document.createElement("script");
+
+            database.src =
+                "https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js";
+
+            database.onload = resolve;
+
+            database.onerror = reject;
+
+            document.head.appendChild(
+                database
+            );
+
+        };
+
+        app.onerror = reject;
+
+        document.head.appendChild(app);
+
+    });
+
+}
+
+
+/* =========================================================
+   EXTRACT FINAL CANDIDATES
+========================================================= */
+
+function extractCandidates(raw) {
+
+    const candidates = [];
+
+    const node =
+        raw?.candidates || {};
+
+    const votesNode =
+        raw?.votes || {};
+
+
+    Object.entries(node)
+        .forEach(([key, value]) => {
+
+            value = value || {};
+
+            let votes =
+                value.votes ??
+                value.voteCount ??
+                value.count;
+
+            if (
+                votes === undefined &&
+                votesNode[key] !== undefined
+            ) {
+                votes =
+                    votesNode[key];
+            }
+
+            candidates.push({
+
+                id: key,
+
+                name:
+                    value.name ||
+                    value.candidate ||
+                    key,
+
+                party:
+                    partyId(
+                        value.party ||
+                        value.partyId ||
+                        "Independent"
+                    ),
+
+                finalVotes:
+                    number(votes)
+
+            });
+
+        });
+
+
+    return candidates;
+
+}
+
+
+/* =========================================================
+   CREATE LIVE ELECTORATE
+========================================================= */
+
+function createLiveElectorate(
+    id,
+    name,
+    final
+) {
+
+    const candidates =
+        extractCandidates(final);
+
+
+    const liveCandidates = {};
+
+
+    candidates.forEach(candidate => {
+
+        liveCandidates[
+            candidate.id
+        ] = {
+
+            name:
+                candidate.name,
+
+            party:
+                candidate.party,
+
+            votes: 0,
+
+            finalVotes:
+                candidate.finalVotes
+
+        };
+
+    });
+
+
+    return {
+
+        name,
+
+        number:
+            ELECTORATES.findIndex(
+                item => item[0] === id
+            ) + 1,
+
+        status: "Awaiting",
+
+        progress: 0,
+
+        totalVotes: 0,
+
+        candidates:
+            liveCandidates
+
+    };
+
+}
+
+
+/* =========================================================
+   INITIALISE LIVE ELECTION
+========================================================= */
+
+async function initialiseLive() {
+
+    const snapshot =
+        await db
+            .ref(ELECTION_PATH)
+            .once("value");
+
+
+    const data =
+        snapshot.val() || {};
+
+
+    finalElectorates =
+        data.electorates || {};
+
+    finalParties =
+        data.parties || {};
+
+
+    liveData = {
+
+        running: false,
+
+        startedAt: null,
+
+        updatedAt: null,
+
+        currentElectorate: null,
+
+        electorateIndex: 0,
+
+        electorates: {},
+
+        parties: {}
+
+    };
+
+
+    ELECTORATES.forEach(
+        ([id, name]) => {
+
+            liveData.electorates[id] =
+                createLiveElectorate(
+                    id,
+                    name,
+                    finalElectorates[id] || {}
+                );
+
+        }
+    );
+
+
+    PARTY_IDS.forEach(id => {
+
+        liveData.parties[id] = {
+
+            name:
+                finalParties[id]?.name ||
+                id,
+
+            abbreviation:
+                finalParties[id]?.abbreviation ||
+                id.slice(0, 3).toUpperCase(),
+
+            partyVote: 0,
+
+            finalPartyVote:
+                number(
+                    finalParties[id]?.partyVote
+                )
+
+        };
+
+    });
+
+
+    await db
+        .ref(`${ELECTION_PATH}/live`)
+        .set(liveData);
+
+
+    render();
+
+}
+
+
+/* =========================================================
+   START
+========================================================= */
+
+async function startElection() {
+
+    if (running) {
+        return;
+    }
+
+
+    if (
+        !Object.keys(liveData).length ||
+        !liveData.electorates
+    ) {
+
+        await initialiseLive();
+
+    }
+
+
+    running = true;
+
+
+    liveData.running = true;
+
+    liveData.finished = false;
+
+    liveData.startedAt =
+        liveData.startedAt ||
+        new Date().toISOString();
+
+
+    await saveLive();
+
+
+    document.getElementById(
+        "startButton"
+    ).classList.add("hidden");
+
+
+    document.getElementById(
+        "pauseButton"
+    ).classList.remove("hidden");
+
+
+    scheduleTick();
+
+}
+
+
+/* =========================================================
+   PAUSE
+========================================================= */
+
+async function pauseElection() {
+
+    running = false;
+
+    clearTimeout(timer);
+
+    timer = null;
+
+    liveData.running = false;
+
+    await saveLive();
+
+    render();
+
+}
+
+
+/* =========================================================
+   SCHEDULE
+========================================================= */
+
+function scheduleTick() {
+
+    clearTimeout(timer);
+
+
+    if (!running) {
+        return;
+    }
+
+
+    const speed =
+        number(
+            document.getElementById(
+                "speedSelect"
+            ).value
+        );
+
+
+    timer =
+        setTimeout(
+            tick,
+            speed
+        );
+
+}
+
+
+/* =========================================================
+   MAIN TICK
+   ALL 13 ELECTORATES UPDATE HERE
+========================================================= */
+
+async function tick() {
+
+    if (!running) {
+        return;
+    }
+
+
+    let allFinished = true;
+
+    let countingCount = 0;
+
+    let declaredCount = 0;
+
+
+    /*
+       UPDATE EVERY ELECTORATE
+       ON THE SAME TICK
+    */
+
+    ELECTORATES.forEach(
+        ([id]) => {
+
+            const electorate =
+                liveData.electorates[id];
+
+
+            if (!electorate) {
+                return;
+            }
+
+
+            /*
+               Already declared electorates
+               don't receive more votes.
+            */
+
+            if (
+                electorate.status ===
+                "Declared"
+            ) {
+
+                declaredCount++;
+
+                return;
+
+            }
+
+
+            /*
+               This electorate is now counting.
+            */
+
+            electorate.status =
+                "Counting";
+
+
+            countingCount++;
+
+
+            /*
+               Count every candidate
+               in this electorate.
+            */
+
+            let finished = true;
+
+
+            Object.values(
+                electorate.candidates || {}
+            ).forEach(candidate => {
+
+                const finalVotes =
+                    number(
+                        candidate.finalVotes
+                    );
+
+
+                const currentVotes =
+                    number(
+                        candidate.votes
+                    );
+
+
+                if (
+                    currentVotes <
+                    finalVotes
+                ) {
+
+                    const remaining =
+                        finalVotes -
+                        currentVotes;
+
+
+                    const requested =
+                        number(
+                            document.getElementById(
+                                "votesSelect"
+                            ).value
+                        );
+
+
+                    /*
+                       Give each candidate a
+                       slightly different count,
+                       just like separate batches
+                       arriving during an election.
+                    */
+
+                    const variation =
+                        0.75 +
+                        Math.random() * 0.5;
+
+
+                    const increment =
+                        Math.min(
+                            remaining,
+                            Math.max(
+                                1,
+                                Math.round(
+                                    requested *
+                                    variation
+                                )
+                            )
+                        );
+
+
+                    candidate.votes +=
+                        increment;
+
+                }
+
+
+                if (
+                    candidate.votes <
+                    finalVotes
+                ) {
+
+                    finished = false;
+
+                }
+
+            });
+
+
+            /*
+               Calculate electorate progress.
+            */
+
+            const candidates =
+                Object.values(
+                    electorate.candidates || {}
+                );
+
+
+            const finalTotal =
+                candidates.reduce(
+                    (sum, candidate) =>
+                        sum +
+                        number(
+                            candidate.finalVotes
+                        ),
+                    0
+                );
+
+
+            const currentTotal =
+                candidates.reduce(
+                    (sum, candidate) =>
+                        sum +
+                        number(
+                            candidate.votes
+                        ),
+                    0
+                );
+
+
+            electorate.totalVotes =
+                currentTotal;
+
+
+            electorate.progress =
+                finalTotal
+                    ? Math.min(
+                        100,
+                        (
+                            currentTotal /
+                            finalTotal
+                        ) * 100
+                    )
+                    : 100;
+
+
+            /*
+               Declare this electorate when
+               all of its votes are released.
+            */
+
+            if (finished) {
+
+                Object.values(
+                    electorate.candidates || {}
+                ).forEach(candidate => {
+
+                    candidate.votes =
+                        candidate.finalVotes;
+
+                });
+
+
+                electorate.totalVotes =
+                    finalTotal;
+
+
+                electorate.progress =
+                    100;
+
+
+                electorate.status =
+                    "Declared";
+
+
+                declaredCount++;
+
+            } else {
+
+                allFinished = false;
+
+            }
+
+        }
+    );
+
+
+    /*
+       If every electorate was already
+       declared, the election is finished.
+    */
+
+    if (
+        ELECTORATES.length ===
+        declaredCount
+    ) {
+
+        await finishElection();
+
+        return;
+
+    }
+
+
+    /*
+       National party vote also updates
+       on every tick.
+    */
+
+    updatePartyVotes();
+
+
+    /*
+       There is no single "current electorate"
+       anymore. All remaining electorates
+       are counting together.
+    */
+
+    const activeNames =
+        ELECTORATES
+            .filter(
+                ([id]) =>
+                    liveData.electorates[id]?.status ===
+                    "Counting"
+            )
+            .map(
+                ([, name]) => name
+            );
+
+
+    liveData.currentElectorate =
+        null;
+
+
+    liveData.electorateIndex =
+        declaredCount;
+
+
+    liveData.updatedAt =
+        new Date().toISOString();
+
+
+    await saveLive();
+
+
+    render();
+
+
+    /*
+       Continue until all 13 are declared.
+    */
+
+    if (!allFinished) {
+
+        scheduleTick();
+
+    } else {
+
+        await finishElection();
+
+    }
+
+}
+
+
+/* =========================================================
+   NATIONAL PARTY VOTES
+========================================================= */
+
+function updatePartyVotes() {
+
+    Object.values(
+        liveData.parties
+    ).forEach(party => {
+
+        const final =
+            number(
+                party.finalPartyVote
+            );
+
+
+        const current =
+            number(
+                party.partyVote
+            );
+
+
+        if (
+            current >= final
+        ) {
+
+            party.partyVote =
+                final;
+
+            return;
+
+        }
+
+
+        const speed =
+            number(
+                document.getElementById(
+                    "votesSelect"
+                ).value
+            );
+
+
+        const increment =
+            Math.min(
+                final - current,
+                Math.round(
+                    speed *
+                    (
+                        0.8 +
+                        Math.random() * 0.4
+                    )
+                )
+            );
+
+
+        party.partyVote =
+            current +
+            increment;
+
+    });
+
+}
+
+
+/* =========================================================
+   SAVE
+========================================================= */
+
+function saveLive() {
+
+    return db
+        .ref(`${ELECTION_PATH}/live`)
+        .set(liveData);
+
+}
+
+
+/* =========================================================
+   FINISH
+========================================================= */
+
+async function finishElection() {
+
+    running = false;
+
+    clearTimeout(timer);
+
+    timer = null;
+
+
+    Object.values(
+        liveData.electorates
+    ).forEach(electorate => {
+
+        Object.values(
+            electorate.candidates || {}
+        ).forEach(candidate => {
+
+            candidate.votes =
+                candidate.finalVotes;
+
+        });
+
+
+        electorate.status =
+            "Declared";
+
+        electorate.progress =
+            100;
+
+        electorate.totalVotes =
+            Object.values(
+                electorate.candidates || {}
+            ).reduce(
+                (sum, candidate) =>
+                    sum +
+                    number(
+                        candidate.votes
+                    ),
+                0
+            );
+
+    });
+
+
+    Object.values(
+        liveData.parties
+    ).forEach(party => {
+
+        party.partyVote =
+            party.finalPartyVote;
+
+    });
+
+
+    liveData.running = false;
+
+    liveData.finished = true;
+
+    liveData.currentElectorate = null;
+
+    liveData.electorateIndex =
+        ELECTORATES.length;
+
+    liveData.updatedAt =
+        new Date().toISOString();
+
+
+    await saveLive();
+
+
+    render();
+
+}
+
+
+/* =========================================================
+   RESET
+========================================================= */
+
+async function resetElection() {
+
+    const confirmed =
+        confirm(
+            "Reset the live election to zero? Your FINAL results will not be changed."
+        );
+
+
+    if (!confirmed) {
+        return;
+    }
+
+
+    running = false;
+
+    clearTimeout(timer);
+
+    timer = null;
+
+
+    await initialiseLive();
+
+
+    document.getElementById(
+        "startButton"
+    ).classList.remove("hidden");
+
+
+    document.getElementById(
+        "pauseButton"
+    ).classList.add("hidden");
+
+
+    render();
+
+}
+
+
+/* =========================================================
+   RENDER
+========================================================= */
+
+function render() {
+
+    renderStatus();
+
+    renderElectorates();
+
+}
+
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+function renderStatus() {
+
+    const all =
+        Object.values(
+            liveData.electorates || {}
+        );
+
+
+    const declared =
+        all.filter(
+            item =>
+                item.status ===
+                "Declared"
+        ).length;
+
+
+    const counting =
+        all.filter(
+            item =>
+                item.status ===
+                "Counting"
+        ).length;
+
+
+    const averageProgress =
+        all.length
+            ? all.reduce(
+                (sum, item) =>
+                    sum +
+                    number(item.progress),
+                0
+            ) / all.length
+            : 0;
+
+
+    document.getElementById(
+        "overallProgressText"
+    ).textContent =
+        `${Math.round(
+            averageProgress
+        )}%`;
+
+
+    document.getElementById(
+        "overallProgressBar"
+    ).style.width =
+        `${averageProgress}%`;
+
+
+    document.getElementById(
+        "electorateProgressText"
+    ).textContent =
+        `${declared} / 13 electorates declared`;
+
+
+    document.getElementById(
+        "electorateCount"
+    ).textContent =
+        `${declared} / 13`;
+
+
+    if (counting > 0) {
+
+        document.getElementById(
+            "activeElectorate"
+        ).textContent =
+            `Counting all ${counting} remaining electorates simultaneously`;
+
+    } else {
+
+        document.getElementById(
+            "activeElectorate"
+        ).textContent =
+            "No electorates currently counting";
+
+    }
+
+
+    document.getElementById(
+        "runStatus"
+    ).textContent =
+        liveData.finished
+            ? "Election complete"
+            : running
+                ? "Counting votes"
+                : liveData.startedAt
+                    ? "Paused"
+                    : "Stopped";
+
+
+    document.getElementById(
+        "connectionStatus"
+    ).textContent =
+        "Firebase connected";
+
+
+    document.getElementById(
+        "connectionStatus"
+    ).className =
+        "px-3 py-2 rounded-lg bg-green-100 text-green-800 text-sm font-bold";
+
+}
+
+
+/* =========================================================
+   ELECTORATES
+========================================================= */
+
+function renderElectorates() {
+
+    const container =
+        document.getElementById(
+            "electorateList"
+        );
+
+
+    if (!container) {
+        return;
+    }
+
+
+    container.innerHTML = "";
+
+
+    ELECTORATES.forEach(
+        ([id, name], index) => {
+
+            const electorate =
+                liveData.electorates?.[id];
+
+
+            if (!electorate) {
+                return;
+            }
+
+
+            const candidates =
+                Object.values(
+                    electorate.candidates || {}
+                )
+                .sort(
+                    (a, b) =>
+                        number(b.votes) -
+                        number(a.votes)
+                );
+
+
+            const leader =
+                candidates[0];
+
+
+            const second =
+                candidates[1];
+
+
+            const margin =
+                leader &&
+                second
+                    ? number(leader.votes) -
+                      number(second.votes)
+                    : 0;
+
+
+            const div =
+                document.createElement("div");
+
+
+            div.className =
+                "border border-gray-200 rounded-xl p-4";
+
+
+            let statusClass =
+                "bg-gray-100 text-gray-600";
+
+
+            if (
+                electorate.status ===
+                "Counting"
+            ) {
+
+                statusClass =
+                    "bg-orange-100 text-orangeDark";
+
+            }
+
+
+            if (
+                electorate.status ===
+                "Declared"
+            ) {
+
+                statusClass =
+                    "bg-green-100 text-green-700";
+
+            }
+
+
+            div.innerHTML = `
+
+                <div class="
+                    flex
+                    justify-between
+                    items-center
+                    gap-3
+                ">
+
+                    <div>
+
+                        <div class="font-bold">
+                            ${name}
+                        </div>
+
+                        <div class="text-xs text-gray-500">
+                            Electorate ${index + 1}
+                        </div>
+
+                    </div>
+
+                    <span class="
+                        text-xs
+                        font-bold
+                        px-2
+                        py-1
+                        rounded-full
+                        ${statusClass}
+                    ">
+                        ${electorate.status}
+                    </span>
+
+                </div>
+
+
+                <div class="mt-4">
+
+                    <div class="
+                        flex
+                        justify-between
+                        text-xs
+                        text-gray-500
+                    ">
+
+                        <span>
+                            ${number(
+                                electorate.totalVotes
+                            ).toLocaleString()}
+                            votes counted
+                        </span>
+
+                        <span>
+                            ${Math.round(
+                                electorate.progress
+                            )}%
+                        </span>
+
+                    </div>
+
+
+                    <div class="progress-track mt-2">
+
+                        <div
+                            class="progress-fill"
+                            style="
+                                width:
+                                ${electorate.progress}%
+                            "
+                        ></div>
+
+                    </div>
+
+                </div>
+
+
+                ${
+                    leader
+                    ? `
+
+                        <div class="mt-4">
+
+                            <div class="text-xs text-gray-500">
+                                ${
+                                    electorate.status === "Declared"
+                                    ? "Elected"
+                                    : "Leading"
+                                }
+                            </div>
+
+                            <div class="font-bold mt-1">
+                                ${leader.name}
+                            </div>
+
+                            <div class="text-sm text-gray-500">
+                                ${number(
+                                    leader.votes
+                                ).toLocaleString()}
+                                votes
+                            </div>
+
+                            ${
+                                second
+                                ? `
+                                    <div class="text-xs text-gray-500 mt-1">
+                                        Margin:
+                                        ${margin.toLocaleString()}
+                                    </div>
+                                `
+                                : ""
+                            }
+
+                        </div>
+
+                    `
+                    : ""
+                }
+
+            `;
+
+
+            container.appendChild(div);
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   CONNECT
+========================================================= */
+
+async function connect() {
+
+    try {
+
+        await loadFirebase();
+
+
+        if (!firebase.apps.length) {
+
+            firebase.initializeApp(
+                firebaseConfig
+            );
+
+        }
+
+
+        db =
+            firebase.database();
+
+
+        /*
+           Read existing live state.
+        */
+
+        const snapshot =
+            await db
+                .ref(`${ELECTION_PATH}/live`)
+                .once("value");
+
+
+        const existing =
+            snapshot.val();
+
+
+        if (
+            existing &&
+            existing.electorates
+        ) {
+
+            liveData =
+                existing;
+
+        } else {
+
+            await initialiseLive();
+
+        }
+
+
+        /*
+           Listen for changes so the control
+           panel stays synchronised.
+        */
+
+        db
+            .ref(`${ELECTION_PATH}/live`)
+            .on(
+                "value",
+                snapshot => {
+
+                    const data =
+                        snapshot.val();
+
+
+                    if (
+                        data &&
+                        data.electorates
+                    ) {
+
+                        liveData =
+                            data;
+
+                    }
+
+
+                    render();
+
+                }
+            );
+
+
+        render();
+
+    } catch (error) {
+
+        console.error(error);
+
+
+        document.getElementById(
+            "connectionStatus"
+        ).textContent =
+            "Firebase error";
+
+
+        document.getElementById(
+            "connectionStatus"
+        ).className =
+            "px-3 py-2 rounded-lg bg-red-100 text-red-800 text-sm font-bold";
+
+    }
+
+}
+
+
+connect();
+
+</script>
+
+</body>
+</html>
