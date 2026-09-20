@@ -96,11 +96,11 @@ class CustomNavbar extends HTMLElement {
           <i data-feather="menu"></i>
         </button>
         <ul id="navMenu">
-          <li><a href="../../../index.html">Home</a></li>
-          <li><a href="../../../about.html">About</a></li>
-          <li><a href="../../../vote/how-to-vote.html">How to Vote</a></li>
-          <li><a href="../../../elections/results.html">Results</a></li>
-          <li><a href="../../../contact.html">Contact</a></li>
+          <li><a href="https://tmitmac.github.io/elections.gov.sc/index.html">Home</a></li>
+          <li><a href="https://tmitmac.github.io/elections.gov.sc/about.html">About</a></li>
+          <li><a href="https://tmitmac.github.io/elections.gov.sc/vote/how-to-vote.html">How to Vote</a></li>
+          <li><a href="https://tmitmac.github.io/elections.gov.sc/elections/results.html">Results</a></li>
+          <li><a href="https://tmitmac.github.io/elections.gov.sc/contact.html">Contact</a></li>
         </ul>
       </nav>
     `;
