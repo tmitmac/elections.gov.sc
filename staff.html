@@ -36,30 +36,44 @@
 
 <main class="flex-1">
 
-  <!-- Header -->
+    <!-- Header -->
   <section class="bg-gradient-to-br from-primary to-secondary text-white">
 
     <div class="max-w-7xl mx-auto px-6 py-14">
 
-      <div class="flex items-center gap-4 mb-5">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
 
-        <div class="w-14 h-14 bg-white/15 rounded-xl flex items-center justify-center">
-          <i data-feather="settings" class="w-7 h-7"></i>
+        <div class="flex items-center gap-4">
+
+          <div class="w-14 h-14 bg-white/15 rounded-xl flex items-center justify-center">
+            <i data-feather="settings" class="w-7 h-7"></i>
+          </div>
+
+          <div>
+            <p class="text-sm font-semibold uppercase tracking-wider opacity-90">
+              Electoral Commission
+            </p>
+
+            <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight">
+              Staff Dashboard
+            </h1>
+          </div>
+
         </div>
 
-        <div>
-          <p class="text-sm font-semibold uppercase tracking-wider opacity-90">
-            Electoral Commission
-          </p>
-
-          <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight">
-            Staff Dashboard
-          </h1>
-        </div>
+        <!-- Log Out Button -->
+        <button
+          type="button"
+          onclick="logout()"
+          class="inline-flex items-center justify-center gap-2 px-5 py-3 bg-white text-orange-600 font-semibold rounded-xl shadow-sm hover:bg-orange-50 transition focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-orange-500"
+        >
+          <i data-feather="log-out" class="w-5 h-5"></i>
+          Log Out
+        </button>
 
       </div>
 
-      <p class="text-lg opacity-95 max-w-2xl">
+      <p class="text-lg opacity-95 max-w-2xl mt-5">
         Internal tools and administrative services for the Square Country
         Electoral Commission.
       </p>
@@ -254,6 +268,17 @@
 
 <script src="components/navbar.js"></script>
 <script src="components/footer.js"></script>
+
+<script>
+  function logout() {
+    if (confirm("Are you sure you want to log out?")) {
+      // Redirect to the staff login page
+      window.location.href = "login.html";
+    }
+  }
+
+  feather.replace();
+</script>
 
 <script>
   feather.replace();
