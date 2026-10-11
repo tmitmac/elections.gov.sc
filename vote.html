@@ -80,8 +80,8 @@
             <li class="px-4 py-2 hover:bg-orange-50 cursor-pointer" data-value="surish bridge">
                 Surish Bridge
             </li>
-            <li class="px-4 py-2 hover:bg-orange-50 cursor-pointer" data-value="masterton">
-                Masterton
+            <li class="px-4 py-2 hover:bg-orange-50 cursor-pointer" data-value="masterton central">
+                Masterton Central
             </li>
             <li class="px-4 py-2 hover:bg-orange-50 cursor-pointer" data-value="earlington">
                 Earlington
@@ -262,29 +262,97 @@
     const electorateCandidates = {
         "western beaches": [
             { value: "trent-mckenzie", label: "Trent McKenzie (Liberty)" },
-            { value: "michael-bennet", label: "Michael Bennet (Freedoms)" }
+            { value: "michael-bennet", label: "Michael Bennet (Freedoms)" },
+            { value: "daniel-aitken", label: "Daniel Aitken (Square Country Greens)" },
+            { value: "linda-crawford", label: "Linda Crawford (Square Country First)" },
+            { value: "jean-wilson", label: "Jean Wilson (Innovation)" },
+            { value: "greg-sowry", label: "Greg Sowry (Independent)" },
         ],
         "square city": [
-            { value: "ryan-parker", label: "Ryan Parker (Liberty)" },
+            { value: "rebecca-lawson", label: "Rebecca Lawson (Liberty)" },
             { value: "daniel-brooks", label: "Daniel Brooks (Freedoms)" },
             { value: "erin-starling", label: "Erin Starling (Square Country Greens)" },
+            { value: "ethan-cole", label: "Ethan Cole (Innovation)" },
+            { value: "nathan-brooks", label: "Nathan Brooks (Square Country First)" },
+            { value: "angelo-menendez", label: "Angelo Menendez (Socialist Credit)" },
+
         ],
         "surish bridge": [
             { value: "norman-chylinksi", label: "Norman Chylinski (Liberty)" },
             { value: "olivia-grant", label: "Olivia Grant (Freedoms)" },
-            { value: "lucas-bennett", label: "Lucas Bennett (Workers Union)" }
+            { value: "amelia-foster", label: "Amelia Foster (Square County Greens)" },
+            { value: "ryan-ellis", label: "Ryan Ellis (Innovation)" },
+            { value: "christoff-ward", label: "Christoff Ward (Square Country First)" },
         ],
-        "masterton": [
-            { value: "james-holloway", label: "James Holloway (Freedoms)" },
-            { value: "lucas-bennett", label: "Lucas Bennett (Workers Union)" }
+        "masterton central": [
+            { value: "andy-foster", label: "Andy Foster (Liberty)" },
+            { value: "david-thornfield", label: "David Thornfield (Freedoms)" },
+            { value: "emily-thornton", label: "Emily Thornton (Square Country Greens)" },
+            { value: "joshua-reid", label: "Joshua Reid (Innovation)" },
+            { value: "matthew-clark", label: "Matthew Clark (Square Country First)" },
         ],
         "earlington": [
-            { value: "james-holloway", label: "James Holloway (Freedoms)" },
-            { value: "lucas-bennett", label: "Lucas Bennett (Workers Union)" }
+            { value: "campbell-craw", label: "Campbell Craw (Liberty)" },
+            { value: "james-hollaway", label: "James Hollaway (Freedoms)" },
+            { value: "william-price", label: "William Price (Square Country Greens)" },
+            { value: "katie-bradshaw", label: "Katie Bradshaw (Innovation)" },
+            { value: "george-stinway", label: "George Stinway (Square Country First)" },
         ],
         "new dublin": [
-            { value: "ryan parker", label: "Ryan Parker (LIB)" },
-            { value: "lucas-bennett", label: "Lucas Bennett (Workers Union)" }
+            { value: "ryan-parker", label: "Ryan Parker (Liberty)" },
+            { value: "arthur-bexley", label: "Arthur Bexley (Freedoms)" },
+            { value: "olivia-martin", label: "Olivia Martin (Square Country Greens)" },
+            { value: "samuel-wright", label: "Samuel Wright (Innovation)" },
+            { value: "alexander-ross", label: "Alexander Ross (Square Country First)" },
+        ],
+        "wellingborough": [
+            { value: "mark-andrews", label: "Mark Andrews (Liberty)" },
+            { value: "daniel-morgan", label: "Arthur Bexley (Freedoms)" },
+            { value: "charlotte-green", label: "Charlotte Green (Square Country Greens)" },
+            { value: "liam-parker", label: "Liam Parker (Innovation)" },
+            { value: "edward-mason", label: "Edward Mason (Square Country First)" },
+        ],
+        "ertonmont": [
+            { value: "jacob-penrose", label: "Jacob Penrose (Liberty)" },
+            { value: "jessica-warren", label: "Jessica Warren (Freedoms)" },
+            { value: "jack-sullivan", label: "Jack Sullivan (Square Country Greens)" },
+            { value: "chloe-richardson", label: "Chloe Richardson (Innovation)" },
+            { value: "thomas-fraser", label: "Thomas Fraser (Square Country First)" },
+        ],
+        "doncastle": [
+            { value: "jonathan-pierce", label: "Ryan Parker (Liberty)" },
+            { value: "sophie-williams", label: "Sophie Williams (Freedoms)" },
+            { value: "henry-dawson", label: "Henry Dawson (Square Country Greens)" },
+            { value: "isabella-moore", label: "Isabella Moore (Innovation)" },
+            { value: "greg-redfern", label: "Greg Redfern (Square Country First)" },
+        ],
+        "cunningham": [
+            { value: "anthony-miller", label: "Anthony Miller (Liberty)" },
+            { value: "anna-corfield", label: "Anna Corfield (Freedoms)" },
+            { value: "olivia-martin", label: "Grace Anderson (Square Country Greens)" },
+            { value: "lucas-bennett", label: "Lucas Bennett (Innovation)" },
+            { value: "nicholas-stone", label: "Nicholas Stone (Square Country First)" },
+        ],
+        "queenstown": [
+            { value: "catherine-hughes", label: "Catherine Hughes (Liberty)" },
+            { value: "david-campbell", label: "David Campbell (Freedoms)" },
+            { value: "emma-fletcher", label: "Emma Fletcher (Square Country Greens)" },
+            { value: "alexander-king", label: "Alexander King (Innovation)" },
+            { value: "james-morrison", label: "James Morrison (Square Country First)" },
+        ],
+        "kingsford": [
+            { value: "hayden-marsh", label: "Hayden Marsh (Liberty)" },
+            { value: "amelia-richardson", label: "Amelia Richardson (Freedoms)" },
+            { value: "benjamin-scott", label: "Benjamin Scott (Square Country Greens)" },
+            { value: "mia-thompson", label: "Mia Thompson (Innovation)" },
+            { value: "peter-morgan", label: "Peter Morgan (Square Country First)" },
+        ],
+        "uma no machi": [
+            { value: "stephen-marshall", label: "Stephen Marshall (Liberty)" },
+            { value: "thomas-reed", label: "Thomas Reed (Freedoms)" },
+            { value: "lily-anderson", label: "Lily Anderson (Square Country Greens)" },
+            { value: "sarah-voss", label: "Sarah Voss (Innovation)" },
+            { value: "richard-coleman", label: "Richard Coleman (Square Country First)" },
         ],
     };
 
@@ -364,6 +432,36 @@
             candidateSelect.appendChild(option);
         });
     }
+</script>
+
+
+<script>
+document.getElementById("votingForm").addEventListener("submit", function (event) {
+    const district = document.getElementById("state").value;
+    const candidate = document.getElementById("electorateCandidate").value;
+    const party = document.getElementById("partyVoteInput").value;
+
+    if (!district) {
+        event.preventDefault();
+        alert("Please select your electoral district.");
+        document.getElementById("stateDropdownBtn").focus();
+        return;
+    }
+
+    if (!candidate) {
+        event.preventDefault();
+        alert("Please select your electorate candidate.");
+        document.getElementById("electorateCandidate").focus();
+        return;
+    }
+
+    if (!party) {
+        event.preventDefault();
+        alert("Please select your party vote.");
+        document.getElementById("partyDropdownBtn").focus();
+        return;
+    }
+});
 </script>
 
 
