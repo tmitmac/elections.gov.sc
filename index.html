@@ -1,186 +1,2024 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Electoral Commission | Square Country</title>
-<link rel="icon" type="image/png" href="favicon/favicon-96x96.png" sizes="96x96" />
-<link rel="icon" type="image/svg+xml" href="favicon/favicon.svg" />
-<link rel="shortcut icon" href="favicon/favicon.ico" />
-<link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png" />
-<link rel="manifest" href="/site.webmanifest" />  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            primary: '#FF7B25',
-            secondary: '#FFA364'
-          }
-        }
-      }
-    }
-  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#ed6a16">
+  <meta name="description" content="The official website of the Square Country Electoral Commission. Find voting information, election results, enrolment information and updates about the 2026 General Election.">
+
+  <title>Square Country Electoral Commission</title>
+
+  <link rel="icon" type="image/png" href="favicon/favicon-96x96.png" sizes="96x96">
+  <link rel="icon" type="image/svg+xml" href="favicon/favicon.svg">
+  <link rel="shortcut icon" href="favicon/favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
+  <link rel="manifest" href="favicon/site.webmanifest">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <script src="https://unpkg.com/feather-icons"></script>
+
+  <style>
+    :root {
+      --orange: #ed6a16;
+      --orange-dark: #c94d08;
+      --orange-light: #fff0e5;
+      --orange-pale: #fff8f2;
+      --ink: #20252d;
+      --muted: #69717d;
+      --line: #e8e9ec;
+      --surface: #ffffff;
+      --background: #f7f8fa;
+      --green: #168354;
+      --radius: 18px;
+      --shadow: 0 12px 36px rgba(28, 35, 45, 0.06);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 100px;
+    }
+
+    body {
+      font-family: "DM Sans", sans-serif;
+      color: var(--ink);
+      background: var(--background);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    button, a {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .container {
+      width: min(1180px, calc(100% - 48px));
+      margin: 0 auto;
+    }
+
+    /* Announcement bar */
+
+    .announcement {
+      background: #242a33;
+      color: white;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .announcement-inner {
+      min-height: 39px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .announcement-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .announcement-dot {
+      width: 7px;
+      height: 7px;
+      background: #ff9b58;
+      border-radius: 50%;
+      box-shadow: 0 0 0 4px rgba(255, 155, 88, 0.14);
+    }
+
+    .announcement a {
+      color: #ffb47e;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .announcement a:hover {
+      color: white;
+    }
+
+    .announcement svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    /* Navigation */
+
+    .navbar {
+      background: rgba(255, 255, 255, 0.97);
+      border-bottom: 1px solid var(--line);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(16px);
+    }
+
+    .nav-inner {
+      min-height: 86px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 28px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      min-width: 260px;
+    }
+
+    .brand-logo {
+      width: 48px;
+      height: 48px;
+      border-radius: 13px;
+      background: var(--orange);
+      color: white;
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+      box-shadow: 0 5px 12px rgba(237, 106, 22, 0.2);
+    }
+
+    .brand-logo svg {
+      width: 27px;
+      height: 27px;
+      stroke-width: 2;
+    }
+
+    .brand-name {
+      font-family: "Manrope", sans-serif;
+      font-size: 14px;
+      line-height: 1.35;
+      font-weight: 800;
+      letter-spacing: -0.35px;
+    }
+
+    .brand-name span {
+      display: block;
+      font-size: 11px;
+      color: var(--muted);
+      font-weight: 600;
+      letter-spacing: 0.7px;
+      text-transform: uppercase;
+      margin-top: 4px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 29px;
+    }
+
+    .nav-links a {
+      font-size: 13px;
+      font-weight: 700;
+      color: #4f5661;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--orange);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .nav-search {
+      display: grid;
+      place-items: center;
+      width: 42px;
+      height: 42px;
+      border: 1px solid var(--line);
+      background: white;
+      color: var(--ink);
+      border-radius: 12px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .nav-search:hover {
+      border-color: var(--orange);
+      color: var(--orange);
+    }
+
+    .nav-search svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .nav-cta {
+      background: var(--orange);
+      color: white;
+      padding: 12px 18px;
+      border-radius: 11px;
+      font-size: 13px;
+      font-weight: 800;
+      transition: 0.2s;
+      white-space: nowrap;
+    }
+
+    .nav-cta:hover {
+      background: var(--orange-dark);
+      transform: translateY(-1px);
+    }
+
+    .menu-toggle {
+      display: none;
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 10px;
+      cursor: pointer;
+      color: var(--ink);
+    }
+
+    .menu-toggle svg {
+      display: block;
+      width: 20px;
+      height: 20px;
+    }
+
+    /* Hero */
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      background: #fce9da;
+      border-bottom: 1px solid #f3dfd0;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      width: 650px;
+      height: 650px;
+      border: 1px solid rgba(222, 94, 18, 0.12);
+      border-radius: 50%;
+      right: -150px;
+      top: -340px;
+      pointer-events: none;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      width: 460px;
+      height: 460px;
+      border: 1px solid rgba(222, 94, 18, 0.12);
+      border-radius: 50%;
+      right: -50px;
+      top: -245px;
+      pointer-events: none;
+    }
+
+    .hero-grid {
+      position: relative;
+      z-index: 1;
+      min-height: 465px;
+      display: grid;
+      grid-template-columns: 1.12fr 0.88fr;
+      align-items: center;
+      gap: 50px;
+      padding-top: 56px;
+      padding-bottom: 56px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--orange-dark);
+      margin-bottom: 22px;
+    }
+
+    .eyebrow-line {
+      display: inline-block;
+      width: 25px;
+      height: 2px;
+      background: var(--orange);
+    }
+
+    .hero h1 {
+      font-family: "Manrope", sans-serif;
+      font-size: clamp(38px, 4.6vw, 60px);
+      font-weight: 800;
+      line-height: 1.09;
+      letter-spacing: -2.7px;
+      max-width: 640px;
+    }
+
+    .hero h1 span {
+      color: var(--orange);
+    }
+
+    .hero-description {
+      max-width: 490px;
+      font-size: 15px;
+      color: #64616a;
+      line-height: 1.85;
+      margin-top: 21px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px;
+      margin-top: 29px;
+    }
+
+    .btn {
+      min-height: 49px;
+      padding: 0 20px;
+      border-radius: 11px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-size: 13px;
+      font-weight: 800;
+      border: 1px solid transparent;
+      transition: 0.2s;
+      cursor: pointer;
+    }
+
+    .btn svg {
+      width: 17px;
+      height: 17px;
+    }
+
+    .btn-primary {
+      background: var(--orange);
+      color: white;
+      box-shadow: 0 6px 15px rgba(237, 106, 22, 0.18);
+    }
+
+    .btn-primary:hover {
+      background: var(--orange-dark);
+      transform: translateY(-2px);
+    }
+
+    .btn-outline {
+      background: rgba(255,255,255,0.65);
+      color: var(--ink);
+      border-color: #ead3c3;
+    }
+
+    .btn-outline:hover {
+      border-color: var(--orange);
+      color: var(--orange-dark);
+      background: white;
+    }
+
+    /* Election feature card */
+
+    .election-card {
+      position: relative;
+      background: white;
+      border-radius: 23px;
+      padding: 29px;
+      box-shadow: 0 25px 70px rgba(113, 66, 37, 0.13);
+      border: 1px solid rgba(255,255,255,0.8);
+    }
+
+    .election-card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 25px;
+    }
+
+    .card-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1.4px;
+      font-weight: 800;
+      color: var(--muted);
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      border-radius: 100px;
+      padding: 7px 10px;
+      background: #e9f7ef;
+      color: #147344;
+      font-size: 10px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .status-pill span {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #20a464;
+    }
+
+    .election-date {
+      font-family: "Manrope", sans-serif;
+      font-size: 34px;
+      font-weight: 800;
+      line-height: 1.2;
+      letter-spacing: -1.3px;
+    }
+
+    .election-date span {
+      color: var(--orange);
+    }
+
+    .election-card-description {
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.8;
+    }
+
+    .election-divider {
+      height: 1px;
+      background: var(--line);
+      margin: 24px 0;
+    }
+
+    .election-detail {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      margin-bottom: 17px;
+    }
+
+    .detail-icon {
+      width: 41px;
+      height: 41px;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      background: var(--orange-light);
+      color: var(--orange-dark);
+      flex-shrink: 0;
+    }
+
+    .detail-icon svg {
+      width: 19px;
+      height: 19px;
+    }
+
+    .detail-text strong {
+      display: block;
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .detail-text span {
+      display: block;
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .election-card-link {
+      margin-top: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      border-radius: 12px;
+      background: #fff4eb;
+      color: var(--orange-dark);
+      padding: 14px 15px;
+      font-size: 12px;
+      font-weight: 800;
+      transition: 0.2s;
+    }
+
+    .election-card-link:hover {
+      background: var(--orange);
+      color: white;
+    }
+
+    .election-card-link svg {
+      width: 17px;
+      height: 17px;
+    }
+
+    /* Trust strip */
+
+    .trust-strip {
+      background: white;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .trust-inner {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      padding: 21px 0;
+      gap: 20px;
+    }
+
+    .trust-item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      color: #505762;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .trust-item svg {
+      width: 20px;
+      height: 20px;
+      color: var(--orange);
+      flex-shrink: 0;
+    }
+
+    /* General sections */
+
+    .section {
+      padding: 76px 0;
+    }
+
+    .section-heading {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 25px;
+      margin-bottom: 31px;
+    }
+
+    .section-kicker {
+      font-size: 10px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1.7px;
+      color: var(--orange-dark);
+      margin-bottom: 10px;
+    }
+
+    .section-heading h2 {
+      font-family: "Manrope", sans-serif;
+      font-size: clamp(26px, 3vw, 35px);
+      line-height: 1.2;
+      letter-spacing: -1.3px;
+      font-weight: 800;
+    }
+
+    .section-heading p {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 10px;
+      max-width: 480px;
+    }
+
+    .text-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--orange-dark);
+      font-size: 12px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .text-link:hover {
+      color: var(--ink);
+    }
+
+    .text-link svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    /* Quick actions */
+
+    .quick-section {
+      padding-top: 67px;
+      padding-bottom: 69px;
+    }
+
+    .quick-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+    }
+
+    .quick-card {
+      position: relative;
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 24px 22px;
+      min-height: 206px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      transition: transform 0.22s, box-shadow 0.22s, border-color 0.22s;
+      overflow: hidden;
+    }
+
+    .quick-card:hover {
+      transform: translateY(-5px);
+      border-color: #f4c4a4;
+      box-shadow: var(--shadow);
+    }
+
+    .quick-icon {
+      display: grid;
+      place-items: center;
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      background: var(--orange-light);
+      color: var(--orange-dark);
+      margin-bottom: 21px;
+    }
+
+    .quick-icon svg {
+      width: 23px;
+      height: 23px;
+    }
+
+    .quick-card h3 {
+      font-family: "Manrope", sans-serif;
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+      margin-bottom: 7px;
+    }
+
+    .quick-card p {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.75;
+      margin-bottom: 19px;
+    }
+
+    .quick-arrow {
+      margin-top: auto;
+      color: var(--orange);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+    }
+
+    .quick-arrow span {
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .quick-arrow svg {
+      width: 17px;
+      height: 17px;
+    }
+
+    /* Election updates */
+
+    .updates-section {
+      background: white;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .updates-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 23px;
+    }
+
+    .featured-update {
+      border-radius: 20px;
+      background: #242a33;
+      color: white;
+      overflow: hidden;
+      min-height: 310px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 32px;
+      position: relative;
+    }
+
+    .featured-update::before {
+      content: "";
+      position: absolute;
+      width: 340px;
+      height: 340px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      right: -70px;
+      top: -140px;
+    }
+
+    .featured-update::after {
+      content: "";
+      position: absolute;
+      width: 240px;
+      height: 240px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      right: -20px;
+      top: -90px;
+    }
+
+    .featured-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .update-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(237, 106, 22, 0.17);
+      color: #ffad78;
+      padding: 7px 10px;
+      border-radius: 7px;
+      font-size: 10px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 17px;
+    }
+
+    .update-tag svg {
+      width: 13px;
+      height: 13px;
+    }
+
+    .featured-update h3 {
+      font-family: "Manrope", sans-serif;
+      font-size: 26px;
+      line-height: 1.3;
+      letter-spacing: -0.8px;
+      max-width: 440px;
+      margin-bottom: 12px;
+    }
+
+    .featured-update p {
+      color: #c6cbd2;
+      font-size: 13px;
+      max-width: 430px;
+      line-height: 1.8;
+      margin-bottom: 22px;
+    }
+
+    .featured-update .text-link {
+      color: #ffad78;
+    }
+
+    .news-list {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 0;
+    }
+
+    .news-item {
+      display: flex;
+      gap: 17px;
+      padding: 20px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .news-item:first-child {
+      padding-top: 3px;
+    }
+
+    .news-item:last-child {
+      border-bottom: 0;
+      padding-bottom: 3px;
+    }
+
+    .news-date {
+      width: 53px;
+      height: 57px;
+      flex-shrink: 0;
+      border-radius: 12px;
+      background: var(--orange-light);
+      color: var(--orange-dark);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .news-date strong {
+      font-family: "Manrope", sans-serif;
+      font-size: 18px;
+      line-height: 1.1;
+      font-weight: 800;
+    }
+
+    .news-date span {
+      font-size: 9px;
+      text-transform: uppercase;
+      font-weight: 800;
+      margin-top: 3px;
+      letter-spacing: 0.6px;
+    }
+
+    .news-content {
+      flex: 1;
+    }
+
+    .news-content .news-category {
+      color: var(--orange-dark);
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .news-content h3 {
+      font-family: "Manrope", sans-serif;
+      font-size: 14px;
+      line-height: 1.5;
+      font-weight: 800;
+      margin: 4px 0 5px;
+    }
+
+    .news-content p {
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.7;
+    }
+
+    /* Information banner */
+
+    .info-banner {
+      background: var(--orange);
+      color: white;
+      border-radius: 22px;
+      padding: 35px 38px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 30px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .info-banner::after {
+      content: "";
+      position: absolute;
+      width: 330px;
+      height: 330px;
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 50%;
+      right: 100px;
+      top: -220px;
+      pointer-events: none;
+    }
+
+    .info-banner-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .info-banner .section-kicker {
+      color: #ffe2cd;
+    }
+
+    .info-banner h2 {
+      font-family: "Manrope", sans-serif;
+      font-size: clamp(24px, 3vw, 32px);
+      font-weight: 800;
+      letter-spacing: -1px;
+      line-height: 1.25;
+    }
+
+    .info-banner p {
+      margin-top: 10px;
+      font-size: 13px;
+      color: #fff0e6;
+      max-width: 580px;
+      line-height: 1.8;
+    }
+
+    .banner-button {
+      position: relative;
+      z-index: 1;
+      flex-shrink: 0;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: white;
+      color: var(--orange-dark);
+      border-radius: 11px;
+      padding: 15px 19px;
+      font-size: 12px;
+      font-weight: 800;
+      transition: 0.2s;
+    }
+
+    .banner-button:hover {
+      background: #fff1e7;
+      transform: translateY(-2px);
+    }
+
+    .banner-button svg {
+      width: 17px;
+      height: 17px;
+    }
+
+    /* Footer */
+
+    .footer {
+      background: #20252d;
+      color: white;
+      padding: 57px 0 0;
+      margin-top: 76px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 0.8fr 0.8fr 0.8fr;
+      gap: 40px;
+      padding-bottom: 45px;
+    }
+
+    .footer .brand-name {
+      color: white;
+    }
+
+    .footer .brand-name span {
+      color: #b5bbc4;
+    }
+
+    .footer-description {
+      max-width: 310px;
+      color: #b5bbc4;
+      font-size: 12px;
+      line-height: 1.9;
+      margin-top: 18px;
+    }
+
+    .footer-column h4 {
+      font-size: 11px;
+      color: #ffad78;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      margin-bottom: 19px;
+    }
+
+    .footer-column a {
+      display: block;
+      color: #c8cdd5;
+      font-size: 12px;
+      margin-bottom: 12px;
+      transition: color 0.2s;
+    }
+
+    .footer-column a:hover {
+      color: white;
+    }
+
+    .footer-bottom {
+      border-top: 1px solid #3a404a;
+      padding: 20px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      color: #aeb5bf;
+      font-size: 11px;
+    }
+
+    .footer-bottom-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .footer-bottom a:hover {
+      color: white;
+    }
+
+    /* Search overlay */
+
+    .search-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      background: rgba(25, 29, 36, 0.65);
+      backdrop-filter: blur(5px);
+      display: none;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 15vh 20px 30px;
+    }
+
+    .search-overlay.open {
+      display: flex;
+    }
+
+    .search-panel {
+      width: min(600px, 100%);
+      background: white;
+      border-radius: 19px;
+      box-shadow: 0 30px 100px rgba(0,0,0,0.25);
+      overflow: hidden;
+      animation: searchEnter 0.2s ease-out;
+    }
+
+    @keyframes searchEnter {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .search-top {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      padding: 20px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .search-top svg {
+      color: var(--orange);
+      width: 21px;
+      height: 21px;
+      flex-shrink: 0;
+    }
+
+    .search-top input {
+      flex: 1;
+      min-width: 0;
+      border: 0;
+      outline: none;
+      font: inherit;
+      font-size: 15px;
+      color: var(--ink);
+    }
+
+    .search-close {
+      border: 0;
+      background: #f1f2f4;
+      width: 32px;
+      height: 32px;
+      display: grid;
+      place-items: center;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .search-close svg {
+      width: 16px;
+      height: 16px;
+      color: var(--ink);
+    }
+
+    .search-body {
+      padding: 22px;
+    }
+
+    .search-body > p {
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 13px;
+    }
+
+    .search-result {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      padding: 12px;
+      margin: 0 -12px;
+      border-radius: 10px;
+      transition: background 0.2s;
+    }
+
+    .search-result:hover {
+      background: var(--orange-pale);
+    }
+
+    .search-result > svg {
+      width: 18px;
+      height: 18px;
+      color: var(--orange);
+      flex-shrink: 0;
+    }
+
+    .search-result strong {
+      display: block;
+      font-size: 13px;
+    }
+
+    .search-result span {
+      display: block;
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .search-hint {
+      border-top: 1px solid var(--line);
+      padding: 12px 20px;
+      color: var(--muted);
+      font-size: 10px;
+    }
+
+    /* Accessibility */
+
+    .skip-link {
+      position: absolute;
+      top: -100px;
+      left: 15px;
+      background: white;
+      color: var(--ink);
+      padding: 12px 18px;
+      border-radius: 8px;
+      z-index: 500;
+    }
+
+    .skip-link:focus {
+      top: 15px;
+    }
+
+    a:focus-visible,
+    button:focus-visible,
+    input:focus-visible {
+      outline: 3px solid #ff9a59;
+      outline-offset: 3px;
+    }
+
+    /* Responsive */
+
+    @media (max-width: 1050px) {
+      .brand {
+        min-width: auto;
+      }
+
+      .nav-links {
+        gap: 17px;
+      }
+
+      .nav-links a {
+        font-size: 12px;
+      }
+
+      .hero-grid {
+        gap: 30px;
+      }
+
+      .quick-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .footer-grid {
+        grid-template-columns: 1.2fr 1fr 1fr;
+      }
+
+      .footer-brand-column {
+        grid-column: 1 / -1;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .container {
+        width: min(100% - 34px, 560px);
+      }
+
+      .announcement-inner {
+        min-height: 43px;
+        justify-content: center;
+        text-align: center;
+      }
+
+      .announcement-left {
+        gap: 9px;
+      }
+
+      .announcement-link {
+        display: none !important;
+      }
+
+      .nav-inner {
+        min-height: 74px;
+        gap: 12px;
+      }
+
+      .brand-logo {
+        width: 43px;
+        height: 43px;
+      }
+
+      .brand-name {
+        font-size: 12px;
+      }
+
+      .brand-name span {
+        font-size: 9px;
+      }
+
+      .nav-actions {
+        margin-left: auto;
+        gap: 8px;
+      }
+
+      .nav-cta {
+        padding: 11px 12px;
+        font-size: 11px;
+      }
+
+      .nav-search {
+        width: 39px;
+        height: 39px;
+      }
+
+      .menu-toggle {
+        display: grid;
+        place-items: center;
+      }
+
+      .nav-links {
+        display: none;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 100%;
+        background: white;
+        border-bottom: 1px solid var(--line);
+        padding: 10px 22px 22px;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        box-shadow: 0 18px 24px rgba(0,0,0,0.05);
+      }
+
+      .nav-links.open {
+        display: flex;
+      }
+
+      .nav-links a {
+        padding: 13px 5px;
+        border-bottom: 1px solid #f0f1f3;
+        font-size: 13px;
+      }
+
+      .nav-links a:last-child {
+        border-bottom: 0;
+      }
+
+      .hero-grid {
+        grid-template-columns: 1fr;
+        padding-top: 48px;
+        padding-bottom: 42px;
+        gap: 37px;
+      }
+
+      .hero h1 {
+        font-size: clamp(39px, 10vw, 53px);
+        letter-spacing: -2px;
+      }
+
+      .hero-description {
+        font-size: 14px;
+      }
+
+      .election-card {
+        padding: 23px;
+      }
+
+      .election-date {
+        font-size: 31px;
+      }
+
+      .trust-inner {
+        grid-template-columns: 1fr;
+        gap: 17px;
+        padding: 22px 0;
+      }
+
+      .trust-item {
+        justify-content: flex-start;
+        font-size: 12px;
+      }
+
+      .section {
+        padding: 54px 0;
+      }
+
+      .quick-section {
+        padding-top: 52px;
+        padding-bottom: 54px;
+      }
+
+      .section-heading {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 14px;
+        margin-bottom: 24px;
+      }
+
+      .section-heading h2 {
+        font-size: 29px;
+      }
+
+      .quick-grid {
+        gap: 12px;
+      }
+
+      .quick-card {
+        padding: 19px 16px;
+        min-height: 220px;
+      }
+
+      .quick-icon {
+        width: 43px;
+        height: 43px;
+        margin-bottom: 16px;
+      }
+
+      .quick-card h3 {
+        font-size: 13px;
+      }
+
+      .quick-card p {
+        font-size: 11px;
+      }
+
+      .updates-grid {
+        grid-template-columns: 1fr;
+        gap: 25px;
+      }
+
+      .featured-update {
+        min-height: 300px;
+        padding: 25px;
+      }
+
+      .featured-update h3 {
+        font-size: 23px;
+      }
+
+      .news-item:first-child {
+        padding-top: 5px;
+      }
+
+      .news-item:last-child {
+        padding-bottom: 5px;
+      }
+
+      .info-banner {
+        padding: 29px 24px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 22px;
+      }
+
+      .banner-button {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .footer {
+        margin-top: 55px;
+        padding-top: 42px;
+      }
+
+      .footer-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 31px 22px;
+      }
+
+      .footer-brand-column {
+        grid-column: 1 / -1;
+      }
+
+      .footer-bottom {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 390px) {
+      .container {
+        width: calc(100% - 28px);
+      }
+
+      .brand {
+        gap: 9px;
+      }
+
+      .brand-name {
+        font-size: 11px;
+      }
+
+      .nav-cta {
+        display: none;
+      }
+
+      .hero-buttons {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .hero-buttons .btn {
+        width: 100%;
+      }
+
+      .quick-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .quick-card {
+        min-height: 190px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
 </head>
 
-<body class="bg-slate-50 text-slate-800">
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
 
-<custom-navbar></custom-navbar>
-
-<!-- Hero -->
-<section class="bg-gradient-to-br from-primary to-secondary text-white">
-  <div class="max-w-7xl mx-auto px-6 py-24 text-center">
-    <h1 class="text-5xl md:text-6xl font-extrabold mb-6 tracking-tight">
-      Square Country Electoral Commission
-    </h1>
-    <p class="text-xl md:text-2xl max-w-3xl mx-auto opacity-95">
-      Protecting democracy through fair, transparent, and trusted elections.
-    </p>
-
-    <div class="mt-10 flex flex-col sm:flex-row justify-center gap-4">
-      <a href="voting.html"
-         class="bg-white text-primary font-bold px-8 py-4 rounded-xl shadow-lg hover:scale-105 transition">
-        How to Vote
-      </a>
-      <a href="elections/results.html"
-         class="border-2 border-white text-white font-bold px-8 py-4 rounded-xl hover:bg-white hover:text-primary transition">
-        View Results
+  <!-- Announcement -->
+  <div class="announcement">
+    <div class="container announcement-inner">
+      <div class="announcement-left">
+        <span class="announcement-dot"></span>
+        <span>Square Country General Election · 17 October 2026</span>
+      </div>
+      <a class="announcement-link" href="elections/2026/election-information.html">
+        Election information
+        <i data-feather="arrow-up-right"></i>
       </a>
     </div>
   </div>
-</section>
 
-<!-- Voting Now Open Alert -->
-<section class="bg-orange-600 text-white">
-  <div class="max-w-7xl mx-auto px-6 py-5">
-    <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
-      <div class="flex items-center gap-4">
-        <div class="bg-white/20 rounded-full p-3 flex-shrink-0">
-          <i data-feather="check-circle" class="w-7 h-7"></i>
+  <!-- Navigation -->
+  <header class="navbar">
+    <div class="container nav-inner">
+
+      <a class="brand" href="index.html" aria-label="Square Country Electoral Commission home">
+        <div class="brand-logo">
+          <i data-feather="check-square"></i>
         </div>
-        <div>
-          <p class="text-xs font-bold uppercase tracking-widest text-orange-100 mb-1">
-            Official Election Notice
+        <div class="brand-name">
+          SQUARE COUNTRY
+          <span>Electoral Commission</span>
+        </div>
+      </a>
+
+      <nav class="nav-links" id="navLinks" aria-label="Main navigation">
+        <a class="active" href="index.html">Home</a>
+        <a href="elections/2026/election-information.html">2026 Election</a>
+        <a href="#voting">Voting information</a>
+        <a href="#updates">News & updates</a>
+        <a href="about.html">About us</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="nav-search" id="openSearch" aria-label="Open search">
+          <i data-feather="search"></i>
+        </button>
+        <a href="voting" class="nav-cta">Voting information</a>
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation" aria-expanded="false">
+          <i data-feather="menu"></i>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- Hero -->
+    <section class="hero" id="election">
+      <div class="container hero-grid">
+
+        <div class="hero-copy">
+          <div class="eyebrow">
+            <span class="eyebrow-line"></span>
+            Your vote. Your future.
+          </div>
+
+          <h1>
+            Every vote<br>
+            shapes <span>our future.</span>
+          </h1>
+
+          <p class="hero-description">
+            Welcome to the Square Country Electoral Commission.
+            We administer free, fair and secure elections, helping every
+            eligible citizen participate in our democracy.
           </p>
-          <h2 class="text-xl md:text-2xl font-extrabold">
-            Voting is now open!
-          </h2>
-          <p class="text-sm md:text-base text-orange-50 mt-1">
-            The 2026 Square Country General Election is underway. Make your
-            voice heard and cast your vote today.
+
+          <div class="hero-buttons">
+            <a href="vote.html" class="btn btn-primary">
+              <i data-feather="check-circle"></i>
+              Cast your vote
+            </a>
+            <a href="live-updates.html" class="btn btn-outline">
+              <i data-feather="calendar"></i>
+              Live Election updates
+            </a>
+          </div>
+        </div>
+
+        <aside class="election-card" aria-label="2026 General Election information">
+          <div class="election-card-top">
+            <span class="card-label">The next general election</span>
+            <span class="status-pill">
+              <span></span>
+              Election 2026
+            </span>
+          </div>
+
+          <div class="election-date">
+            17 <span>October</span><br>
+            2026
+          </div>
+
+          <p class="election-card-description">
+            Square Country goes to the polls. Get informed about the
+            election, understand your voting options and make your voice heard.
           </p>
+
+          <div class="election-divider"></div>
+
+          <div class="election-detail">
+            <div class="detail-icon">
+              <i data-feather="users"></i>
+            </div>
+            <div class="detail-text">
+              <strong>General election</strong>
+              <span>Choose your electorate representative and party</span>
+            </div>
+          </div>
+
+          <div class="election-detail">
+            <div class="detail-icon">
+              <i data-feather="map-pin"></i>
+            </div>
+            <div class="detail-text">
+              <strong>Across Square Country</strong>
+              <span>Electorates throughout the country</span>
+            </div>
+          </div>
+
+          <a href="election-information.html" class="election-card-link">
+            Explore election information
+            <i data-feather="arrow-up-right"></i>
+          </a>
+        </aside>
+
+      </div>
+    </section>
+
+    <!-- Trust strip -->
+    <section class="trust-strip" aria-label="Our commitments">
+      <div class="container trust-inner">
+        <div class="trust-item">
+          <i data-feather="shield-check"></i>
+          Free and fair elections
+        </div>
+        <div class="trust-item">
+          <i data-feather="lock"></i>
+          Secure and confidential voting
+        </div>
+        <div class="trust-item">
+          <i data-feather="users"></i>
+          Democracy for everyone
+        </div>
+      </div>
+    </section>
+
+    <!-- Quick links -->
+    <section class="section quick-section" id="voting">
+      <div class="container">
+
+        <div class="section-heading">
+          <div>
+            <div class="section-kicker">Your democracy starts here</div>
+            <h2>How can we help you?</h2>
+            <p>Everything you need to know about participating in Square Country's elections.</p>
+          </div>
+          <a class="text-link" href="#footer">
+            Explore our website
+            <i data-feather="arrow-right"></i>
+          </a>
+        </div>
+
+        <div class="quick-grid">
+
+          <a href="vote/how-to-vote.html" class="quick-card">
+            <div class="quick-icon">
+              <i data-feather="check-square"></i>
+            </div>
+            <h3>How to vote</h3>
+            <p>Understand the voting process and learn how to cast your vote correctly.</p>
+            <div class="quick-arrow">
+              <span>Voting guide</span>
+              <i data-feather="arrow-up-right"></i>
+            </div>
+          </a>
+
+          <a href="enrolling/enrolment.html" class="quick-card">
+            <div class="quick-icon">
+              <i data-feather="user-check"></i>
+            </div>
+            <h3>Enrol to vote</h3>
+            <p>Find out about voter eligibility, enrolment requirements and updating your details.</p>
+            <div class="quick-arrow">
+              <span>Enrolment information</span>
+              <i data-feather="arrow-up-right"></i>
+            </div>
+          </a>
+
+          <a href="parties.html" class="quick-card">
+            <div class="quick-icon">
+              <i data-feather="flag"></i>
+            </div>
+            <h3>Parties & candidates</h3>
+            <p>Discover registered political parties and the candidates contesting the election.</p>
+            <div class="quick-arrow">
+              <span>Meet the candidates</span>
+              <i data-feather="arrow-up-right"></i>
+            </div>
+          </a>
+
+          <a href="elections/results.html" class="quick-card">
+            <div class="quick-icon">
+              <i data-feather="bar-chart-3"></i>
+            </div>
+            <h3>Previous Election results</h3>
+            <p>Follow the results, explore electorate outcomes and see how Parliament takes shape.</p>
+            <div class="quick-arrow">
+              <span>View results</span>
+              <i data-feather="arrow-up-right"></i>
+            </div>
+          </a>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- News and updates -->
+    <section class="section updates-section" id="updates">
+      <div class="container">
+
+        <div class="section-heading">
+          <div>
+            <div class="section-kicker">From the Commission</div>
+            <h2>Latest news & updates</h2>
+            <p>Stay informed with announcements and important election information.</p>
+          </div>
+          <a href="news.html" class="text-link">
+            All news & updates
+            <i data-feather="arrow-right"></i>
+          </a>
+        </div>
+
+        <div class="updates-grid">
+
+          <article class="featured-update">
+            <div class="featured-content">
+              <div class="update-tag">
+                <i data-feather="bell"></i>
+                Election announcement
+              </div>
+              <h3>Square Country prepares for the 2026 General Election</h3>
+              <p>
+                The 2026 General Election will take place on 17 October.
+                Find out how to prepare, learn about the voting process
+                and make sure you are ready to participate.
+              </p>
+              <a href="election-information.html" class="text-link">
+                Read election information
+                <i data-feather="arrow-up-right"></i>
+              </a>
+            </div>
+          </article>
+
+          <div class="news-list">
+
+            <article class="news-item">
+              <div class="news-date">
+                <strong>12</strong>
+                <span>Oct</span>
+              </div>
+              <div class="news-content">
+                <span class="news-category">Election 2026</span>
+                <h3>General Election preparations and voter information</h3>
+                <p>Information to help voters prepare for election day.</p>
+              </div>
+            </article>
+
+            <article class="news-item">
+              <div class="news-date">
+                <strong>10</strong>
+                <span>Oct</span>
+              </div>
+              <div class="news-content">
+                <span class="news-category">Voter information</span>
+                <h3>Know your electorate and voting options</h3>
+                <p>Learn about electorate representation and the party vote.</p>
+              </div>
+            </article>
+
+            <article class="news-item">
+              <div class="news-date">
+                <strong>08</strong>
+                <span>Oct</span>
+              </div>
+              <div class="news-content">
+                <span class="news-category">Public information</span>
+                <h3>Frequently asked questions about the election</h3>
+                <p>Answers to common questions about taking part in the election.</p>
+              </div>
+            </article>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Public information banner -->
+    <section class="section" id="about">
+      <div class="container">
+        <div class="info-banner">
+          <div class="info-banner-content">
+            <div class="section-kicker">Independent. Impartial. Trusted.</div>
+            <h2>Democracy belongs to all of us.</h2>
+            <p>
+              The Electoral Commission is responsible for administering
+              elections and providing the information citizens need to
+              participate confidently in the democratic process.
+            </p>
+          </div>
+          <a href="about.html" class="banner-button">
+            About the Commission
+            <i data-feather="arrow-up-right"></i>
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer" id="footer">
+    <div class="container">
+
+      <div class="footer-grid">
+
+        <div class="footer-brand-column">
+          <a class="brand" href="index.html">
+            <div class="brand-logo">
+              <i data-feather="check-square"></i>
+            </div>
+            <div class="brand-name">
+              SQUARE COUNTRY
+              <span>Electoral Commission</span>
+            </div>
+          </a>
+          <p class="footer-description">
+            Administering elections and supporting an informed electorate.
+            Working to protect the integrity of the democratic process
+            in Square Country.
+          </p>
+        </div>
+
+        <div class="footer-column">
+          <h4>Voting</h4>
+          <a href="voting.html">How to vote</a>
+          <a href="enrol.html">Enrolment information</a>
+          <a href="parties.html">Parties & candidates</a>
+          <a href="results.html">Election results</a>
+        </div>
+
+        <div class="footer-column">
+          <h4>Information</h4>
+          <a href="news.html">News & updates</a>
+          <a href="electorates.html">Electorates</a>
+          <a href="faq.html">Frequently asked questions</a>
+          <a href="about.html">About the Commission</a>
+        </div>
+
+        <div class="footer-column">
+          <h4>Get in touch</h4>
+          <a href="contact.html">Contact us</a>
+          <a href="accessibility.html">Accessibility</a>
+          <a href="privacy.html">Privacy statement</a>
+          <a href="login.html">Staff portal</a>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <span>© 2026 Square Country Electoral Commission</span>
+        <div class="footer-bottom-links">
+          <a href="privacy.html">Privacy</a>
+          <a href="accessibility.html">Accessibility</a>
+          <a href="contact.html">Contact</a>
         </div>
       </div>
 
-      <a href="vote.html"
-         class="inline-flex items-center justify-center gap-2 bg-white text-orange-800 font-bold px-6 py-3 rounded-xl shadow hover:bg-orange-50 transition whitespace-nowrap">
-        Vote now
-        <i data-feather="arrow-right" class="w-5 h-5"></i>
-      </a>
+    </div>
+  </footer>
+
+  <!-- Search overlay -->
+  <div class="search-overlay" id="searchOverlay" role="dialog" aria-modal="true" aria-label="Website search">
+    <div class="search-panel">
+
+      <div class="search-top">
+        <i data-feather="search"></i>
+        <input type="search" id="siteSearch" placeholder="What are you looking for?" aria-label="Search the website">
+        <button class="search-close" id="closeSearch" aria-label="Close search">
+          <i data-feather="x"></i>
+        </button>
+      </div>
+
+      <div class="search-body">
+        <p>Quick links</p>
+
+        <a class="search-result" href="voting.html" data-search="how to vote voting guide">
+          <i data-feather="check-square"></i>
+          <div>
+            <strong>How to vote</strong>
+            <span>Voting instructions and information</span>
+          </div>
+        </a>
+
+        <a class="search-result" href="enrol.html" data-search="enrol enrolment voter registration">
+          <i data-feather="user-check"></i>
+          <div>
+            <strong>Enrol to vote</strong>
+            <span>Eligibility and enrolment details</span>
+          </div>
+        </a>
+
+        <a class="search-result" href="parties.html" data-search="political parties candidates">
+          <i data-feather="flag"></i>
+          <div>
+            <strong>Parties & candidates</strong>
+            <span>Political parties and election candidates</span>
+          </div>
+        </a>
+
+        <a class="search-result" href="results.html" data-search="election results parliament">
+          <i data-feather="bar-chart-3"></i>
+          <div>
+            <strong>Election results</strong>
+            <span>Election results and electorate outcomes</span>
+          </div>
+        </a>
+
+        <a class="search-result" href="electorates.html" data-search="electorates boundaries representatives">
+          <i data-feather="map"></i>
+          <div>
+            <strong>Electorates</strong>
+            <span>Find information about electorates</span>
+          </div>
+        </a>
+
+        <a class="search-result" href="news.html" data-search="news announcements updates">
+          <i data-feather="file-text"></i>
+          <div>
+            <strong>News & updates</strong>
+            <span>Latest Commission announcements</span>
+          </div>
+        </a>
+      </div>
+
+      <div class="search-hint">
+        Search by topic to find the information you need.
+      </div>
+
     </div>
   </div>
-</section>
 
-<main class="max-w-7xl mx-auto px-6 py-20">
+  <script>
+    // Render Feather icons
+    feather.replace();
 
-  
-  <!-- Key Services -->
-  <section class="grid gap-8 md:grid-cols-3 mb-20">
-    <div class="bg-white rounded-2xl p-8 shadow hover:shadow-xl transition hover:-translate-y-1">
-      <i data-feather="calendar" class="w-12 h-12 text-primary mb-4"></i>
-      <h3 class="text-xl font-bold mb-2">Election Dates</h3>
-      <p class="text-slate-600">
-        Upcoming elections, enrolment deadlines, and important milestones.
-      </p>
-      <a href="elections/dates.html"
-         class="inline-block mt-4 font-semibold text-primary hover:underline">
-        Learn more →
-      </a>
-    </div>
+    // Mobile navigation
+    const menuToggle = document.getElementById("menuToggle");
+    const navLinks = document.getElementById("navLinks");
 
-    <div class="bg-white rounded-2xl p-8 shadow hover:shadow-xl transition hover:-translate-y-1">
-      <i data-feather="check-circle" class="w-12 h-12 text-primary mb-4"></i>
-      <h3 class="text-xl font-bold mb-2">Voter Registration</h3>
-      <p class="text-slate-600">
-        Enrol to vote or check your current registration status online.
-      </p>
-      <a href="enrolling/enrolment.html"
-         class="inline-block mt-4 font-semibold text-primary hover:underline">
-        Register now →
-      </a>
-    </div>
+    menuToggle.addEventListener("click", () => {
+      const isOpen = navLinks.classList.toggle("open");
 
-    <div class="bg-white rounded-2xl p-8 shadow hover:shadow-xl transition hover:-translate-y-1">
-      <i data-feather="bar-chart-2" class="w-12 h-12 text-primary mb-4"></i>
-      <h3 class="text-xl font-bold mb-2">Election Data</h3>
-      <p class="text-slate-600">
-        Access historical results, turnout figures, and voting trends.
-      </p>
-      <a href="elections/results.html"
-         class="inline-block mt-4 font-semibold text-primary hover:underline">
-        View data →
-      </a>
-    </div>
-  </section>
+      menuToggle.setAttribute("aria-expanded", String(isOpen));
+      menuToggle.innerHTML = isOpen
+        ? '<i data-feather="x"></i>'
+        : '<i data-feather="menu"></i>';
 
-  <!-- Latest News -->
-  <section>
-    <h2 class="text-3xl font-extrabold mb-8 text-primary">
-      Latest Updates
-    </h2>
+      feather.replace();
+    });
 
-    <div class="grid md:grid-cols-2 gap-8">
-      <article class="bg-white rounded-xl p-6 shadow hover:shadow-lg transition">
-        <div class="flex items-center gap-3 mb-4">
-          <span class="bg-primary/10 text-primary text-xs font-bold px-3 py-1 rounded-full">
-            Update
-          </span>
-          <span class="text-slate-500 text-sm">15 March 2024</span>
-        </div>
-        <h3 class="text-xl font-bold mb-2">
-          New Voting Centres Announced
-        </h3>
-        <p class="text-slate-600 mb-4">
-          Fifteen additional voting centres will open for the upcoming regional elections.
-        </p>
-        <a href="news/new-voting-centres-announced.html"
-           class="font-semibold text-primary hover:underline">
-          Read more →
-        </a>
-      </article>
+    // Close mobile navigation after selecting a link
+    navLinks.querySelectorAll("a").forEach(link => {
+      link.addEventListener("click", () => {
+        navLinks.classList.remove("open");
+        menuToggle.setAttribute("aria-expanded", "false");
+        menuToggle.innerHTML = '<i data-feather="menu"></i>';
+        feather.replace();
+      });
+    });
 
-      <article class="bg-white rounded-xl p-6 shadow hover:shadow-lg transition">
-        <div class="flex items-center gap-3 mb-4">
-          <span class="bg-primary/10 text-primary text-xs font-bold px-3 py-1 rounded-full">
-            Notice
-          </span>
-          <span class="text-slate-500 text-sm">10 March 2024</span>
-        </div>
-        <h3 class="text-xl font-bold mb-2">
-          Voter ID Requirements Updated
-        </h3>
-        <p class="text-slate-600 mb-4">
-          Changes have been made to acceptable forms of voter identification.
-        </p>
-        <a href="#"
-           class="font-semibold text-primary hover:underline">
-          Read more →
-        </a>
-      </article>
-    </div>
-  </section>
+    // Search overlay
+    const searchOverlay = document.getElementById("searchOverlay");
+    const openSearch = document.getElementById("openSearch");
+    const closeSearch = document.getElementById("closeSearch");
+    const siteSearch = document.getElementById("siteSearch");
+    const searchResults = document.querySelectorAll(".search-result");
 
-</main>
+    function showSearch() {
+      searchOverlay.classList.add("open");
+      document.body.style.overflow = "hidden";
+      siteSearch.value = "";
+      filterSearchResults("");
+      setTimeout(() => siteSearch.focus(), 50);
+    }
 
-<custom-footer></custom-footer>
+    function hideSearch() {
+      searchOverlay.classList.remove("open");
+      document.body.style.overflow = "";
+      openSearch.focus();
+    }
 
-<script src="components/navbar.js"></script>
-<script src="components/footer.js"></script>
-<script>
-  feather.replace();
-</script>
+    function filterSearchResults(query) {
+      const term = query.trim().toLowerCase();
+
+      searchResults.forEach(result => {
+        const searchableText =
+          (result.dataset.search || "") + " " + result.innerText;
+
+        result.style.display =
+          searchableText.toLowerCase().includes(term) ? "flex" : "none";
+      });
+    }
+
+    openSearch.addEventListener("click", showSearch);
+    closeSearch.addEventListener("click", hideSearch);
+
+    siteSearch.addEventListener("input", event => {
+      filterSearchResults(event.target.value);
+    });
+
+    searchOverlay.addEventListener("click", event => {
+      if (event.target === searchOverlay) {
+        hideSearch();
+      }
+    });
+
+    document.addEventListener("keydown", event => {
+      if (event.key === "Escape" && searchOverlay.classList.contains("open")) {
+        hideSearch();
+      }
+    });
+  </script>
 
 </body>
 </html>
