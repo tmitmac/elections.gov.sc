@@ -1,0 +1,1875 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f47721">
+  <meta name="description" content="Explore how the Square Country electoral system works, including electorate votes, party votes and MMP seat allocation.">
+
+  <title>Explore the Voting System | Square Country Electoral Commission</title>
+
+  <link rel="icon" type="image/png" href="favicon/favicon-96x96.png" sizes="96x96">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --orange: #f47721;
+      --orange-dark: #d95e0b;
+      --orange-light: #fff1e6;
+      --navy: #172033;
+      --text: #30394a;
+      --muted: #697386;
+      --border: #e5e7eb;
+      --background: #f7f8fa;
+      --white: #ffffff;
+      --green: #16845b;
+      --shadow: 0 12px 35px rgba(23, 32, 51, 0.07);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 100px;
+    }
+
+    body {
+      font-family: "DM Sans", sans-serif;
+      background: var(--background);
+      color: var(--text);
+      line-height: 1.65;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    .container {
+      width: min(1160px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    /* Navigation */
+
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255, 255, 255, 0.97);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-inner {
+      min-height: 78px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 28px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 230px;
+    }
+
+    .brand-icon {
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      color: white;
+      background: var(--orange);
+      border-radius: 12px;
+      font-size: 20px;
+    }
+
+    .brand-text strong {
+      display: block;
+      color: var(--navy);
+      font-family: "Manrope", sans-serif;
+      font-size: 15px;
+      font-weight: 800;
+      line-height: 1.25;
+    }
+
+    .brand-text span {
+      display: block;
+      color: var(--muted);
+      font-size: 11px;
+      margin-top: 3px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 26px;
+    }
+
+    .nav-links a {
+      color: #4b5563;
+      font-size: 13px;
+      font-weight: 700;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--orange-dark);
+    }
+
+    .nav-links a.active {
+      position: relative;
+    }
+
+    .nav-links a.active::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -29px;
+      height: 3px;
+      background: var(--orange);
+      border-radius: 3px 3px 0 0;
+    }
+
+    .nav-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      padding: 11px 17px;
+      background: var(--orange);
+      color: white;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 800;
+      transition: background 0.2s, transform 0.2s;
+      white-space: nowrap;
+    }
+
+    .nav-cta:hover,
+    .button-primary:hover {
+      background: var(--orange-dark);
+      transform: translateY(-1px);
+    }
+
+    .mobile-menu {
+      display: none;
+      border: 0;
+      background: transparent;
+      color: var(--navy);
+      font-size: 23px;
+      cursor: pointer;
+      padding: 8px;
+    }
+
+    /* Hero */
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: 76px 0 70px;
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      width: 520px;
+      height: 520px;
+      right: -100px;
+      top: -230px;
+      background: radial-gradient(circle, rgba(244, 119, 33, 0.13), transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .hero-grid {
+      position: relative;
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 11px;
+      background: var(--orange-light);
+      color: var(--orange-dark);
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 22px;
+    }
+
+    .hero h1 {
+      font-family: "Manrope", sans-serif;
+      color: var(--navy);
+      font-size: clamp(38px, 5vw, 59px);
+      line-height: 1.1;
+      letter-spacing: -2.5px;
+      margin-bottom: 23px;
+      max-width: 650px;
+    }
+
+    .hero h1 span {
+      color: var(--orange);
+    }
+
+    .hero-copy {
+      max-width: 560px;
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.8;
+      margin-bottom: 30px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 13px;
+    }
+
+    .button-primary,
+    .button-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 48px;
+      padding: 12px 19px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 800;
+      transition: 0.2s;
+    }
+
+    .button-primary {
+      background: var(--orange);
+      color: white;
+    }
+
+    .button-secondary {
+      border: 1px solid var(--border);
+      background: white;
+      color: var(--navy);
+    }
+
+    .button-secondary:hover {
+      border-color: var(--orange);
+      color: var(--orange-dark);
+    }
+
+    .hero-visual {
+      position: relative;
+      padding: 28px;
+      background: #fff9f4;
+      border: 1px solid #f5dfce;
+      border-radius: 20px;
+    }
+
+    .visual-heading {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .visual-heading h3 {
+      font-family: "Manrope", sans-serif;
+      color: var(--navy);
+      font-size: 16px;
+    }
+
+    .visual-heading span {
+      color: var(--orange-dark);
+      font-size: 11px;
+      font-weight: 800;
+      background: white;
+      padding: 6px 9px;
+      border-radius: 6px;
+    }
+
+    .ballot-row {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      padding: 17px;
+      background: white;
+      border: 1px solid #f0e6df;
+      border-radius: 12px;
+      margin-bottom: 12px;
+    }
+
+    .ballot-icon {
+      width: 47px;
+      height: 47px;
+      flex-shrink: 0;
+      display: grid;
+      place-items: center;
+      border-radius: 10px;
+      color: var(--orange-dark);
+      background: var(--orange-light);
+      font-size: 20px;
+    }
+
+    .ballot-row strong {
+      display: block;
+      color: var(--navy);
+      font-size: 14px;
+      margin-bottom: 3px;
+    }
+
+    .ballot-row p {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .ballot-check {
+      margin-left: auto;
+      color: var(--green);
+      font-size: 17px;
+    }
+
+    .visual-note {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      color: #74543c;
+      font-size: 12px;
+      line-height: 1.6;
+      margin-top: 18px;
+    }
+
+    .visual-note i {
+      margin-top: 4px;
+      color: var(--orange);
+    }
+
+    /* Shared section styles */
+
+    section {
+      padding: 76px 0;
+    }
+
+    .section-heading {
+      max-width: 680px;
+      margin-bottom: 38px;
+    }
+
+    .section-label {
+      color: var(--orange-dark);
+      font-size: 11px;
+      text-transform: uppercase;
+      font-weight: 800;
+      letter-spacing: 1.3px;
+      margin-bottom: 11px;
+    }
+
+    .section-heading h2 {
+      color: var(--navy);
+      font-family: "Manrope", sans-serif;
+      font-size: clamp(28px, 3.5vw, 39px);
+      line-height: 1.2;
+      letter-spacing: -1.2px;
+      margin-bottom: 14px;
+    }
+
+    .section-heading p {
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.8;
+    }
+
+    /* How it works */
+
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    .step-card {
+      position: relative;
+      padding: 28px;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .step-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow);
+    }
+
+    .step-number {
+      display: grid;
+      place-items: center;
+      width: 42px;
+      height: 42px;
+      background: var(--orange-light);
+      color: var(--orange-dark);
+      border-radius: 11px;
+      font-family: "Manrope", sans-serif;
+      font-size: 16px;
+      font-weight: 800;
+      margin-bottom: 22px;
+    }
+
+    .step-card h3 {
+      color: var(--navy);
+      font-family: "Manrope", sans-serif;
+      font-size: 18px;
+      margin-bottom: 12px;
+    }
+
+    .step-card p {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.8;
+    }
+
+    .step-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--orange-dark);
+      font-size: 12px;
+      font-weight: 800;
+      margin-top: 22px;
+    }
+
+    /* Interactive simulator */
+
+    .simulator-section {
+      background: #fff;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .simulator-layout {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 30px;
+      align-items: start;
+    }
+
+    .simulator-panel,
+    .result-panel {
+      padding: 30px;
+      border: 1px solid var(--border);
+      border-radius: 15px;
+      background: white;
+    }
+
+    .panel-title {
+      color: var(--navy);
+      font-family: "Manrope", sans-serif;
+      font-size: 19px;
+      margin-bottom: 7px;
+    }
+
+    .panel-description {
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 25px;
+      line-height: 1.7;
+    }
+
+    .vote-input {
+      margin-bottom: 20px;
+    }
+
+    .vote-label {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 9px;
+      color: var(--navy);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .vote-label span {
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    .vote-input input[type="range"] {
+      width: 100%;
+      accent-color: var(--orange);
+      cursor: pointer;
+    }
+
+    .vote-input small {
+      display: block;
+      margin-top: 5px;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .simulator-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 25px;
+    }
+
+    .simulator-actions button {
+      cursor: pointer;
+      border: 0;
+    }
+
+    .result-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 15px;
+      margin-bottom: 22px;
+    }
+
+    .result-top h3 {
+      color: var(--navy);
+      font-family: "Manrope", sans-serif;
+      font-size: 19px;
+    }
+
+    .demo-tag {
+      padding: 5px 8px;
+      background: #fff0e5;
+      color: #b84a06;
+      border-radius: 5px;
+      font-size: 10px;
+      font-weight: 800;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .total-seats {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 17px;
+      border-radius: 10px;
+      background: var(--navy);
+      color: white;
+      margin-bottom: 25px;
+    }
+
+    .total-seats span {
+      font-size: 12px;
+      color: #d1d5db;
+    }
+
+    .total-seats strong {
+      font-family: "Manrope", sans-serif;
+      font-size: 24px;
+    }
+
+    .seat-results {
+      display: flex;
+      flex-direction: column;
+      gap: 17px;
+    }
+
+    .seat-row-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      color: var(--navy);
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .seat-row-head span:last-child {
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    .bar-track {
+      width: 100%;
+      height: 9px;
+      background: #edf0f3;
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    .bar-fill {
+      height: 100%;
+      width: 0;
+      background: var(--orange);
+      border-radius: inherit;
+      transition: width 0.35s ease;
+    }
+
+    .party-fre .bar-fill { background: #3478d4; }
+    .party-lib .bar-fill { background: #d74646; }
+    .party-gre .bar-fill { background: #26975b; }
+    .party-inn .bar-fill { background: #7c61c8; }
+    .party-scf .bar-fill { background: #8a7b52; }
+
+    .result-explanation {
+      margin-top: 24px;
+      padding: 14px;
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.7;
+    }
+
+    .result-explanation i {
+      color: var(--orange-dark);
+      margin-right: 6px;
+    }
+
+    /* Seats explanation */
+
+    .seats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 25px;
+    }
+
+    .info-card {
+      padding: 29px;
+      border: 1px solid var(--border);
+      background: white;
+      border-radius: 14px;
+    }
+
+    .info-icon {
+      display: grid;
+      place-items: center;
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: var(--orange-light);
+      color: var(--orange-dark);
+      font-size: 20px;
+      margin-bottom: 18px;
+    }
+
+    .info-card h3 {
+      color: var(--navy);
+      font-family: "Manrope", sans-serif;
+      font-size: 19px;
+      margin-bottom: 12px;
+    }
+
+    .info-card p {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.8;
+    }
+
+    .info-card ul {
+      list-style: none;
+      margin-top: 17px;
+      display: grid;
+      gap: 11px;
+    }
+
+    .info-card li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      color: #4b5563;
+      font-size: 13px;
+    }
+
+    .info-card li i {
+      color: var(--green);
+      margin-top: 5px;
+      font-size: 11px;
+    }
+
+    /* Threshold */
+
+    .threshold-box {
+      display: grid;
+      grid-template-columns: 0.75fr 1.25fr;
+      gap: 35px;
+      align-items: center;
+      padding: 38px;
+      background: var(--navy);
+      border-radius: 16px;
+      color: white;
+    }
+
+    .threshold-number {
+      font-family: "Manrope", sans-serif;
+      font-size: clamp(50px, 7vw, 76px);
+      font-weight: 800;
+      color: #ffad72;
+      line-height: 1;
+      letter-spacing: -3px;
+    }
+
+    .threshold-number span {
+      display: block;
+      color: #d1d5db;
+      font-family: "DM Sans", sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0;
+      margin-top: 12px;
+    }
+
+    .threshold-copy h3 {
+      font-family: "Manrope", sans-serif;
+      font-size: 23px;
+      margin-bottom: 12px;
+    }
+
+    .threshold-copy p {
+      color: #d1d5db;
+      font-size: 13px;
+      line-height: 1.8;
+    }
+
+    /* FAQ */
+
+    .faq-layout {
+      display: grid;
+      grid-template-columns: 0.7fr 1.3fr;
+      gap: 55px;
+      align-items: start;
+    }
+
+    .faq-intro p {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.8;
+      margin-bottom: 23px;
+    }
+
+    .faq-list {
+      display: grid;
+      gap: 11px;
+    }
+
+    .faq-item {
+      border: 1px solid var(--border);
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .faq-question {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+      width: 100%;
+      border: 0;
+      background: white;
+      padding: 19px 21px;
+      text-align: left;
+      color: var(--navy);
+      font-size: 13px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .faq-question i {
+      color: var(--orange);
+      transition: transform 0.2s;
+    }
+
+    .faq-item.open .faq-question i {
+      transform: rotate(180deg);
+    }
+
+    .faq-answer {
+      display: none;
+      padding: 0 21px 20px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.8;
+    }
+
+    .faq-item.open .faq-answer {
+      display: block;
+    }
+
+    /* CTA */
+
+    .cta-section {
+      padding-top: 0;
+    }
+
+    .cta-box {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 35px;
+      padding: 40px;
+      background: var(--orange);
+      border-radius: 16px;
+      color: white;
+    }
+
+    .cta-box h2 {
+      font-family: "Manrope", sans-serif;
+      font-size: clamp(24px, 3vw, 32px);
+      line-height: 1.25;
+      margin-bottom: 10px;
+    }
+
+    .cta-box p {
+      color: #fff1e6;
+      font-size: 13px;
+      max-width: 590px;
+    }
+
+    .cta-box .button-secondary {
+      border-color: white;
+      flex-shrink: 0;
+    }
+
+    /* Footer */
+
+    footer {
+      background: #141c2c;
+      color: white;
+      padding: 48px 0 24px;
+    }
+
+    .footer-main {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr 1fr;
+      gap: 35px;
+      padding-bottom: 36px;
+    }
+
+    .footer-brand p {
+      color: #aeb7c5;
+      font-size: 12px;
+      line-height: 1.8;
+      max-width: 270px;
+      margin-top: 15px;
+    }
+
+    .footer-column h4 {
+      font-family: "Manrope", sans-serif;
+      font-size: 12px;
+      margin-bottom: 15px;
+    }
+
+    .footer-column a {
+      display: block;
+      color: #aeb7c5;
+      font-size: 12px;
+      margin-bottom: 10px;
+      transition: color 0.2s;
+    }
+
+    .footer-column a:hover {
+      color: #ffad72;
+    }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      padding-top: 22px;
+      border-top: 1px solid #30394a;
+      color: #9ca7b7;
+      font-size: 11px;
+    }
+
+    /* Responsive */
+
+    @media (max-width: 1000px) {
+      .nav-links {
+        gap: 15px;
+      }
+
+      .nav-links a {
+        font-size: 12px;
+      }
+
+      .hero-grid {
+        gap: 35px;
+      }
+
+      .footer-main {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 780px) {
+      .nav-inner {
+        min-height: 70px;
+      }
+
+      .mobile-menu {
+        display: block;
+      }
+
+      .nav-cta {
+        display: none;
+      }
+
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 70px;
+        left: 0;
+        right: 0;
+        padding: 18px 22px 24px;
+        background: white;
+        border-bottom: 1px solid var(--border);
+        box-shadow: 0 15px 25px rgba(23, 32, 51, 0.08);
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+      }
+
+      .nav-links.open {
+        display: flex;
+      }
+
+      .nav-links a {
+        padding: 12px 0;
+        border-bottom: 1px solid #f1f2f4;
+        font-size: 14px;
+      }
+
+      .nav-links a.active::after {
+        display: none;
+      }
+
+      .hero {
+        padding: 55px 0;
+      }
+
+      .hero-grid,
+      .simulator-layout,
+      .faq-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-visual {
+        max-width: 540px;
+      }
+
+      .steps-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .step-card {
+        padding: 24px;
+      }
+
+      .seats-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .threshold-box {
+        grid-template-columns: 1fr;
+        gap: 25px;
+        padding: 29px;
+      }
+
+      .faq-layout {
+        gap: 25px;
+      }
+
+      .cta-box {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 30px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        width: min(100% - 28px, 1160px);
+      }
+
+      .brand {
+        min-width: 0;
+      }
+
+      .brand-text strong {
+        font-size: 13px;
+      }
+
+      .brand-text span {
+        font-size: 10px;
+      }
+
+      .hero h1 {
+        font-size: 39px;
+        letter-spacing: -1.7px;
+      }
+
+      .hero-copy {
+        font-size: 15px;
+      }
+
+      section {
+        padding: 55px 0;
+      }
+
+      .hero-visual,
+      .simulator-panel,
+      .result-panel,
+      .info-card {
+        padding: 22px;
+      }
+
+      .threshold-box {
+        padding: 24px;
+      }
+
+      .footer-main {
+        grid-template-columns: 1fr 1fr;
+        gap: 28px 18px;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <header class="navbar">
+    <div class="container nav-inner">
+      <a href="index.html" class="brand" aria-label="Square Country Electoral Commission homepage">
+        <div class="brand-icon">
+          <i class="fa-solid fa-check-to-slot"></i>
+        </div>
+        <div class="brand-text">
+          <strong>Electoral Commission</strong>
+          <span>Square Country</span>
+        </div>
+      </a>
+
+      <nav class="nav-links" id="navLinks" aria-label="Main navigation">
+        <a href="index.html">Home</a>
+        <a href="election.html">The election</a>
+        <a href="voting.html" class="active">Voting system</a>
+        <a href="parties.html">Parties & candidates</a>
+        <a href="news.html">News & updates</a>
+      </nav>
+
+      <a href="enrol.html" class="nav-cta">
+        Enrol to vote <i class="fa-solid fa-arrow-right"></i>
+      </a>
+
+      <button class="mobile-menu" id="mobileMenu" aria-label="Open navigation" aria-expanded="false">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- Hero -->
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow">
+            <i class="fa-solid fa-book-open"></i>
+            Your guide to voting
+          </div>
+
+          <h1>Two votes.<br><span>One Parliament.</span></h1>
+
+          <p class="hero-copy">
+            Square Country uses a Mixed-Member Proportional electoral system,
+            commonly known as MMP. Learn how your electorate vote and party vote
+            work together to determine the make-up of Parliament.
+          </p>
+
+          <div class="hero-actions">
+            <a href="#how-it-works" class="button-primary">
+              Explore how it works <i class="fa-solid fa-arrow-down"></i>
+            </a>
+            <a href="#simulator" class="button-secondary">
+              <i class="fa-solid fa-chart-simple"></i> Try the simulator
+            </a>
+          </div>
+        </div>
+
+        <div class="hero-visual">
+          <div class="visual-heading">
+            <h3>Your voting paper</h3>
+            <span>2026 GENERAL ELECTION</span>
+          </div>
+
+          <div class="ballot-row">
+            <div class="ballot-icon">
+              <i class="fa-solid fa-user-tie"></i>
+            </div>
+            <div>
+              <strong>1. Electorate vote</strong>
+              <p>Choose the candidate you want to represent your electorate.</p>
+            </div>
+            <i class="fa-solid fa-circle-check ballot-check"></i>
+          </div>
+
+          <div class="ballot-row">
+            <div class="ballot-icon">
+              <i class="fa-solid fa-flag"></i>
+            </div>
+            <div>
+              <strong>2. Party vote</strong>
+              <p>Choose the political party you want represented in Parliament.</p>
+            </div>
+            <i class="fa-solid fa-circle-check ballot-check"></i>
+          </div>
+
+          <div class="visual-note">
+            <i class="fa-solid fa-circle-info"></i>
+            <p>
+              You can vote for a candidate from one party and a different party
+              on your party vote. Your two votes do different jobs.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- How it works -->
+    <section id="how-it-works">
+      <div class="container">
+        <div class="section-heading">
+          <div class="section-label">The basics</div>
+          <h2>How does MMP work?</h2>
+          <p>
+            MMP combines local representation with proportional representation.
+            Here is how your vote moves from the ballot paper to Parliament.
+          </p>
+        </div>
+
+        <div class="steps-grid">
+          <article class="step-card">
+            <div class="step-number">01</div>
+            <h3>Choose your local representative</h3>
+            <p>
+              Your electorate vote is for one candidate in your local electorate.
+              The candidate who receives the most electorate votes wins that
+              electorate seat.
+            </p>
+            <a href="#electorate-vote" class="step-link">
+              About electorate votes <i class="fa-solid fa-arrow-right"></i>
+            </a>
+          </article>
+
+          <article class="step-card">
+            <div class="step-number">02</div>
+            <h3>Choose the party you support</h3>
+            <p>
+              Your party vote helps determine each party's overall share of seats
+              in Parliament. It is the main vote used to calculate proportional
+              representation.
+            </p>
+            <a href="#party-vote" class="step-link">
+              About party votes <i class="fa-solid fa-arrow-right"></i>
+            </a>
+          </article>
+
+          <article class="step-card">
+            <div class="step-number">03</div>
+            <h3>Determine the make-up of Parliament</h3>
+            <p>
+              Electorate winners take their seats, while party-list MPs help bring
+              each party's representation into line with its share of the party
+              vote, subject to the electoral rules.
+            </p>
+            <a href="#seat-allocation" class="step-link">
+              How seats are allocated <i class="fa-solid fa-arrow-right"></i>
+            </a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Simulator -->
+    <section class="simulator-section" id="simulator">
+      <div class="container">
+        <div class="section-heading">
+          <div class="section-label">Have a go</div>
+          <h2>Explore a hypothetical election</h2>
+          <p>
+            Adjust the party-vote percentages below and see an illustrative
+            distribution of 26 parliamentary seats. This is an educational
+            demonstration, not an official forecast or a live election result.
+          </p>
+        </div>
+
+        <div class="simulator-layout">
+          <div class="simulator-panel">
+            <h3 class="panel-title">Party-vote shares</h3>
+            <p class="panel-description">
+              Move the sliders to change the share of the party vote received by
+              each party. The remaining percentage is automatically distributed
+              proportionally among the other parties.
+            </p>
+
+            <div class="vote-input">
+              <label class="vote-label" for="freVote">
+                Freedom (FRE) <span id="freValue">28%</span>
+              </label>
+              <input type="range" id="freVote" min="0" max="100" value="28">
+            </div>
+
+            <div class="vote-input">
+              <label class="vote-label" for="libVote">
+                Liberty (LIB) <span id="libValue">27%</span>
+              </label>
+              <input type="range" id="libVote" min="0" max="100" value="27">
+            </div>
+
+            <div class="vote-input">
+              <label class="vote-label" for="greVote">
+                Green (GRE) <span id="greValue">17%</span>
+              </label>
+              <input type="range" id="greVote" min="0" max="100" value="17">
+            </div>
+
+            <div class="vote-input">
+              <label class="vote-label" for="innVote">
+                Independent (INN) <span id="innValue">15%</span>
+              </label>
+              <input type="range" id="innVote" min="0" max="100" value="15">
+            </div>
+
+            <div class="vote-input">
+              <label class="vote-label" for="scfVote">
+                Square Country First (SCF) <span id="scfValue">13%</span>
+              </label>
+              <input type="range" id="scfVote" min="0" max="100" value="13">
+            </div>
+
+            <div class="simulator-actions">
+              <button class="button-primary" id="resetSimulator">
+                <i class="fa-solid fa-rotate-left"></i> Reset example
+              </button>
+              <button class="button-secondary" id="normaliseVotes">
+                <i class="fa-solid fa-scale-balanced"></i> Balance to 100%
+              </button>
+            </div>
+          </div>
+
+          <div class="result-panel">
+            <div class="result-top">
+              <div>
+                <h3>Illustrative seat allocation</h3>
+                <p class="panel-description" style="margin: 5px 0 0;">
+                  Based on the adjusted party-vote shares
+                </p>
+              </div>
+              <span class="demo-tag">Simulation only</span>
+            </div>
+
+            <div class="total-seats">
+              <span>Illustrative Parliament</span>
+              <strong>26 seats</strong>
+            </div>
+
+            <div class="seat-results" id="seatResults" aria-live="polite">
+              <div class="party-fre">
+                <div class="seat-row-head">
+                  <span>Freedom (FRE)</span>
+                  <span>9 seats · 28%</span>
+                </div>
+                <div class="bar-track"><div class="bar-fill" style="width:28%"></div></div>
+              </div>
+
+              <div class="party-lib">
+                <div class="seat-row-head">
+                  <span>Liberty (LIB)</span>
+                  <span>9 seats · 27%</span>
+                </div>
+                <div class="bar-track"><div class="bar-fill" style="width:27%"></div></div>
+              </div>
+
+              <div class="party-gre">
+                <div class="seat-row-head">
+                  <span>Green (GRE)</span>
+                  <span>6 seats · 17%</span>
+                </div>
+                <div class="bar-track"><div class="bar-fill" style="width:17%"></div></div>
+              </div>
+
+              <div class="party-inn">
+                <div class="seat-row-head">
+                  <span>Independent (INN)</span>
+                  <span>5 seats · 15%</span>
+                </div>
+                <div class="bar-track"><div class="bar-fill" style="width:15%"></div></div>
+              </div>
+
+              <div class="party-scf">
+                <div class="seat-row-head">
+                  <span>Square Country First (SCF)</span>
+                  <span>5 seats · 13%</span>
+                </div>
+                <div class="bar-track"><div class="bar-fill" style="width:13%"></div></div>
+              </div>
+            </div>
+
+            <div class="result-explanation" id="simulatorMessage" aria-live="polite">
+              <i class="fa-solid fa-circle-info"></i>
+              <span>
+                The model uses a simplified proportional calculation. It does
+                not include electorate winners, list-seat adjustments, or the
+                official rules for eligibility and rounding.
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Two votes -->
+    <section>
+      <div class="container">
+        <div class="section-heading">
+          <div class="section-label">Understanding your ballot</div>
+          <h2>Two votes, two different purposes</h2>
+          <p>
+            Both votes matter, but they affect the election in different ways.
+          </p>
+        </div>
+
+        <div class="seats-grid">
+          <article class="info-card" id="electorate-vote">
+            <div class="info-icon">
+              <i class="fa-solid fa-user-tie"></i>
+            </div>
+            <h3>Your electorate vote</h3>
+            <p>
+              This vote determines who represents your local electorate in
+              Parliament. You choose one candidate standing in your electorate.
+            </p>
+            <ul>
+              <li><i class="fa-solid fa-check"></i> Vote for one candidate.</li>
+              <li><i class="fa-solid fa-check"></i> The candidate with the most votes wins the seat.</li>
+              <li><i class="fa-solid fa-check"></i> You can choose a candidate from any party, where they are standing.</li>
+            </ul>
+          </article>
+
+          <article class="info-card" id="party-vote">
+            <div class="info-icon">
+              <i class="fa-solid fa-flag"></i>
+            </div>
+            <h3>Your party vote</h3>
+            <p>
+              This vote indicates which political party you want represented in
+              Parliament. It determines each eligible party's proportional share
+              of seats, subject to the electoral rules.
+            </p>
+            <ul>
+              <li><i class="fa-solid fa-check"></i> Vote for one political party.</li>
+              <li><i class="fa-solid fa-check"></i> Your party vote helps determine the overall balance of Parliament.</li>
+              <li><i class="fa-solid fa-check"></i> You may vote for a different party from your electorate candidate.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Seat allocation -->
+    <section id="seat-allocation" style="padding-top: 0;">
+      <div class="container">
+        <div class="section-heading">
+          <div class="section-label">From votes to seats</div>
+          <h2>How are parliamentary seats allocated?</h2>
+          <p>
+            Parliament combines electorate MPs with party-list MPs. The party
+            vote establishes each eligible party's overall entitlement, while
+            electorate results determine who wins local seats.
+          </p>
+        </div>
+
+        <div class="seats-grid">
+          <article class="info-card">
+            <div class="info-icon">
+              <i class="fa-solid fa-map-location-dot"></i>
+            </div>
+            <h3>Electorate seats</h3>
+            <p>
+              Square Country has 13 electorates. Each electorate elects one
+              representative, giving voters a local MP to represent their area.
+            </p>
+            <ul>
+              <li><i class="fa-solid fa-check"></i> 13 local electorates</li>
+              <li><i class="fa-solid fa-check"></i> One winning candidate per electorate</li>
+              <li><i class="fa-solid fa-check"></i> Local representation in Parliament</li>
+            </ul>
+          </article>
+
+          <article class="info-card">
+            <div class="info-icon">
+              <i class="fa-solid fa-list-ol"></i>
+            </div>
+            <h3>Party-list seats</h3>
+            <p>
+              Party-list MPs help bring a party's total number of MPs into line
+              with its party-vote entitlement. A party's electorate MPs count
+              towards that entitlement.
+            </p>
+            <ul>
+              <li><i class="fa-solid fa-check"></i> Seats are allocated using the party vote</li>
+              <li><i class="fa-solid fa-check"></i> Electorate MPs count towards a party's total</li>
+              <li><i class="fa-solid fa-check"></i> List MPs help address the proportional balance</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Threshold -->
+    <section style="padding-top: 0;">
+      <div class="container">
+        <div class="threshold-box">
+          <div class="threshold-number">
+            4%
+            <span>Party-vote threshold</span>
+          </div>
+
+          <div class="threshold-copy">
+            <h3>When can a party qualify for list seats?</h3>
+            <p>
+              Under the electoral rules described for this election, a party
+              generally needs at least 4% of the party vote to qualify for
+              proportional representation through the party-list allocation.
+              An electorate-seat win may provide an alternative route to
+              parliamentary representation. Check the official election rules
+              for the precise eligibility and allocation provisions.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section>
+      <div class="container faq-layout">
+        <div class="faq-intro">
+          <div class="section-label">Frequently asked questions</div>
+          <h2 style="font-family: Manrope, sans-serif; color: var(--navy); font-size: 34px; line-height: 1.2; letter-spacing: -1px; margin-bottom: 15px;">
+            Still have questions?
+          </h2>
+          <p>
+            Find answers to common questions about the voting process and how
+            your choices are counted.
+          </p>
+          <a href="contact.html" class="button-secondary">
+            Contact the Commission <i class="fa-solid fa-arrow-right"></i>
+          </a>
+        </div>
+
+        <div class="faq-list">
+          <div class="faq-item open">
+            <button class="faq-question" aria-expanded="true">
+              Can I split my vote between two parties?
+              <i class="fa-solid fa-chevron-down"></i>
+            </button>
+            <div class="faq-answer">
+              Yes. Your electorate vote and party vote are separate. You can
+              support a candidate from one party and give your party vote to
+              another party.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              Does my electorate vote affect the party vote?
+              <i class="fa-solid fa-chevron-down"></i>
+            </button>
+            <div class="faq-answer">
+              No. The votes serve different purposes. Your electorate vote
+              determines the local seat winner, while the party vote is used
+              to calculate the overall proportional allocation of seats.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              What happens if a party wins more electorates than its party-vote share would suggest?
+              <i class="fa-solid fa-chevron-down"></i>
+            </button>
+            <div class="faq-answer">
+              Its electorate MPs retain the seats they have won. Depending on
+              the applicable rules, this can result in an overhang, where
+              Parliament has more seats than the usual allocation.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              Do I have to vote for a political party?
+              <i class="fa-solid fa-chevron-down"></i>
+            </button>
+            <div class="faq-answer">
+              You can make your choices independently. Follow the instructions
+              on the official voting paper and the Electoral Commission's
+              guidance for casting a valid ballot.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              Is the simulator an official election prediction?
+              <i class="fa-solid fa-chevron-down"></i>
+            </button>
+            <div class="faq-answer">
+              No. It is an educational illustration of proportional seat
+              allocation. It does not use live votes or reproduce every rule
+              used to determine official election results.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Call to action -->
+    <section class="cta-section">
+      <div class="container">
+        <div class="cta-box">
+          <div>
+            <h2>Ready to take part in the election?</h2>
+            <p>
+              Find out how to enrol, check your voting information and prepare
+              for the Square Country General Election on 17 October 2026.
+            </p>
+          </div>
+          <a href="enrol.html" class="button-secondary">
+            Find out how to enrol <i class="fa-solid fa-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-main">
+        <div class="footer-brand">
+          <a href="index.html" class="brand">
+            <div class="brand-icon">
+              <i class="fa-solid fa-check-to-slot"></i>
+            </div>
+            <div class="brand-text">
+              <strong style="color: white;">Electoral Commission</strong>
+              <span style="color: #aeb7c5;">Square Country</span>
+            </div>
+          </a>
+          <p>
+            Providing election information and supporting fair, transparent
+            elections for the people of Square Country.
+          </p>
+        </div>
+
+        <div class="footer-column">
+          <h4>Election information</h4>
+          <a href="election.html">The election</a>
+          <a href="voting.html">Voting system</a>
+          <a href="parties.html">Parties & candidates</a>
+          <a href="results.html">Election results</a>
+        </div>
+
+        <div class="footer-column">
+          <h4>Voting</h4>
+          <a href="enrol.html">Enrol to vote</a>
+          <a href="voting.html#electorate-vote">Electorate vote</a>
+          <a href="voting.html#party-vote">Party vote</a>
+          <a href="voting.html#simulator">Voting simulator</a>
+        </div>
+
+        <div class="footer-column">
+          <h4>Commission</h4>
+          <a href="news.html">News & updates</a>
+          <a href="contact.html">Contact us</a>
+          <a href="index.html">Homepage</a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>© 2026 Square Country Electoral Commission</span>
+        <span>Official election information</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile navigation
+    const mobileMenu = document.getElementById("mobileMenu");
+    const navLinks = document.getElementById("navLinks");
+
+    mobileMenu.addEventListener("click", () => {
+      const isOpen = navLinks.classList.toggle("open");
+
+      mobileMenu.setAttribute("aria-expanded", String(isOpen));
+      mobileMenu.setAttribute(
+        "aria-label",
+        isOpen ? "Close navigation" : "Open navigation"
+      );
+
+      mobileMenu.innerHTML = isOpen
+        ? '<i class="fa-solid fa-xmark"></i>'
+        : '<i class="fa-solid fa-bars"></i>';
+    });
+
+    // FAQ accordion
+    document.querySelectorAll(".faq-question").forEach((button) => {
+      button.addEventListener("click", () => {
+        const item = button.closest(".faq-item");
+        const isOpen = item.classList.contains("open");
+
+        item.classList.toggle("open", !isOpen);
+        button.setAttribute("aria-expanded", String(!isOpen));
+      });
+    });
+
+    // Educational party-vote simulator
+    const parties = [
+      {
+        id: "fre",
+        name: "Freedom (FRE)",
+        defaultVote: 28,
+        className: "party-fre"
+      },
+      {
+        id: "lib",
+        name: "Liberty (LIB)",
+        defaultVote: 27,
+        className: "party-lib"
+      },
+      {
+        id: "gre",
+        name: "Green (GRE)",
+        defaultVote: 17,
+        className: "party-gre"
+      },
+      {
+        id: "inn",
+        name: "Independent (INN)",
+        defaultVote: 15,
+        className: "party-inn"
+      },
+      {
+        id: "scf",
+        name: "Square Country First (SCF)",
+        defaultVote: 13,
+        className: "party-scf"
+      }
+    ];
+
+    const totalSeats = 26;
+
+    const inputs = Object.fromEntries(
+      parties.map((party) => [
+        party.id,
+        document.getElementById(`${party.id}Vote`)
+      ])
+    );
+
+    const values = Object.fromEntries(
+      parties.map((party) => [
+        party.id,
+        document.getElementById(`${party.id}Value`)
+      ])
+    );
+
+    const seatResults = document.getElementById("seatResults");
+    const simulatorMessage = document.getElementById("simulatorMessage");
+
+    function getVotes() {
+      return Object.fromEntries(
+        parties.map((party) => [
+          party.id,
+          Number(inputs[party.id].value)
+        ])
+      );
+    }
+
+    function calculateSeats(votes) {
+      const totalVotes = Object.values(votes).reduce(
+        (sum, value) => sum + value,
+        0
+      );
+
+      if (totalVotes <= 0) {
+        return {
+          totalVotes,
+          seats: Object.fromEntries(parties.map((party) => [party.id, 0]))
+        };
+      }
+
+      // Simplified largest-remainder calculation for demonstration only.
+      const quotas = parties.map((party) => {
+        const exact = (votes[party.id] / totalVotes) * totalSeats;
+
+        return {
+          id: party.id,
+          exact,
+          seats: Math.floor(exact),
+          remainder: exact - Math.floor(exact)
+        };
+      });
+
+      let assigned = quotas.reduce((sum, item) => sum + item.seats, 0);
+
+      const rankedRemainders = [...quotas].sort(
+        (a, b) => b.remainder - a.remainder
+      );
+
+      for (let i = 0; assigned < totalSeats; i++, assigned++) {
+        rankedRemainders[i % rankedRemainders.length].seats++;
+      }
+
+      return {
+        totalVotes,
+        seats: Object.fromEntries(
+          quotas.map((item) => [item.id, item.seats])
+        )
+      };
+    }
+
+    function renderSimulator() {
+      const votes = getVotes();
+      const result = calculateSeats(votes);
+
+      parties.forEach((party) => {
+        values[party.id].textContent = `${votes[party.id]}%`;
+      });
+
+      const totalVotes = result.totalVotes;
+
+      seatResults.innerHTML = parties.map((party) => {
+        const voteShare = totalVotes > 0
+          ? (votes[party.id] / totalVotes) * 100
+          : 0;
+
+        const seats = result.seats[party.id];
+
+        return `
+          <div class="${party.className}">
+            <div class="seat-row-head">
+              <span>${party.name}</span>
+              <span>${seats} ${seats === 1 ? "seat" : "seats"} · ${voteShare.toFixed(1)}%</span>
+            </div>
+            <div class="bar-track">
+              <div class="bar-fill" style="width: ${voteShare}%"></div>
+            </div>
+          </div>
+        `;
+      }).join("");
+
+      if (totalVotes === 0) {
+        simulatorMessage.innerHTML = `
+          <i class="fa-solid fa-circle-info"></i>
+          Set at least one party's vote share above zero to see an illustration.
+        `;
+      } else {
+        simulatorMessage.innerHTML = `
+          <i class="fa-solid fa-circle-info"></i>
+          The entries total ${totalVotes}%. For this illustration, the percentages
+          are normalised to the votes entered and distributed across 26 seats using
+          a simplified largest-remainder method. This is not the official MMP
+          allocation: it does not apply the 4% threshold, electorate-seat wins,
+          overhangs or official list-seat rules.
+        `;
+      }
+    }
+
+    parties.forEach((party) => {
+      inputs[party.id].addEventListener("input", renderSimulator);
+    });
+
+    document.getElementById("resetSimulator").addEventListener("click", () => {
+      parties.forEach((party) => {
+        inputs[party.id].value = party.defaultVote;
+      });
+
+      renderSimulator();
+    });
+
+    document.getElementById("normaliseVotes").addEventListener("click", () => {
+      const votes = getVotes();
+      const total = Object.values(votes).reduce((sum, value) => sum + value, 0);
+
+      if (total === 0) {
+        parties.forEach((party) => {
+          inputs[party.id].value = party.defaultVote;
+        });
+
+        renderSimulator();
+        return;
+      }
+
+      // Scale to whole percentages that add to exactly 100.
+      const scaled = parties.map((party) => {
+        const exact = (votes[party.id] / total) * 100;
+
+        return {
+          id: party.id,
+          value: Math.floor(exact),
+          remainder: exact - Math.floor(exact)
+        };
+      });
+
+      let assigned = scaled.reduce((sum, item) => sum + item.value, 0);
+
+      [...scaled]
+        .sort((a, b) => b.remainder - a.remainder)
+        .slice(0, 100 - assigned)
+        .forEach((item) => {
+          scaled.find((entry) => entry.id === item.id).value++;
+        });
+
+      scaled.forEach((item) => {
+        inputs[item.id].value = item.value;
+      });
+
+      renderSimulator();
+    });
+
+    renderSimulator();
+  </script>
+
+</body>
+</html>

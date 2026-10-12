@@ -1,0 +1,2255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#ed6a16">
+  <meta name="description" content="Explore the political parties and electorate candidates contesting the 2026 Square Country General Election.">
+  <title>Parties & Candidates | Square Country Electoral Commission</title>
+
+  <link rel="icon" type="image/png" href="favicon/favicon-96x96.png" sizes="96x96">
+  <link rel="icon" type="image/svg+xml" href="favicon/favicon.svg">
+  <link rel="shortcut icon" href="favicon/favicon.ico">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/feather-icons"></script>
+
+  <style>
+    :root {
+      --orange: #ed6a16;
+      --orange-dark: #c94d08;
+      --orange-light: #fff0e5;
+      --orange-pale: #fff8f2;
+      --ink: #20252d;
+      --muted: #69717d;
+      --line: #e8e9ec;
+      --background: #f7f8fa;
+      --white: #fff;
+      --radius: 17px;
+      --shadow: 0 12px 36px rgba(28,35,45,.06);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 105px;
+    }
+
+    body {
+      font-family: "DM Sans", sans-serif;
+      background: var(--background);
+      color: var(--ink);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { text-decoration: none; color: inherit; }
+    button, input, select { font: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+
+    .container {
+      width: min(1180px, calc(100% - 48px));
+      margin: auto;
+    }
+
+    .announcement {
+      background: #242a33;
+      color: white;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .announcement-inner {
+      min-height: 39px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .announcement-label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .announcement-dot {
+      width: 7px;
+      height: 7px;
+      background: #ff9b58;
+      border-radius: 50%;
+      box-shadow: 0 0 0 4px rgba(255,155,88,.14);
+    }
+
+    .announcement a { color: #ffb47e; }
+    .announcement a:hover { color: white; }
+
+    /* Navigation */
+
+    .navbar {
+      background: rgba(255,255,255,.97);
+      border-bottom: 1px solid var(--line);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(16px);
+    }
+
+    .nav-inner {
+      min-height: 82px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 25px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+
+    .brand-logo {
+      width: 46px;
+      height: 46px;
+      border-radius: 13px;
+      background: var(--orange);
+      color: white;
+      display: grid;
+      place-items: center;
+      box-shadow: 0 5px 12px rgba(237,106,22,.2);
+    }
+
+    .brand-logo svg { width: 25px; height: 25px; }
+
+    .brand-name {
+      font-family: "Manrope", sans-serif;
+      font-size: 13px;
+      line-height: 1.3;
+      font-weight: 800;
+      letter-spacing: -.3px;
+    }
+
+    .brand-name span {
+      display: block;
+      color: var(--muted);
+      font-size: 10px;
+      letter-spacing: .8px;
+      text-transform: uppercase;
+      margin-top: 4px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 25px;
+    }
+
+    .nav-links a {
+      font-size: 12px;
+      font-weight: 700;
+      color: #515863;
+      transition: color .2s;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active { color: var(--orange); }
+
+    .nav-actions { display: flex; align-items: center; gap: 10px; }
+
+    .search-button, .menu-toggle {
+      width: 40px;
+      height: 40px;
+      border: 1px solid var(--line);
+      border-radius: 11px;
+      background: white;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      color: var(--ink);
+    }
+
+    .search-button:hover { color: var(--orange); border-color: var(--orange); }
+
+    .search-button svg, .menu-toggle svg { width: 18px; height: 18px; }
+
+    .nav-cta {
+      background: var(--orange);
+      color: white;
+      padding: 11px 15px;
+      border-radius: 10px;
+      font-size: 12px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .nav-cta:hover { background: var(--orange-dark); }
+    .menu-toggle { display: none; }
+
+    /* Hero */
+
+    .page-hero {
+      background: #fce9da;
+      border-bottom: 1px solid #f3dfd0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-hero::after {
+      content: "";
+      position: absolute;
+      width: 510px;
+      height: 510px;
+      right: -100px;
+      top: -300px;
+      border: 1px solid rgba(222,94,18,.14);
+      border-radius: 50%;
+      box-shadow: 0 0 0 75px rgba(222,94,18,.025),
+                  0 0 0 150px rgba(222,94,18,.025);
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      padding-top: 55px;
+      padding-bottom: 51px;
+      max-width: 850px;
+    }
+
+    .breadcrumbs {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 9px;
+      font-size: 11px;
+      font-weight: 700;
+      color: #79716b;
+      margin-bottom: 27px;
+    }
+
+    .breadcrumbs a:hover { color: var(--orange-dark); }
+    .breadcrumbs svg { width: 13px; height: 13px; }
+
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      color: var(--orange-dark);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      font-size: 10px;
+      font-weight: 800;
+      margin-bottom: 16px;
+    }
+
+    .eyebrow span {
+      width: 24px;
+      height: 2px;
+      background: var(--orange);
+    }
+
+    h1, h2, h3 { font-family: "Manrope", sans-serif; }
+
+    .hero-inner h1 {
+      font-size: clamp(37px, 5vw, 55px);
+      line-height: 1.12;
+      letter-spacing: -2.2px;
+      font-weight: 800;
+    }
+
+    .hero-inner h1 span { color: var(--orange); }
+
+    .hero-inner > p {
+      color: #66616a;
+      font-size: 14px;
+      line-height: 1.9;
+      max-width: 650px;
+      margin-top: 19px;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 11px;
+      margin-top: 25px;
+    }
+
+    .meta-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,.7);
+      border: 1px solid rgba(222,94,18,.12);
+      border-radius: 9px;
+      padding: 9px 12px;
+      color: #5c5660;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .meta-pill svg { width: 15px; height: 15px; color: var(--orange); }
+
+    /* Main content */
+
+    .main-content { padding: 49px 0 70px; }
+
+    .section-heading {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 20px;
+      margin-bottom: 24px;
+    }
+
+    .section-kicker {
+      color: var(--orange-dark);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      font-size: 10px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .section-heading h2 {
+      font-size: clamp(24px, 3vw, 32px);
+      line-height: 1.25;
+      letter-spacing: -1px;
+      font-weight: 800;
+    }
+
+    .section-heading p {
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 8px;
+      line-height: 1.8;
+    }
+
+    .section-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      color: var(--orange-dark);
+      font-size: 12px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .section-link svg { width: 15px; height: 15px; }
+
+    /* Party cards */
+
+    .party-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 17px;
+    }
+
+    .party-card {
+      --party-color: #ed6a16;
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: transform .2s, box-shadow .2s, border-color .2s;
+      min-width: 0;
+    }
+
+    .party-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow);
+      border-color: #edc6ac;
+    }
+
+    .party-color-bar { height: 5px; background: var(--party-color); }
+
+    .party-card-body { padding: 22px; }
+
+    .party-card-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 19px;
+    }
+
+    .party-monogram {
+      width: 53px;
+      height: 53px;
+      display: grid;
+      place-items: center;
+      border-radius: 15px;
+      color: white;
+      background: var(--party-color);
+      font-family: "Manrope", sans-serif;
+      font-size: 17px;
+      font-weight: 800;
+      letter-spacing: -.5px;
+      flex-shrink: 0;
+    }
+
+    .party-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: #edf8f1;
+      color: #237749;
+      border-radius: 6px;
+      padding: 5px 7px;
+      font-size: 9px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .party-status svg { width: 12px; height: 12px; }
+
+    .party-card h3 {
+      font-size: 17px;
+      font-weight: 800;
+      letter-spacing: -.5px;
+      line-height: 1.4;
+    }
+
+    .party-abbreviation {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--muted);
+      font-weight: 800;
+      margin-top: 5px;
+    }
+
+    .party-description {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.8;
+      margin-top: 13px;
+      min-height: 65px;
+    }
+
+    .party-leader {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      margin-top: 18px;
+      padding: 14px 0;
+    }
+
+    .leader-avatar {
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      background: #f1f2f4;
+      color: #777f89;
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+    }
+
+    .leader-avatar svg { width: 17px; height: 17px; }
+
+    .leader-info span {
+      display: block;
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: .7px;
+      color: var(--muted);
+      font-weight: 800;
+    }
+
+    .leader-info strong {
+      display: block;
+      font-size: 12px;
+      margin-top: 2px;
+    }
+
+    .party-card-actions {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding-top: 16px;
+    }
+
+    .party-detail-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      color: var(--orange-dark);
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .party-detail-link svg { width: 14px; height: 14px; }
+
+    .party-detail-link:hover { color: var(--ink); }
+
+    .party-color-label {
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 600;
+    }
+
+    /* Candidate directory */
+
+    .candidate-section { margin-top: 65px; }
+
+    .candidate-tools {
+      display: grid;
+      grid-template-columns: 1fr 220px 190px;
+      gap: 12px;
+      margin-bottom: 20px;
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 15px;
+      padding: 14px;
+    }
+
+    .field {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #f8f9fa;
+      border: 1px solid #eceef1;
+      border-radius: 10px;
+      padding: 0 12px;
+      min-width: 0;
+    }
+
+    .field svg { width: 17px; height: 17px; color: #89909a; flex-shrink: 0; }
+
+    .field input, .field select {
+      width: 100%;
+      min-width: 0;
+      height: 43px;
+      border: 0;
+      outline: none;
+      background: transparent;
+      color: var(--ink);
+      font-size: 12px;
+    }
+
+    .field select { cursor: pointer; }
+
+    .candidate-count {
+      font-size: 11px;
+      color: var(--muted);
+      margin: 0 0 13px 2px;
+    }
+
+    .candidate-count strong { color: var(--ink); }
+
+    .candidate-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 13px;
+    }
+
+    .candidate-card {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      min-width: 0;
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 18px;
+      transition: border-color .2s, box-shadow .2s;
+    }
+
+    .candidate-card:hover {
+      border-color: #efc2a3;
+      box-shadow: 0 8px 22px rgba(28,35,45,.04);
+    }
+
+    .candidate-initials {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      background: var(--candidate-color, #fff0e5);
+      color: var(--candidate-ink, #c94d08);
+      font-family: "Manrope", sans-serif;
+      font-size: 13px;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+
+    .candidate-info { min-width: 0; flex: 1; }
+
+    .candidate-info h3 {
+      font-size: 13px;
+      font-weight: 800;
+      line-height: 1.5;
+      overflow-wrap: anywhere;
+    }
+
+    .candidate-info p {
+      color: var(--muted);
+      font-size: 11px;
+      margin-top: 3px;
+    }
+
+    .candidate-tags {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    .candidate-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      border-radius: 6px;
+      padding: 4px 7px;
+      background: #f1f3f5;
+      color: #515965;
+      font-size: 9px;
+      font-weight: 800;
+    }
+
+    .candidate-tag.party-tag {
+      background: var(--tag-bg, #fff0e5);
+      color: var(--tag-color, #c94d08);
+    }
+
+    .candidate-tag svg { width: 11px; height: 11px; }
+
+    .candidate-arrow {
+      width: 17px;
+      height: 17px;
+      color: #9aa0a9;
+      flex-shrink: 0;
+    }
+
+    .no-results {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 50px 20px;
+      background: white;
+      border: 1px dashed #d9dce1;
+      border-radius: 15px;
+      color: var(--muted);
+    }
+
+    .no-results svg {
+      width: 30px;
+      height: 30px;
+      color: var(--orange);
+      margin-bottom: 12px;
+    }
+
+    .no-results h3 { color: var(--ink); font-size: 16px; margin-bottom: 5px; }
+    .no-results p { font-size: 12px; }
+
+    /* Voting system explainer */
+
+    .voting-explainer {
+      margin-top: 65px;
+      display: grid;
+      grid-template-columns: .85fr 1.15fr;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background: white;
+    }
+
+    .explainer-copy {
+      background: #252b34;
+      color: white;
+      padding: 32px;
+    }
+
+    .explainer-copy .section-kicker { color: #ffad78; }
+
+    .explainer-copy h2 {
+      font-size: 25px;
+      line-height: 1.3;
+      letter-spacing: -.8px;
+    }
+
+    .explainer-copy p {
+      color: #c5cbd3;
+      font-size: 12px;
+      line-height: 1.9;
+      margin-top: 13px;
+    }
+
+    .explainer-copy a {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #ffad78;
+      font-size: 11px;
+      font-weight: 800;
+      margin-top: 21px;
+    }
+
+    .explainer-copy a svg { width: 15px; height: 15px; }
+
+    .vote-types {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+      align-content: center;
+      padding: 30px;
+    }
+
+    .vote-type-icon {
+      width: 43px;
+      height: 43px;
+      background: var(--orange-light);
+      color: var(--orange-dark);
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 14px;
+    }
+
+    .vote-type-icon svg { width: 21px; height: 21px; }
+
+    .vote-type h3 { font-size: 14px; margin-bottom: 6px; }
+
+    .vote-type p {
+      font-size: 11px;
+      line-height: 1.8;
+      color: var(--muted);
+    }
+
+    /* Footer */
+
+    footer {
+      background: #20252d;
+      color: white;
+      padding-top: 45px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr 1fr;
+      gap: 35px;
+      padding-bottom: 37px;
+    }
+
+    .footer-description {
+      color: #b5bbc4;
+      font-size: 11px;
+      line-height: 1.9;
+      margin-top: 15px;
+      max-width: 300px;
+    }
+
+    .footer-column h4 {
+      color: #ffad78;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-size: 10px;
+      margin-bottom: 15px;
+    }
+
+    .footer-column a {
+      display: block;
+      color: #c8cdd5;
+      font-size: 11px;
+      margin-bottom: 11px;
+    }
+
+    .footer-column a:hover { color: white; }
+
+    .footer-bottom {
+      border-top: 1px solid #3a404a;
+      min-height: 60px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 15px;
+      color: #aeb5bf;
+      font-size: 10px;
+    }
+
+    .footer-bottom-links { display: flex; gap: 18px; flex-wrap: wrap; }
+    .footer-bottom a:hover { color: white; }
+
+    /* Search */
+
+    .search-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      background: rgba(25,29,36,.65);
+      backdrop-filter: blur(5px);
+      display: none;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 15vh 20px 30px;
+    }
+
+    .search-overlay.open { display: flex; }
+
+    .search-panel {
+      width: min(580px, 100%);
+      background: white;
+      border-radius: 17px;
+      overflow: hidden;
+      box-shadow: 0 30px 100px rgba(0,0,0,.25);
+    }
+
+    .search-top {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 17px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .search-top > svg { color: var(--orange); width: 20px; flex-shrink: 0; }
+
+    .search-top input {
+      flex: 1;
+      min-width: 0;
+      border: 0;
+      outline: 0;
+      font-size: 14px;
+    }
+
+    .search-close {
+      border: 0;
+      border-radius: 8px;
+      background: #f1f2f4;
+      width: 32px;
+      height: 32px;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+    }
+
+    .search-close svg { width: 16px; height: 16px; }
+
+    .search-body { padding: 18px; }
+    .search-body > p { font-size: 10px; font-weight: 800; color: var(--muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
+
+    .search-result {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      padding: 11px;
+      border-radius: 9px;
+    }
+
+    .search-result:hover { background: var(--orange-pale); }
+    .search-result > svg { width: 18px; height: 18px; color: var(--orange); }
+    .search-result strong { display: block; font-size: 12px; }
+    .search-result span { display: block; font-size: 10px; color: var(--muted); }
+
+    .search-hint { border-top: 1px solid var(--line); padding: 12px 18px; color: var(--muted); font-size: 10px; }
+
+    .skip-link {
+      position: absolute;
+      left: 12px;
+      top: -100px;
+      z-index: 300;
+      background: white;
+      padding: 12px;
+      border-radius: 8px;
+    }
+
+    .skip-link:focus { top: 12px; }
+
+    :focus-visible { outline: 3px solid #ff9a59; outline-offset: 3px; }
+
+    @media (max-width: 1000px) {
+      .nav-links { gap: 14px; }
+      .nav-links a { font-size: 11px; }
+      .party-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .footer-grid { grid-template-columns: 1.2fr 1fr 1fr; }
+      .footer-brand-column { grid-column: 1 / -1; }
+    }
+
+    @media (max-width: 760px) {
+      .container { width: calc(100% - 34px); }
+      .announcement-inner { justify-content: center; text-align: center; min-height: 42px; }
+      .announcement-inner > a { display: none; }
+
+      .nav-inner { min-height: 72px; gap: 10px; }
+      .brand-logo { width: 42px; height: 42px; }
+      .brand-name { font-size: 11px; }
+      .brand-name span { font-size: 9px; }
+      .nav-actions { margin-left: auto; gap: 7px; }
+      .nav-cta { padding: 10px 11px; font-size: 10px; }
+      .menu-toggle { display: grid; place-items: center; }
+
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        padding: 8px 22px 20px;
+        background: white;
+        border-bottom: 1px solid var(--line);
+        box-shadow: 0 15px 25px rgba(0,0,0,.06);
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+      }
+
+      .nav-links.open { display: flex; }
+      .nav-links a { padding: 12px 4px; border-bottom: 1px solid #f0f1f3; font-size: 12px; }
+      .nav-links a:last-child { border-bottom: 0; }
+
+      .hero-inner { padding-top: 38px; padding-bottom: 39px; }
+      .hero-inner h1 { font-size: 39px; letter-spacing: -1.7px; }
+      .hero-inner > p { font-size: 13px; }
+      .main-content { padding-top: 38px; }
+
+      .section-heading { align-items: flex-start; flex-direction: column; gap: 12px; }
+      .party-grid { gap: 12px; }
+      .party-card-body { padding: 17px; }
+      .party-card h3 { font-size: 15px; }
+      .party-description { font-size: 11px; min-height: 85px; }
+      .party-status { font-size: 8px; }
+      .party-monogram { width: 46px; height: 46px; font-size: 15px; }
+
+      .candidate-section, .voting-explainer { margin-top: 48px; }
+      .candidate-tools { grid-template-columns: 1fr 1fr; }
+      .search-field { grid-column: 1 / -1; }
+      .candidate-list { grid-template-columns: 1fr; }
+
+      .voting-explainer { grid-template-columns: 1fr; }
+      .explainer-copy { padding: 26px; }
+      .vote-types { padding: 25px; gap: 18px; }
+
+      .footer-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 20px; }
+      .footer-brand-column { grid-column: 1 / -1; }
+      .footer-bottom { padding: 17px 0; align-items: flex-start; flex-direction: column; }
+    }
+
+    @media (max-width: 430px) {
+      .container { width: calc(100% - 28px); }
+      .nav-cta { display: none; }
+      .hero-inner h1 { font-size: 35px; }
+      .party-grid { grid-template-columns: 1fr; }
+      .party-description { min-height: 0; }
+      .candidate-tools { grid-template-columns: 1fr; }
+      .search-field { grid-column: auto; }
+      .vote-types { grid-template-columns: 1fr; }
+      .footer-grid { gap: 25px 15px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+        animation-duration: .01ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <div class="announcement">
+    <div class="container announcement-inner">
+      <div class="announcement-label">
+        <span class="announcement-dot"></span>
+        <span>Square Country General Election · 17 October 2026</span>
+      </div>
+      <a href="index.html#election">Election 2026 information →</a>
+    </div>
+  </div>
+
+  <header class="navbar">
+    <div class="container nav-inner">
+      <a class="brand" href="index.html" aria-label="Electoral Commission home">
+        <div class="brand-logo"><i data-feather="check-square"></i></div>
+        <div class="brand-name">
+          SQUARE COUNTRY
+          <span>Electoral Commission</span>
+        </div>
+      </a>
+
+      <nav class="nav-links" id="navLinks" aria-label="Main navigation">
+        <a href="index.html">Home</a>
+        <a href="index.html#election">2026 Election</a>
+        <a href="voting.html">Voting information</a>
+        <a href="parties.html" class="active" aria-current="page">Parties & candidates</a>
+        <a href="news.html">News & updates</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="search-button" id="openSearch" aria-label="Search website">
+          <i data-feather="search"></i>
+        </button>
+        <a class="nav-cta" href="voting.html">How to vote</a>
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation" aria-expanded="false">
+          <i data-feather="menu"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <section class="page-hero">
+      <div class="container hero-inner">
+        <div class="breadcrumbs">
+          <a href="index.html">Home</a>
+          <i data-feather="chevron-right"></i>
+          <span>Parties & candidates</span>
+        </div>
+
+        <div class="eyebrow"><span></span> Election 2026</div>
+        <h1>Meet your parties.<br>Know your <span>candidates.</span></h1>
+        <p>
+          Get to know the political parties and electorate candidates
+          contesting the 2026 Square Country General Election. Explore
+          the choices available to you before you cast your vote.
+        </p>
+
+        <div class="hero-meta">
+          <div class="meta-pill"><i data-feather="calendar"></i> Election day: 17 October 2026</div>
+          <div class="meta-pill"><i data-feather="users"></i> Political parties & electorate candidates</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="container main-content">
+
+      <!-- Political parties -->
+      <section id="parties">
+        <div class="section-heading">
+          <div>
+            <div class="section-kicker">Your party vote</div>
+            <h2>Political parties</h2>
+            <p>Explore the parties participating in the 2026 General Election.</p>
+          </div>
+          <a class="section-link" href="#candidates">
+            Browse candidates <i data-feather="arrow-down"></i>
+          </a>
+        </div>
+
+        <div class="party-grid">
+
+          <article class="party-card" style="--party-color:#c62828">
+            <div class="party-color-bar"></div>
+            <div class="party-card-body">
+              <div class="party-card-top">
+                <div class="party-monogram">FRE</div>
+                <span class="party-status"><i data-feather="check-circle"></i> Registered party</span>
+              </div>
+              <h3>Freedom</h3>
+              <div class="party-abbreviation">FRE · Freedom Party</div>
+              <p class="party-description">
+                The Freedom Party is one of the political parties contesting
+                the 2026 General Election.
+              </p>
+              <div class="party-leader">
+                <div class="leader-avatar"><i data-feather="user"></i></div>
+                <div class="leader-info">
+                  <span>Party leader</span>
+                  <strong>David Campbell</strong>
+                </div>
+              </div>
+              <div class="party-card-actions">
+                <a href="#candidates" class="party-detail-link" data-party-filter="FRE">
+                  View candidates <i data-feather="arrow-up-right"></i>
+                </a>
+                <span class="party-color-label">FRE</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="party-card" style="--party-color:#7fde21">
+            <div class="party-color-bar"></div>
+            <div class="party-card-body">
+              <div class="party-card-top">
+                <div class="party-monogram">LIB</div>
+                <span class="party-status"><i data-feather="check-circle"></i> Registered party</span>
+              </div>
+              <h3>Liberty</h3>
+              <div class="party-abbreviation">LIB · Liberty Party</div>
+              <p class="party-description">
+                The Liberty Party is contesting the election for electorate
+                representation and party-vote support.
+              </p>
+              <div class="party-leader">
+                <div class="leader-avatar"><i data-feather="user"></i></div>
+                <div class="leader-info">
+                  <span>Party leader</span>
+                  <strong>Ryan Parker</strong>
+                </div>
+              </div>
+              <div class="party-card-actions">
+                <a href="#candidates" class="party-detail-link" data-party-filter="LIB">
+                  View candidates <i data-feather="arrow-up-right"></i>
+                </a>
+                <span class="party-color-label">LIB</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="party-card" style="--party-color:#176b3a">
+            <div class="party-color-bar"></div>
+            <div class="party-card-body">
+              <div class="party-card-top">
+                <div class="party-monogram">GRE</div>
+                <span class="party-status"><i data-feather="check-circle"></i> Registered party</span>
+              </div>
+              <h3>Green Party</h3>
+              <div class="party-abbreviation">GRE · Green Party of Square Country</div>
+              <p class="party-description">
+                The Green Party of Square Country is participating in the
+                2026 General Election.
+              </p>
+              <div class="party-leader">
+                <div class="leader-avatar"><i data-feather="user"></i></div>
+                <div class="leader-info">
+                  <span>Party leaders</span>
+                  <strong>Erin Starling & Benjamin Scott</strong>
+                </div>
+              </div>
+              <div class="party-card-actions">
+                <a href="#candidates" class="party-detail-link" data-party-filter="GRE">
+                  View candidates <i data-feather="arrow-up-right"></i>
+                </a>
+                <span class="party-color-label">GRE</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="party-card" style="--party-color:#d5a500">
+            <div class="party-color-bar"></div>
+            <div class="party-card-body">
+              <div class="party-card-top">
+                <div class="party-monogram">INN</div>
+                <span class="party-status"><i data-feather="check-circle"></i> Registered party</span>
+              </div>
+              <h3>Innovation</h3>
+              <div class="party-abbreviation">INN · Innovation</div>
+              <p class="party-description">
+                Innovation is contesting the 2026 General Election as part
+                of Square Country's multiparty democracy.
+              </p>
+              <div class="party-leader">
+                <div class="leader-avatar"><i data-feather="user"></i></div>
+                <div class="leader-info">
+                  <span>Party leader</span>
+                  <strong>Sarah Voss</strong>
+                </div>
+              </div>
+              <div class="party-card-actions">
+                <a href="#candidates" class="party-detail-link" data-party-filter="INN">
+                  View candidates <i data-feather="arrow-up-right"></i>
+                </a>
+                <span class="party-color-label">INN</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="party-card" style="--party-color:#333333">
+            <div class="party-color-bar"></div>
+            <div class="party-card-body">
+              <div class="party-card-top">
+                <div class="party-monogram">SCF</div>
+                <span class="party-status"><i data-feather="check-circle"></i> Registered party</span>
+              </div>
+              <h3>Square Country First</h3>
+              <div class="party-abbreviation">SCF · Square Country First</div>
+              <p class="party-description">
+                Square Country First is contesting the election for
+                representation in Parliament.
+              </p>
+              <div class="party-leader">
+                <div class="leader-avatar"><i data-feather="user"></i></div>
+                <div class="leader-info">
+                  <span>Party leader</span>
+                  <strong>Greg Redfern</strong>
+                </div>
+              </div>
+              <div class="party-card-actions">
+                <a href="#candidates" class="party-detail-link" data-party-filter="SCF">
+                  View candidates <i data-feather="arrow-up-right"></i>
+                </a>
+                <span class="party-color-label">SCF</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="party-card" style="--party-color:#333333">
+            <div class="party-color-bar"></div>
+            <div class="party-card-body">
+              <div class="party-card-top">
+                <div class="party-monogram">AIF</div>
+                <span class="party-status"><i data-feather="check-circle"></i> Registered party</span>
+              </div>
+              <h3>Anti Immigration Front</h3>
+              <div class="party-abbreviation">AIF · Anti Immigration Front</div>
+              <p class="party-description">
+                Square Country First is contesting the election for
+                representation in Parliament.
+              </p>
+              <div class="party-leader">
+                <div class="leader-avatar"><i data-feather="user"></i></div>
+                <div class="leader-info">
+                  <span>Party leader</span>
+                  <strong>Kevyn Bidois</strong>
+                </div>
+              </div>
+              <div class="party-card-actions">
+                <a href="#candidates" class="party-detail-link" data-party-filter="SCF">
+                  View candidates <i data-feather="arrow-up-right"></i>
+                </a>
+                <span class="party-color-label">AIF</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="party-card" style="--party-color:#ff751f">
+            <div class="party-color-bar"></div>
+            <div class="party-card-body">
+              <div class="party-card-top">
+                <div class="party-monogram">NEW</div>
+                <span class="party-status"><i data-feather="check-circle"></i> Registered party</span>
+              </div>
+              <h3>New Democrats</h3>
+              <div class="party-abbreviation">NEW · New Democrats</div>
+              <p class="party-description">
+                Square Country First is contesting the election for
+                representation in Parliament.
+              </p>
+              <div class="party-leader">
+                <div class="leader-avatar"><i data-feather="user"></i></div>
+                <div class="leader-info">
+                  <span>Party leader</span>
+                  <strong>XX</strong>
+                </div>
+              </div>
+              <div class="party-card-actions">
+                <a href="#candidates" class="party-detail-link" data-party-filter="SCF">
+                  View candidates <i data-feather="arrow-up-right"></i>
+                </a>
+                <span class="party-color-label">NEW</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="party-card" style="--party-color:#305cde">
+            <div class="party-color-bar"></div>
+            <div class="party-card-body">
+              <div class="party-card-top">
+                <div class="party-monogram">SJM</div>
+                <span class="party-status"><i data-feather="check-circle"></i> Registered party</span>
+              </div>
+              <h3>Social Justice Movement</h3>
+              <div class="party-abbreviation">SJM · Social Justice Movement</div>
+              <p class="party-description">
+                Square Country First is contesting the election for
+                representation in Parliament.
+              </p>
+              <div class="party-leader">
+                <div class="leader-avatar"><i data-feather="user"></i></div>
+                <div class="leader-info">
+                  <span>Party leader</span>
+                  <strong>XX</strong>
+                </div>
+              </div>
+              <div class="party-card-actions">
+                <a href="#candidates" class="party-detail-link" data-party-filter="SCF">
+                  View candidates <i data-feather="arrow-up-right"></i>
+                </a>
+                <span class="party-color-label">SJM</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="party-card" style="--party-color:#1d9d00">
+            <div class="party-color-bar"></div>
+            <div class="party-card-body">
+              <div class="party-card-top">
+                <div class="party-monogram">RIP</div>
+                <span class="party-status"><i data-feather="check-circle"></i> Registered party</span>
+              </div>
+              <h3>Rural Interests Party</h3>
+              <div class="party-abbreviation">RIP · Rural Interests Party</div>
+              <p class="party-description">
+                Square Country First is contesting the election for
+                representation in Parliament.
+              </p>
+              <div class="party-leader">
+                <div class="leader-avatar"><i data-feather="user"></i></div>
+                <div class="leader-info">
+                  <span>Party leader</span>
+                  <strong>XX</strong>
+                </div>
+              </div>
+              <div class="party-card-actions">
+                <a href="#candidates" class="party-detail-link" data-party-filter="SCF">
+                  View candidates <i data-feather="arrow-up-right"></i>
+                </a>
+                <span class="party-color-label">RIP</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="party-card" style="--party-color:#6c3baa">
+            <div class="party-color-bar"></div>
+            <div class="party-card-body">
+              <div class="party-card-top">
+                <div class="party-monogram">SQM</div>
+                <span class="party-status"><i data-feather="check-circle"></i> Registered party</span>
+              </div>
+              <h3>Square Monarchists</h3>
+              <div class="party-abbreviation">SQM · Square Monarchists</div>
+              <p class="party-description">
+                Square Country First is contesting the election for
+                representation in Parliament.
+              </p>
+              <div class="party-leader">
+                <div class="leader-avatar"><i data-feather="user"></i></div>
+                <div class="leader-info">
+                  <span>Party leader</span>
+                  <strong>XX</strong>
+                </div>
+              </div>
+              <div class="party-card-actions">
+                <a href="#candidates" class="party-detail-link" data-party-filter="SCF">
+                  View candidates <i data-feather="arrow-up-right"></i>
+                </a>
+                <span class="party-color-label">SQM</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="party-card" style="--party-color:#3fffcb">
+            <div class="party-color-bar"></div>
+            <div class="party-card-body">
+              <div class="party-card-top">
+                <div class="party-monogram">TRA</div>
+                <span class="party-status"><i data-feather="check-circle"></i> Registered party</span>
+              </div>
+              <h3>Tax Reform Alliance</h3>
+              <div class="party-abbreviation">TRA · Tax Reform Alliance</div>
+              <p class="party-description">
+                Square Country First is contesting the election for
+                representation in Parliament.
+              </p>
+              <div class="party-leader">
+                <div class="leader-avatar"><i data-feather="user"></i></div>
+                <div class="leader-info">
+                  <span>Party leader</span>
+                  <strong>XX</strong>
+                </div>
+              </div>
+              <div class="party-card-actions">
+                <a href="#candidates" class="party-detail-link" data-party-filter="SCF">
+                  View candidates <i data-feather="arrow-up-right"></i>
+                </a>
+                <span class="party-color-label">TRA</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="party-card" style="--party-color:#e09820">
+            <div class="party-color-bar"></div>
+            <div class="party-card-body">
+              <div class="party-card-top">
+                <div class="party-monogram">FSP</div>
+                <span class="party-status"><i data-feather="check-circle"></i> Registered party</span>
+              </div>
+              <h3>Free Speech Party</h3>
+              <div class="party-abbreviation">FSP · Free Speech Party</div>
+              <p class="party-description">
+                Square Country First is contesting the election for
+                representation in Parliament.
+              </p>
+              <div class="party-leader">
+                <div class="leader-avatar"><i data-feather="user"></i></div>
+                <div class="leader-info">
+                  <span>Party leader</span>
+                  <strong>XX</strong>
+                </div>
+              </div>
+              <div class="party-card-actions">
+                <a href="#candidates" class="party-detail-link" data-party-filter="SCF">
+                  View candidates <i data-feather="arrow-up-right"></i>
+                </a>
+                <span class="party-color-label">FSP</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="party-card" style="--party-color:#f60095">
+            <div class="party-color-bar"></div>
+            <div class="party-card-body">
+              <div class="party-card-top">
+                <div class="party-monogram">SLC</div>
+                <span class="party-status"><i data-feather="check-circle"></i> Registered party</span>
+              </div>
+              <h3>Square Libertarian Coalition</h3>
+              <div class="party-abbreviation">SLC · Square Libertarian Coalition</div>
+              <p class="party-description">
+                Square Country First is contesting the election for
+                representation in Parliament.
+              </p>
+              <div class="party-leader">
+                <div class="leader-avatar"><i data-feather="user"></i></div>
+                <div class="leader-info">
+                  <span>Party leader</span>
+                  <strong>XX</strong>
+                </div>
+              </div>
+              <div class="party-card-actions">
+                <a href="#candidates" class="party-detail-link" data-party-filter="SCF">
+                  View candidates <i data-feather="arrow-up-right"></i>
+                </a>
+                <span class="party-color-label">SLC</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="party-card" style="--party-color:#cc0100">
+            <div class="party-color-bar"></div>
+            <div class="party-card-body">
+              <div class="party-card-top">
+                <div class="party-monogram">SCF</div>
+                <span class="party-status"><i data-feather="check-circle"></i> Registered party</span>
+              </div>
+              <h3>Communist Party of Square Country</h3>
+              <div class="party-abbreviation">COM · Communist Party of Square Country</div>
+              <p class="party-description">
+                Square Country First is contesting the election for
+                representation in Parliament.
+              </p>
+              <div class="party-leader">
+                <div class="leader-avatar"><i data-feather="user"></i></div>
+                <div class="leader-info">
+                  <span>Party leader</span>
+                  <strong>XX</strong>
+                </div>
+              </div>
+              <div class="party-card-actions">
+                <a href="#candidates" class="party-detail-link" data-party-filter="SCF">
+                  View candidates <i data-feather="arrow-up-right"></i>
+                </a>
+                <span class="party-color-label">SCF</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="party-card" style="--party-color:#921a1c">
+            <div class="party-color-bar"></div>
+            <div class="party-card-body">
+              <div class="party-card-top">
+                <div class="party-monogram">SCP</div>
+                <span class="party-status"><i data-feather="check-circle"></i> Registered party</span>
+              </div>
+              <h3>Socialist Credit Party</h3>
+              <div class="party-abbreviation">SCP · Socialist Credit Party</div>
+              <p class="party-description">
+                Square Country First is contesting the election for
+                representation in Parliament.
+              </p>
+              <div class="party-leader">
+                <div class="leader-avatar"><i data-feather="user"></i></div>
+                <div class="leader-info">
+                  <span>Party leader</span>
+                  <strong>XX</strong>
+                </div>
+              </div>
+              <div class="party-card-actions">
+                <a href="#candidates" class="party-detail-link" data-party-filter="SCF">
+                  View candidates <i data-feather="arrow-up-right"></i>
+                </a>
+                <span class="party-color-label">SCP</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="party-card" style="--party-color:#69717d">
+            <div class="party-color-bar"></div>
+            <div class="party-card-body">
+              <div class="party-card-top">
+                <div class="party-monogram">IND</div>
+                <span class="party-status"><i data-feather="user-check"></i> Independent</span>
+              </div>
+              <h3>Independent candidates</h3>
+              <div class="party-abbreviation">IND · No party affiliation</div>
+              <p class="party-description">
+                Independent candidates contest electorates without standing
+                as a candidate for a registered political party.
+              </p>
+              <div class="party-leader">
+                <div class="leader-avatar"><i data-feather="users"></i></div>
+                <div class="leader-info">
+                  <span>Representation</span>
+                  <strong>Individual candidates</strong>
+                </div>
+              </div>
+              <div class="party-card-actions">
+                <a href="#candidates" class="party-detail-link" data-party-filter="IND">
+                  View candidates <i data-feather="arrow-up-right"></i>
+                </a>
+                <span class="party-color-label">IND</span>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </section>
+
+      <!-- Candidate directory -->
+      <section class="candidate-section" id="candidates">
+        <div class="section-heading">
+          <div>
+            <div class="section-kicker">Your electorate vote</div>
+            <h2>Find your candidates</h2>
+            <p>Search by name, political party or electorate to find a candidate.</p>
+          </div>
+        </div>
+
+        <div class="candidate-tools">
+          <label class="field search-field">
+            <i data-feather="search"></i>
+            <input type="search" id="candidateSearch" placeholder="Search candidates..." aria-label="Search candidates by name or party">
+          </label>
+
+          <label class="field">
+            <i data-feather="map-pin"></i>
+            <select id="electorateFilter" aria-label="Filter by electorate">
+              <option value="">All electorates</option>
+              <option>Western Beaches</option>
+              <option>Square City</option>
+              <option>Surish Bridge</option>
+              <option>Masterton</option>
+              <option>Earlington</option>
+              <option>New Dublin</option>
+              <option>Wellingborough</option>
+              <option>Ertonmont</option>
+              <option>Doncastle</option>
+              <option>Cunningham</option>
+              <option>Queenstown</option>
+              <option>Kingsford</option>
+              <option>Uma no machi</option>
+            </select>
+          </label>
+
+          <label class="field">
+            <i data-feather="flag"></i>
+            <select id="partyFilter" aria-label="Filter by party">
+              <option value="">All parties</option>
+              <option value="FRE">Freedom (FRE)</option>
+              <option value="LIB">Liberty (LIB)</option>
+              <option value="GRE">Green (GRE)</option>
+              <option value="INN">Innovatio (INN)</option>
+              <option value="SCF">Square Country First (SCF)</option>
+              <option value="IND">Independent</option>
+            </select>
+          </label>
+        </div>
+
+        <p class="candidate-count" id="candidateCount" aria-live="polite">
+          <strong>0 candidates</strong> listed. Official nominations will be published here.
+        </p>
+
+        <div class="candidate-list" id="candidateList"></div>
+      </section>
+
+      <!-- Voting system explainer -->
+      <section class="voting-explainer">
+        <div class="explainer-copy">
+          <div class="section-kicker">Understand your vote</div>
+          <h2>Two votes. A say in your future.</h2>
+          <p>
+            Square Country uses a Mixed-Member Proportional (MMP) electoral
+            system. Voters can support a local electorate candidate and
+            a political party.
+          </p>
+          <a href="voting.html">
+            Learn how MMP works <i data-feather="arrow-up-right"></i>
+          </a>
+        </div>
+
+        <div class="vote-types">
+          <div class="vote-type">
+            <div class="vote-type-icon"><i data-feather="user"></i></div>
+            <h3>Electorate vote</h3>
+            <p>
+              Choose the candidate you want to represent your local electorate
+              in Parliament.
+            </p>
+          </div>
+
+          <div class="vote-type">
+            <div class="vote-type-icon"><i data-feather="flag"></i></div>
+            <h3>Party vote</h3>
+            <p>
+              Choose the political party you want represented in Parliament.
+              The party vote helps determine each party's overall share of seats.
+            </p>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+
+        <div class="footer-brand-column">
+          <a class="brand" href="index.html">
+            <div class="brand-logo"><i data-feather="check-square"></i></div>
+            <div class="brand-name">
+              SQUARE COUNTRY
+              <span>Electoral Commission</span>
+            </div>
+          </a>
+          <p class="footer-description">
+            Administering elections and providing impartial information
+            to support participation in Square Country's democracy.
+          </p>
+        </div>
+
+        <div class="footer-column">
+          <h4>Voting</h4>
+          <a href="voting.html">How to vote</a>
+          <a href="enrol.html">Enrolment information</a>
+          <a href="electorates.html">Electorates</a>
+          <a href="results.html">Election results</a>
+        </div>
+
+        <div class="footer-column">
+          <h4>Election 2026</h4>
+          <a href="parties.html">Political parties</a>
+          <a href="parties.html#candidates">Candidates</a>
+          <a href="news.html">Election news</a>
+          <a href="faq.html">Frequently asked questions</a>
+        </div>
+
+        <div class="footer-column">
+          <h4>Commission</h4>
+          <a href="about.html">About us</a>
+          <a href="contact.html">Contact us</a>
+          <a href="privacy.html">Privacy</a>
+          <a href="staff-login.html">Staff portal</a>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <span>© 2026 Square Country Electoral Commission</span>
+        <div class="footer-bottom-links">
+          <a href="privacy.html">Privacy</a>
+          <a href="accessibility.html">Accessibility</a>
+          <a href="contact.html">Contact</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Website search -->
+  <div class="search-overlay" id="searchOverlay" role="dialog" aria-modal="true" aria-label="Website search">
+    <div class="search-panel">
+      <div class="search-top">
+        <i data-feather="search"></i>
+        <input id="siteSearch" type="search" placeholder="What are you looking for?" aria-label="Search website">
+        <button class="search-close" id="closeSearch" aria-label="Close search">
+          <i data-feather="x"></i>
+        </button>
+      </div>
+
+      <div class="search-body">
+        <p>Quick links</p>
+        <a class="search-result" href="parties.html#parties">
+          <i data-feather="flag"></i>
+          <div><strong>Political parties</strong><span>Explore election parties</span></div>
+        </a>
+        <a class="search-result" href="parties.html#candidates">
+          <i data-feather="users"></i>
+          <div><strong>Find candidates</strong><span>Search by party or electorate</span></div>
+        </a>
+        <a class="search-result" href="voting.html">
+          <i data-feather="check-square"></i>
+          <div><strong>How to vote</strong><span>Understand the electoral system</span></div>
+        </a>
+        <a class="search-result" href="results.html">
+          <i data-feather="bar-chart-3"></i>
+          <div><strong>Election results</strong><span>View election outcomes</span></div>
+        </a>
+      </div>
+      <div class="search-hint">Choose a link to continue.</div>
+    </div>
+  </div>
+
+  <script>
+    feather.replace();
+
+    // Candidate directory data.
+    // Replace the example entries with the Commission's confirmed nominations.
+    // Each candidate should have a name, electorate and party abbreviation.
+const candidates = [
+  {
+    name: "Alexander King",
+    electorate: "Queenstown",
+    party: "INN"
+  },
+  {
+    name: "Alexander Ross",
+    electorate: "New Dublin",
+    party: "SCF"
+  },
+  {
+    name: "Amelia Foster",
+    electorate: "Surish Bridge",
+    party: "GRE"
+  },
+  {
+    name: "Amelia Richardson",
+    electorate: "Kingsford",
+    party: "FRE"
+  },
+  {
+    name: "Andy Foster",
+    electorate: "Square City",
+    party: "LIB"
+  },
+  {
+    name: "Anna Corfield",
+    electorate: "Cunningham",
+    party: "FRE"
+  },
+  {
+    name: "Anthony Miller",
+    electorate: "Cunningham",
+    party: "LIB"
+  },
+  {
+    name: "Arthur Bexley",
+    electorate: "New Dublin",
+    party: "FRE"
+  },
+  {
+    name: "Benjamin Scott",
+    electorate: "Kingsford",
+    party: "GRE"
+  },
+  {
+    name: "Campbell Craw",
+    electorate: "Earlington",
+    party: "LIB"
+  },
+  {
+    name: "Catherine Hughes",
+    electorate: "Queenstown",
+    party: "LIB"
+  },
+  {
+    name: "Charlotte Green",
+    electorate: "Wellingborough",
+    party: "GRE"
+  },
+  {
+    name: "Chloe Richardson",
+    electorate: "Ertonmont",
+    party: "INN"
+  },
+  {
+    name: "Christoff Ward",
+    electorate: "Surish Bridge",
+    party: "SCF"
+  },
+  {
+    name: "Daniel Aitken",
+    electorate: "Western Beaches",
+    party: "GRE"
+  },
+  {
+    name: "Daniel Brooks",
+    electorate: "Square City",
+    party: "FRE"
+  },
+  {
+    name: "Daniel Morgan",
+    electorate: "Wellingborough",
+    party: "FRE"
+  },
+  {
+    name: "David Campbell",
+    electorate: "Queenstown",
+    party: "FRE"
+  },
+  {
+    name: "David Thornfield",
+    electorate: "Masterton Central",
+    party: "FRE"
+  },
+  {
+    name: "Edward Mason",
+    electorate: "Wellingborough",
+    party: "SCF"
+  },
+  {
+    name: "Emily Thornton",
+    electorate: "Masterton Central",
+    party: "GRE"
+  },
+  {
+    name: "Emma Fletcher",
+    electorate: "Queenstown",
+    party: "GRE"
+  },
+  {
+    name: "Erin Starling",
+    electorate: "Square City",
+    party: "GRE"
+  },
+  {
+    name: "Ethan Cole",
+    electorate: "Square City",
+    party: "INN"
+  },
+  {
+    name: "George Stinway",
+    electorate: "Earlington",
+    party: "SCF"
+  },
+  {
+    name: "Grace Anderson",
+    electorate: "Cunningham",
+    party: "GRE"
+  },
+  {
+    name: "Greg Redfern",
+    electorate: "Doncastle",
+    party: "SCF"
+  },
+  {
+    name: "Greg Sowry",
+    electorate: "Western Beaches",
+    party: "IND"
+  },
+  {
+    name: "Hayden Marsh",
+    electorate: "Kingsford",
+    party: "LIB"
+  },
+  {
+    name: "Henry Dawson",
+    electorate: "Doncastle",
+    party: "GRE"
+  },
+  {
+    name: "Isabella Moore",
+    electorate: "Doncastle",
+    party: "INN"
+  },
+  {
+    name: "Jack Sullivan",
+    electorate: "Ertonmont",
+    party: "GRE"
+  },
+  {
+    name: "Jacob Penrose",
+    electorate: "Ertonmont",
+    party: "LIB"
+  },
+  {
+    name: "James Hollaway",
+    electorate: "Earlington",
+    party: "FRE"
+  },
+  {
+    name: "James Morrison",
+    electorate: "Queenstown",
+    party: "SCF"
+  },
+  {
+    name: "Jean Wilson",
+    electorate: "Western Beaches",
+    party: "SCF"
+  },
+  {
+    name: "Jessica Warren",
+    electorate: "Ertonmont",
+    party: "FRE"
+  },
+  {
+    name: "Jonathan Pierce",
+    electorate: "New Dublin",
+    party: "LIB"
+  },
+  {
+    name: "Joshua Reid",
+    electorate: "Masterton Central",
+    party: "INN"
+  },
+  {
+    name: "Katie Bradshaw",
+    electorate: "Earlington",
+    party: "INN"
+  },
+  {
+    name: "Liam Parker",
+    electorate: "Wellingborough",
+    party: "INN"
+  },
+  {
+    name: "Lily Anderson",
+    electorate: "Uma no machi",
+    party: "GRE"
+  },
+  {
+    name: "Linda Crawford",
+    electorate: "Western Beaches",
+    party: "INN"
+  },
+  {
+    name: "Lucas Bennett",
+    electorate: "Cunningham",
+    party: "INN"
+  },
+  {
+    name: "Mark Andrews",
+    electorate: "Wellingborough",
+    party: "LIB"
+  },
+  {
+    name: "Matthew Clark",
+    electorate: "Masterton Central",
+    party: "SCF"
+  },
+  {
+    name: "Michael Bennett",
+    electorate: "Western Beaches",
+    party: "FRE"
+  },
+  {
+    name: "Mia Thompson",
+    electorate: "Kingsford",
+    party: "INN"
+  },
+  {
+    name: "Nathan Brooks",
+    electorate: "Square City",
+    party: "SCF"
+  },
+  {
+    name: "Nicholas Stone",
+    electorate: "Cunningham",
+    party: "SCF"
+  },
+  {
+    name: "Norman Chylinski",
+    electorate: "Surish Bridge",
+    party: "LIB"
+  },
+  {
+    name: "Olivia Grant",
+    electorate: "Surish Bridge",
+    party: "FRE"
+  },
+  {
+    name: "Olivia Martin",
+    electorate: "New Dublin",
+    party: "GRE"
+  },
+  {
+    name: "Peter Morgan",
+    electorate: "Kingsford",
+    party: "SCF"
+  },
+  {
+    name: "Rebecca Lawson",
+    electorate: "Square City",
+    party: "LIB"
+  },
+  {
+    name: "Richard Coleman",
+    electorate: "Uma no machi",
+    party: "SCF"
+  },
+  {
+    name: "Ryan Ellis",
+    electorate: "Surish Bridge",
+    party: "INN"
+  },
+  {
+    name: "Ryan Parker",
+    electorate: "New Dublin",
+    party: "LIB"
+  },
+  {
+    name: "Samuel Wright",
+    electorate: "New Dublin",
+    party: "INN"
+  },
+  {
+    name: "Sarah Voss",
+    electorate: "Uma no machi",
+    party: "INN"
+  },
+  {
+    name: "Sophie Williams",
+    electorate: "Doncastle",
+    party: "FRE"
+  },
+  {
+    name: "Stephen Marshall",
+    electorate: "Uma no machi",
+    party: "LIB"
+  },
+  {
+    name: "Thomas Fraser",
+    electorate: "Ertonmont",
+    party: "SCF"
+  },
+  {
+    name: "Thomas Reed",
+    electorate: "Uma no machi",
+    party: "FRE"
+  },
+  {
+    name: "Trent McKenzie",
+    electorate: "Western Beaches",
+    party: "LIB"
+  },
+  {
+    name: "William Price",
+    electorate: "Earlington",
+    party: "GRE"
+  }
+];
+
+    const partyInfo = {
+      FRE: {
+        name: "Freedom",
+        color: "#2874d0",
+        background: "#fdeaea",
+        ink: "#c62828"
+      },
+      LIB: {
+        name: "Liberty",
+        color: "#2463b9",
+        background: "#eaf8db",
+        ink: "#7fde21"
+      },
+      GRE: {
+        name: "Green Party",
+        color: "#198754",
+        background: "#e8f4ec",
+        ink: "#176b3a"
+      },
+      INN: {
+        name: "Innovation",
+        color: "#6c63c7",
+        background: "#fff8d9",
+        ink: "#d5a500"
+      },
+      SCF: {
+        name: "Square Country First",
+        color: "#a58a35",
+        background: "#eeeeee",
+        ink: "#333333"
+      },
+      IND: {
+        name: "Independent",
+        color: "#69717d",
+        background: "#eef0f3",
+        ink: "#515965"
+      }
+    };
+
+    const candidateList = document.getElementById("candidateList");
+    const candidateSearch = document.getElementById("candidateSearch");
+    const electorateFilter = document.getElementById("electorateFilter");
+    const partyFilter = document.getElementById("partyFilter");
+    const candidateCount = document.getElementById("candidateCount");
+
+    function getInitials(name) {
+      return name
+        .trim()
+        .split(/\s+/)
+        .slice(0, 2)
+        .map(part => part[0] || "")
+        .join("")
+        .toUpperCase();
+    }
+
+    function renderCandidates() {
+      const query = candidateSearch.value.trim().toLowerCase();
+      const electorate = electorateFilter.value;
+      const party = partyFilter.value;
+
+      const filtered = candidates.filter(candidate => {
+        const info = partyInfo[candidate.party] || partyInfo.IND;
+
+        const matchesSearch = [
+          candidate.name,
+          candidate.electorate,
+          candidate.party,
+          info.name
+        ].join(" ").toLowerCase().includes(query);
+
+        const matchesElectorate =
+          !electorate || candidate.electorate === electorate;
+
+        const matchesParty = !party || candidate.party === party;
+
+        return matchesSearch && matchesElectorate && matchesParty;
+      });
+
+      candidateCount.innerHTML =
+        `<strong>${filtered.length} ${filtered.length === 1 ? "candidate" : "candidates"}</strong>` +
+        (candidates.length
+          ? ` found out of ${candidates.length} listed.`
+          : ` listed. Official nominations will be published here.`);
+
+      if (filtered.length === 0) {
+        candidateList.innerHTML = `
+          <div class="no-results">
+            <i data-feather="search"></i>
+            <h3>${candidates.length ? "No matching candidates" : "Candidate nominations will appear here"}</h3>
+            <p>${candidates.length
+              ? "Try changing your search or selecting a different filter."
+              : "The directory will be updated when candidate nominations are added."}</p>
+          </div>
+        `;
+        feather.replace();
+        return;
+      }
+
+      candidateList.innerHTML = filtered.map(candidate => {
+        const info = partyInfo[candidate.party] || partyInfo.IND;
+        const initials = getInitials(candidate.name);
+
+        return `
+          <article class="candidate-card">
+            <div class="candidate-initials"
+              style="--candidate-color:${info.background};--candidate-ink:${info.ink}">
+              ${initials}
+            </div>
+            <div class="candidate-info">
+              <h3>${escapeHTML(candidate.name)}</h3>
+              <p>${escapeHTML(candidate.electorate)} electorate</p>
+              <div class="candidate-tags">
+                <span class="candidate-tag party-tag"
+                  style="--tag-bg:${info.background};--tag-color:${info.ink}">
+                  ${escapeHTML(candidate.party)} · ${escapeHTML(info.name)}
+                </span>
+                <span class="candidate-tag">
+                  <i data-feather="map-pin"></i> Electorate
+                </span>
+              </div>
+            </div>
+            <i data-feather="arrow-up-right" class="candidate-arrow"></i>
+          </article>
+        `;
+      }).join("");
+
+      feather.replace();
+    }
+
+    function escapeHTML(value) {
+      return String(value).replace(/[&<>"']/g, character => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+      })[character]);
+    }
+
+    candidateSearch.addEventListener("input", renderCandidates);
+    electorateFilter.addEventListener("change", renderCandidates);
+    partyFilter.addEventListener("change", renderCandidates);
+
+    // Clicking "View candidates" on a party card filters the directory.
+    document.querySelectorAll("[data-party-filter]").forEach(link => {
+      link.addEventListener("click", () => {
+        partyFilter.value = link.dataset.partyFilter;
+        renderCandidates();
+      });
+    });
+
+    renderCandidates();
+
+    // Mobile navigation
+    const menuToggle = document.getElementById("menuToggle");
+    const navLinks = document.getElementById("navLinks");
+
+    menuToggle.addEventListener("click", () => {
+      const isOpen = navLinks.classList.toggle("open");
+      menuToggle.setAttribute("aria-expanded", String(isOpen));
+      menuToggle.innerHTML = isOpen
+        ? '<i data-feather="x"></i>'
+        : '<i data-feather="menu"></i>';
+      feather.replace();
+    });
+
+    navLinks.querySelectorAll("a").forEach(link => {
+      link.addEventListener("click", () => {
+        navLinks.classList.remove("open");
+        menuToggle.setAttribute("aria-expanded", "false");
+        menuToggle.innerHTML = '<i data-feather="menu"></i>';
+        feather.replace();
+      });
+    });
+
+    // Website search overlay
+    const searchOverlay = document.getElementById("searchOverlay");
+    const openSearch = document.getElementById("openSearch");
+    const closeSearch = document.getElementById("closeSearch");
+    const siteSearch = document.getElementById("siteSearch");
+
+    function showSearch() {
+      searchOverlay.classList.add("open");
+      document.body.style.overflow = "hidden";
+      siteSearch.value = "";
+      filterSiteSearch("");
+      setTimeout(() => siteSearch.focus(), 50);
+    }
+
+    function hideSearch() {
+      searchOverlay.classList.remove("open");
+      document.body.style.overflow = "";
+      openSearch.focus();
+    }
+
+    function filterSiteSearch(query) {
+      document.querySelectorAll(".search-result").forEach(result => {
+        result.style.display = result.innerText.toLowerCase().includes(
+          query.trim().toLowerCase()
+        ) ? "flex" : "none";
+      });
+    }
+
+    openSearch.addEventListener("click", showSearch);
+    closeSearch.addEventListener("click", hideSearch);
+    siteSearch.addEventListener("input", event => {
+      filterSiteSearch(event.target.value);
+    });
+
+    searchOverlay.addEventListener("click", event => {
+      if (event.target === searchOverlay) hideSearch();
+    });
+
+    document.addEventListener("keydown", event => {
+      if (event.key === "Escape" && searchOverlay.classList.contains("open")) {
+        hideSearch();
+      }
+    });
+  </script>
+</body>
+</html>
