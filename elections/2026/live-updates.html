@@ -888,7 +888,14 @@ const PARTY_META = {
         short: "SCF",
         color: "#333333",
         lightColor: "#eeeeee"
-    }
+    },
+
+    liberalReform: {
+    name: "Liberal Reform Party",
+    short: "LRP",
+    color: "#F60095",
+    lightColor: "#FFE0F2"
+}
 
 };
 
@@ -1004,6 +1011,15 @@ function partyId(value) {
         v === "scf"
     ) {
         return "scFirst";
+    }
+
+        if (
+        v === "liberal reform party" ||
+        v === "liberal reform" ||
+        v === "liberalreform" ||
+        v === "lrp"
+    ) {
+        return "liberalReform";
     }
 
 
