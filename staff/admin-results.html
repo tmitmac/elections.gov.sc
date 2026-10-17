@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Results Administration | Square Country Electoral Commission</title>
+  <title>Election Administration | Square Country Electoral Commission</title>
+
 
   <style>
     * {
@@ -20,12 +21,12 @@
     header {
       background: #0b1f3a;
       color: white;
+      padding: 22px 40px;
       border-bottom: 5px solid #ff7b25;
-      padding: 20px 35px;
     }
 
-    .header-inner {
-      max-width: 1250px;
+    header .top {
+      max-width: 1200px;
       margin: auto;
       display: flex;
       align-items: center;
@@ -38,100 +39,89 @@
       object-fit: contain;
     }
 
-    .commission {
-      font-size: 13px;
+    .commission-name {
+      font-size: 15px;
       font-weight: bold;
       text-transform: uppercase;
       letter-spacing: 1px;
-      opacity: .85;
+      opacity: 0.85;
     }
 
-    header h1 {
-      margin: 5px 0 0;
-      font-size: 27px;
+    h1 {
+      margin: 4px 0 0;
+      font-size: 28px;
     }
 
     main {
-      max-width: 1250px;
-      margin: 30px auto;
+      max-width: 1200px;
+      margin: 35px auto;
       padding: 0 20px;
     }
 
-    .notice,
-    .panel {
-      background: white;
-      padding: 25px;
-      margin-bottom: 25px;
-      box-shadow: 0 1px 5px rgba(0,0,0,.08);
-    }
-
     .notice {
+      background: white;
       border-left: 5px solid #ff7b25;
+      padding: 20px;
+      margin-bottom: 25px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
     }
 
-    h2 {
+    .notice h2 {
       margin-top: 0;
-      color: #0b1f3a;
-      border-bottom: 1px solid #ddd;
-      padding-bottom: 12px;
+    }
+
+    .status-card {
+      background: white;
+      padding: 24px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+      margin-bottom: 25px;
+    }
+
+    .status-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
     }
 
     .status {
-      padding: 14px;
-      margin-bottom: 20px;
-      background: #eef5ff;
-      border-left: 5px solid #2463a6;
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
       font-weight: bold;
     }
 
-    .success {
-      background: #e8f6ed;
-      border-left-color: #16803c;
-      color: #146c2e;
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #999;
     }
 
-    .error {
-      background: #fdecec;
-      border-left-color: #c62828;
-      color: #9b1c1c;
+    .dot.connected {
+      background: #16803c;
     }
 
-    .controls {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 15px;
-      align-items: end;
+    .dot.error {
+      background: #c62828;
     }
 
-    label {
-      display: block;
-      font-weight: bold;
-      margin-bottom: 7px;
+    .dot.loading {
+      background: #e0a000;
     }
 
-    input,
-    select {
-      width: 100%;
-      padding: 12px;
-      border: 1px solid #bfc3c9;
-      border-radius: 3px;
-      background: white;
-      font-size: 15px;
-    }
-
-    input:focus,
-    select:focus {
-      outline: 2px solid #ff7b25;
-      border-color: #ff7b25;
+    .status-text {
+      font-size: 17px;
     }
 
     button {
       border: none;
-      border-radius: 3px;
-      padding: 12px 20px;
+      padding: 13px 22px;
       font-size: 15px;
       font-weight: bold;
       cursor: pointer;
+      border-radius: 3px;
     }
 
     .primary {
@@ -143,9 +133,9 @@
       background: #e56817;
     }
 
-    .secondary {
-      background: #e5e7eb;
-      color: #172033;
+    .primary:disabled {
+      background: #aaa;
+      cursor: not-allowed;
     }
 
     .danger {
@@ -153,50 +143,57 @@
       color: white;
     }
 
-    .candidate {
+    .secondary {
+      background: #e5e7eb;
+      color: #172033;
+    }
+
+    .grid {
       display: grid;
-      grid-template-columns: 1fr 220px 150px 45px;
-      gap: 12px;
-      align-items: end;
-      padding: 15px 0;
-      border-bottom: 1px solid #eee;
-    }
-
-    .candidate:last-child {
-      border-bottom: none;
-    }
-
-    .remove {
-      width: 45px;
-      height: 44px;
-      padding: 0;
-      background: #eee;
-      color: #b42318;
-      font-size: 20px;
-    }
-
-    .remove:hover {
-      background: #f5d5d2;
-    }
-
-    .empty {
-      padding: 25px;
-      text-align: center;
-      color: #777;
-      background: #f8f8f8;
-      border: 1px dashed #ccc;
-    }
-
-    .party-vote-row {
-      display: grid;
-      grid-template-columns: 1fr 220px;
+      grid-template-columns: repeat(3, 1fr);
       gap: 20px;
-      align-items: center;
+      margin-bottom: 25px;
+    }
+
+    .stat {
+      background: white;
+      padding: 25px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    }
+
+    .stat-number {
+      font-size: 35px;
+      font-weight: bold;
+      color: #0b1f3a;
+    }
+
+    .stat-label {
+      margin-top: 6px;
+      color: #555;
+    }
+
+    .panel {
+      background: white;
+      padding: 25px;
+      margin-bottom: 25px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    }
+
+    .panel h2 {
+      margin-top: 0;
+      color: #0b1f3a;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 12px;
+    }
+
+    .party {
+      display: flex;
+      justify-content: space-between;
       padding: 13px 0;
       border-bottom: 1px solid #eee;
     }
 
-    .party-vote-row:last-child {
+    .party:last-child {
       border-bottom: none;
     }
 
@@ -206,118 +203,85 @@
 
     .party-code {
       color: #777;
-      font-size: 13px;
-      margin-left: 8px;
+      font-family: monospace;
     }
 
-    .calculation {
+    .electorate-list {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 15px;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px 30px;
     }
 
-    .stat {
-      background: #f6f7f9;
-      border: 1px solid #ddd;
-      padding: 18px;
+    .electorate {
+      padding: 11px 0;
+      border-bottom: 1px solid #eee;
     }
 
-    .stat-number {
-      font-size: 28px;
-      font-weight: bold;
-      color: #0b1f3a;
-    }
-
-    .stat-label {
-      color: #666;
-      margin-top: 5px;
-    }
-
-    .saved {
-      color: #16803c;
-      font-weight: bold;
-      font-size: 13px;
-    }
-
-    .winner {
-      background: #e8f6ed;
-      border: 1px solid #9ed3ae;
-      padding: 15px;
-      margin-top: 20px;
+    .message {
       display: none;
-    }
-
-    .winner strong {
-      color: #146c2e;
-    }
-
-    .table-wrap {
-      overflow-x: auto;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-
-    th,
-    td {
-      padding: 12px;
-      border-bottom: 1px solid #ddd;
-      text-align: left;
-    }
-
-    th {
-      background: #0b1f3a;
-      color: white;
-    }
-
-    .percentage {
+      padding: 16px;
+      margin-bottom: 20px;
+      border-radius: 3px;
       font-weight: bold;
+    }
+
+    .message.success {
+      display: block;
+      background: #e7f6ec;
+      color: #146c2e;
+      border-left: 5px solid #16803c;
+    }
+
+    .message.error {
+      display: block;
+      background: #fdecec;
+      color: #9b1c1c;
+      border-left: 5px solid #c62828;
+    }
+
+    .message.info {
+      display: block;
+      background: #eef5ff;
+      color: #174a8b;
+      border-left: 5px solid #2463a6;
+    }
+
+    .database-preview {
+      background: #111827;
+      color: #d1d5db;
+      padding: 20px;
+      overflow-x: auto;
+      font-family: "Courier New", monospace;
+      font-size: 13px;
+      line-height: 1.6;
+      border-radius: 3px;
     }
 
     footer {
+      margin-top: 50px;
       background: #0b1f3a;
       color: white;
-      padding: 30px;
-      margin-top: 50px;
+      padding: 25px;
       text-align: center;
       font-size: 13px;
     }
 
-    @media (max-width: 850px) {
-      .controls {
-        grid-template-columns: 1fr;
-      }
-
-      .candidate {
-        grid-template-columns: 1fr;
-      }
-
-      .remove {
-        width: 100%;
-      }
-
-      .party-vote-row {
-        grid-template-columns: 1fr;
-      }
-
-      .calculation {
-        grid-template-columns: 1fr 1fr;
-      }
-    }
-
-    @media (max-width: 500px) {
-      .calculation {
-        grid-template-columns: 1fr;
-      }
-
+    @media (max-width: 800px) {
       header {
-        padding: 18px;
+        padding: 18px 20px;
       }
 
-      main {
-        padding: 0 12px;
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .electorate-list {
+        grid-template-columns: 1fr;
+      }
+
+      .status-row {
+        align-items: flex-start;
+        flex-direction: column;
       }
     }
   </style>
@@ -326,272 +290,282 @@
 <body>
 
 <header>
-  <div class="header-inner">
+  <div class="top">
     <div>
-      <div class="commission">
+      <div class="commission-name">
         Square Country Electoral Commission
       </div>
-
-      <h1>2026 Election Results Administration</h1>
+      <h1>Election Administration</h1>
     </div>
-
   </div>
 </header>
 
-
 <main>
 
-  <div id="status" class="status">
-    Connecting to election database...
-  </div>
-
-
-  <!-- ELECTION OVERVIEW -->
+  <div id="message" class="message"></div>
 
   <section class="notice">
-
     <h2>2026 General Election</h2>
 
     <p>
-      Use this administration system to enter electorate candidates,
-      electorate votes and the nationwide party vote.
+      This administration system manages the fictional Square Country
+      2026 General Election.
     </p>
 
     <p>
-      <strong>Parliament:</strong> 26 seats —
-      13 electorate seats and 13 list seats.
+      The Parliament of Square Country consists of <strong>26 seats</strong>,
+      elected under the Mixed-Member Proportional (MMP) system.
     </p>
 
     <p>
-      <strong>Party vote threshold:</strong> 4%
+      The database can be initialised automatically from this page.
+      <strong>Do not manually create the database structure in Firebase.</strong>
     </p>
-
   </section>
 
+  <section class="status-card">
 
-  <!-- ELECTORATE SELECTION -->
-
-  <section class="panel">
-
-    <h2>Electorate Results</h2>
-
-    <div class="controls">
+    <div class="status-row">
 
       <div>
-        <label for="electorateSelect">
-          Select electorate
-        </label>
+        <div class="status">
+          <span id="statusDot" class="dot loading"></span>
+          <span id="statusText" class="status-text">
+            Connecting to Firebase...
+          </span>
+        </div>
 
-        <select id="electorateSelect">
-          <option value="">
-            Select an electorate...
-          </option>
-        </select>
+        <div id="databaseInfo" style="margin-top:8px;color:#666;">
+          Checking database connection...
+        </div>
       </div>
 
       <button
-        class="secondary"
-        onclick="loadElectorate()">
-
-        Load Electorate
-
+        id="initialiseButton"
+        class="primary"
+        disabled
+        onclick="initialiseElection()">
+        Initialise Election
       </button>
 
     </div>
 
   </section>
 
+  <section class="grid">
 
-  <!-- CANDIDATES -->
+    <div class="stat">
+      <div class="stat-number">26</div>
+      <div class="stat-label">Total Parliament seats</div>
+    </div>
 
-  <section
-    id="candidatePanel"
-    class="panel"
-    style="display:none;">
+    <div class="stat">
+      <div class="stat-number">13</div>
+      <div class="stat-label">Electorate seats</div>
+    </div>
 
-    <h2 id="electorateTitle">
-      Candidates
-    </h2>
-
-    <div id="candidateList"></div>
-
-    <br>
-
-    <button
-      class="secondary"
-      onclick="addCandidate()">
-
-      + Add Candidate
-
-    </button>
-
-    <br><br>
-
-    <button
-      class="primary"
-      onclick="saveElectorate()">
-
-      Save Electorate Results
-
-    </button>
-
-    <div
-      id="winnerBox"
-      class="winner">
+    <div class="stat">
+      <div class="stat-number">13</div>
+      <div class="stat-label">List seats</div>
     </div>
 
   </section>
 
-
-  <!-- PARTY VOTE -->
-
   <section class="panel">
 
-    <h2>Nationwide Party Vote</h2>
+    <h2>Election System</h2>
 
-    <p>
-      Enter the total party votes received by each registered party.
-      Percentages will be calculated automatically.
-    </p>
+    <table style="width:100%;border-collapse:collapse;">
 
-    <div id="partyVotes"></div>
+      <tr>
+        <td style="padding:12px 0;border-bottom:1px solid #eee;">
+          Electoral system
+        </td>
+        <td style="padding:12px 0;border-bottom:1px solid #eee;font-weight:bold;">
+          Mixed-Member Proportional
+        </td>
+      </tr>
 
-    <br>
+      <tr>
+        <td style="padding:12px 0;border-bottom:1px solid #eee;">
+          Total seats
+        </td>
+        <td style="padding:12px 0;border-bottom:1px solid #eee;font-weight:bold;">
+          26
+        </td>
+      </tr>
 
-    <button
-      class="primary"
-      onclick="savePartyVote()">
+      <tr>
+        <td style="padding:12px 0;border-bottom:1px solid #eee;">
+          Electorate seats
+        </td>
+        <td style="padding:12px 0;border-bottom:1px solid #eee;font-weight:bold;">
+          13
+        </td>
+      </tr>
 
-      Save Party Vote
+      <tr>
+        <td style="padding:12px 0;border-bottom:1px solid #eee;">
+          List seats
+        </td>
+        <td style="padding:12px 0;border-bottom:1px solid #eee;font-weight:bold;">
+          13
+        </td>
+      </tr>
 
-    </button>
+      <tr>
+        <td style="padding:12px 0;">
+          Party vote threshold
+        </td>
+        <td style="padding:12px 0;font-weight:bold;">
+          4%
+        </td>
+      </tr>
+
+    </table>
 
   </section>
 
-
-  <!-- PARTY VOTE SUMMARY -->
-
   <section class="panel">
 
-    <h2>Party Vote Summary</h2>
+    <h2>Political Parties</h2>
 
-    <div class="calculation">
-
-      <div class="stat">
-        <div
-          id="partyTotal"
-          class="stat-number">
-          0
-        </div>
-
-        <div class="stat-label">
-          Total party votes
-        </div>
-      </div>
-
-      <div class="stat">
-        <div
-          id="thresholdVotes"
-          class="stat-number">
-          0
-        </div>
-
-        <div class="stat-label">
-          Votes needed for 4%
-        </div>
-      </div>
-
-      <div class="stat">
-        <div
-          id="eligibleParties"
-          class="stat-number">
-          0
-        </div>
-
-        <div class="stat-label">
-          Parties currently eligible
-        </div>
-      </div>
-
-      <div class="stat">
-        <div
-          id="electoratesCompleted"
-          class="stat-number">
-          0 / 13
-        </div>
-
-        <div class="stat-label">
-          Electorates completed
-        </div>
-      </div>
-
+    <div class="party">
+      <span class="party-name">Liberty</span>
+      <span class="party-code">LIB</span>
     </div>
 
+    <div class="party">
+      <span class="party-name">Freedoms</span>
+      <span class="party-code">FRE</span>
+    </div>
+
+    <div class="party">
+      <span class="party-name">Greens</span>
+      <span class="party-code">GRE</span>
+    </div>
+
+    <div class="party">
+      <span class="party-name">Innovation</span>
+      <span class="party-code">INN</span>
+    </div>
+
+    <div class="party">
+      <span class="party-name">SC First</span>
+      <span class="party-code">SCF</span>
+    </div>
+
+    <div class="party">
+      <span class="party-name">Liberal Reform Party</span>
+      <span class="party-code">LRP</span>
+    </div>
+
+
   </section>
-
-
-  <!-- CURRENT PARTY VOTE TABLE -->
 
   <section class="panel">
 
-    <h2>Current Party Vote</h2>
+    <h2>Electorates</h2>
 
-    <div class="table-wrap">
+    <div class="electorate-list">
 
-      <table>
-
-        <thead>
-
-          <tr>
-            <th>Party</th>
-            <th>Votes</th>
-            <th>Percentage</th>
-            <th>4% threshold</th>
-          </tr>
-
-        </thead>
-
-        <tbody id="partySummary">
-
-        </tbody>
-
-      </table>
+      <div class="electorate">1. Western Beaches</div>
+      <div class="electorate">2. Square City</div>
+      <div class="electorate">3. Surish Bridge</div>
+      <div class="electorate">4. Masterton Central</div>
+      <div class="electorate">5. Earlington</div>
+      <div class="electorate">6. New Dublin</div>
+      <div class="electorate">7. Wellingborough</div>
+      <div class="electorate">8. Ertonmont</div>
+      <div class="electorate">9. Doncastle</div>
+      <div class="electorate">10. Cunningham</div>
+      <div class="electorate">11. Queenstown</div>
+      <div class="electorate">12. Kingsford</div>
+      <div class="electorate">13. Uma no machi</div>
 
     </div>
 
   </section>
 
-
-  <!-- ADMIN NOTES -->
-
   <section class="panel">
 
-    <h2>Administration Notes</h2>
+    <h2>Firebase Database Structure</h2>
 
     <p>
-      Candidate votes are stored separately for each electorate.
-      Party votes are stored nationally.
+      Once initialised, the election data will be stored under:
     </p>
 
-    <p>
-      Saving an electorate does not automatically publish the
-      election as final.
-    </p>
-
-    <p>
-      The MMP calculation will be performed once the results
-      calculation system is added.
-    </p>
+    <div class="database-preview">
+election2026/
+<br>
+├── settings/
+<br>
+│   ├── totalSeats
+<br>
+│   ├── electorateSeats
+<br>
+│   ├── listSeats
+<br>
+│   ├── threshold
+<br>
+│   └── initialized
+<br>
+│
+<br>
+├── parties/
+<br>
+│   ├── liberty/
+<br>
+│   ├── freedoms/
+<br>
+│   ├── greens/
+<br>
+│   ├── innovation/
+<br>
+│   └── scFirst/
+<br>
+│
+<br>
+├── electorates/
+<br>
+│   ├── western-beaches/
+<br>
+│   ├── square-city/
+<br>
+│   ├── surish-bridge/
+<br>
+│   ├── masterton-central/
+<br>
+│   ├── earlington/
+<br>
+│   ├── new-dublin/
+<br>
+│   ├── wellingborough/
+<br>
+│   ├── ertonmont/
+<br>
+│   ├── doncastle/
+<br>
+│   ├── cunningham/
+<br>
+│   ├── queenstown/
+<br>
+│   ├── kingsford/
+<br>
+│   └── uma-no-machi/
+<br>
+│
+<br>
+└── results/
+    </div>
 
   </section>
 
 </main>
 
-
 <footer>
 
   <strong>Square Country Electoral Commission</strong>
-
   <br><br>
 
   <strong>Disclaimer:</strong> This website is a fictional representation
@@ -604,202 +578,116 @@
 </footer>
 
 
+<!-- Firebase -->
 <script type="module">
 
-  import { initializeApp }
-    from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import { initializeApp } from
+    "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
   import {
     getDatabase,
     ref,
     get,
-    set,
-    update
-  } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+    set
+  } from
+    "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
 
-  // ============================================================
-  // FIREBASE
-  // ============================================================
+  // ==========================================
+  // FIREBASE CONFIGURATION
+  // ==========================================
 
   const firebaseConfig = {
-
-    apiKey:
-      "AIzaSyCvx0ARD5thFtytMW1cw54DyG3ojWz-Fsk",
-
-    authDomain:
-      "square-country-election-2026.firebaseapp.com",
-
-    databaseURL:
-      "https://square-country-election-2026-default-rtdb.firebaseio.com",
-
-    projectId:
-      "square-country-election-2026",
-
-    storageBucket:
-      "square-country-election-2026.firebasestorage.app",
-
-    messagingSenderId:
-      "1080044317618",
-
-    appId:
-      "1:1080044317618:web:0b02e177a30bb8c91fd2ab",
-
-    measurementId:
-      "G-T2STD78H74"
-
+    apiKey: "AIzaSyCvx0ARD5thFtytMW1cw54DyG3ojWz-Fsk",
+    authDomain: "square-country-election-2026.firebaseapp.com",
+    databaseURL: "https://square-country-election-2026-default-rtdb.firebaseio.com",
+    projectId: "square-country-election-2026",
+    storageBucket: "square-country-election-2026.firebasestorage.app",
+    messagingSenderId: "1080044317618",
+    appId: "1:1080044317618:web:0b02e177a30bb8c91fd2ab",
+    measurementId: "G-T2STD78H74"
   };
 
 
-  const app =
-    initializeApp(firebaseConfig);
+  // ==========================================
+  // INITIALISE FIREBASE
+  // ==========================================
 
-  const database =
-    getDatabase(app);
-
-
-  // ============================================================
-  // DATA
-  // ============================================================
-
-  const parties = {
-
-    liberty: {
-      name: "Liberty",
-      abbreviation: "LIB"
-    },
-
-    freedoms: {
-      name: "Freedoms",
-      abbreviation: "FRE"
-    },
-
-    greens: {
-      name: "Greens",
-      abbreviation: "GRE"
-    },
-
-    innovation: {
-      name: "Innovation",
-      abbreviation: "INN"
-    },
-
-    scFirst: {
-      name: "SC First",
-      abbreviation: "SCF"
-    },
-
-    liberalReform: {
-      name: "Liberal Reform Party",
-      abbreviation: "LRP"
-    }
-
-  };
+  const app = initializeApp(firebaseConfig);
+  const database = getDatabase(app);
 
 
-  const electorateNames = [
+  const statusDot =
+    document.getElementById("statusDot");
 
-    "Western Beaches",
-    "Square City",
-    "Surish Bridge",
-    "Masterton Central",
-    "Earlington",
-    "New Dublin",
-    "Wellingborough",
-    "Ertonmont",
-    "Doncastle",
-    "Cunningham",
-    "Queenstown",
-    "Kingsford",
-    "Uma no machi"
+  const statusText =
+    document.getElementById("statusText");
 
-  ];
+  const databaseInfo =
+    document.getElementById("databaseInfo");
+
+  const initialiseButton =
+    document.getElementById("initialiseButton");
 
 
-  let currentElectorate = null;
+  // ==========================================
+  // CHECK DATABASE CONNECTION
+  // ==========================================
 
-  let electionData = null;
-
-
-  // ============================================================
-  // ELEMENTS
-  // ============================================================
-
-  const status =
-    document.getElementById("status");
-
-  const electorateSelect =
-    document.getElementById("electorateSelect");
-
-
-  // ============================================================
-  // STATUS
-  // ============================================================
-
-  function showStatus(message, type = "") {
-
-    status.textContent = message;
-
-    status.className =
-      "status " + type;
-
-  }
-
-
-  // ============================================================
-  // LOAD DATABASE
-  // ============================================================
-
-  async function loadDatabase() {
+  async function checkDatabase() {
 
     try {
 
+      const electionRef =
+        ref(database, "election2026");
+
       const snapshot =
-        await get(
-          ref(database, "election2026")
+        await get(electionRef);
+
+
+      statusDot.className = "dot connected";
+
+      statusText.textContent =
+        "Database Connected ✓";
+
+      if (snapshot.exists()) {
+
+        databaseInfo.textContent =
+          "An election database already exists.";
+
+        initialiseButton.textContent =
+          "Election Already Initialised";
+
+        initialiseButton.disabled = true;
+
+        showMessage(
+          "The election database already contains data. No changes have been made.",
+          "info"
         );
 
+      } else {
 
-      if (!snapshot.exists()) {
+        databaseInfo.textContent =
+          "Firebase is connected. The election database is ready to be initialised.";
 
-        showStatus(
-          "Election database has not been initialised.",
-          "error"
-        );
-
-        return;
+        initialiseButton.disabled = false;
 
       }
-
-
-      electionData =
-        snapshot.val();
-
-        await ensureLiberalReformParty();
-
-
-      showStatus(
-        "Database connected — election data loaded ✓",
-        "success"
-      );
-
-
-      populateElectorates();
-
-      buildPartyVoteInputs();
-
-      updatePartySummary();
-
-      updateStatistics();
-
 
     } catch (error) {
 
       console.error(error);
 
-      showStatus(
-        "Unable to load the election database: " +
-        error.message,
+      statusDot.className = "dot error";
+
+      statusText.textContent =
+        "Database Connection Failed";
+
+      databaseInfo.textContent =
+        error.message;
+
+      showMessage(
+        "Firebase could not be accessed. Check your Realtime Database rules.",
         "error"
       );
 
@@ -807,916 +695,274 @@
 
   }
 
-  async function ensureLiberalReformParty() {
-  const partyRef = ref(
-    database,
-    "election2026/parties/liberalReform"
-  );
 
-  const snapshot = await get(partyRef);
+  // ==========================================
+  // INITIALISE ELECTION
+  // ==========================================
 
-  if (!snapshot.exists()) {
-    await set(partyRef, {
-      name: "Liberal Reform Party",
-      abbreviation: "LRP",
-      partyVote: 0,
-      seats: 0
-    });
-  }
+  window.initialiseElection = async function() {
 
-  // Keep the local copy in sync with Firebase.
-  const updatedSnapshot = await get(partyRef);
-
-  electionData.parties = electionData.parties || {};
-  electionData.parties.liberalReform = updatedSnapshot.val();
-}
-
-
-  // ============================================================
-  // POPULATE ELECTORATES
-  // ============================================================
-
-  function populateElectorates() {
-
-    electorateSelect.innerHTML =
-      '<option value="">Select an electorate...</option>';
-
-
-    Object.entries(
-      electionData.electorates || {}
-    )
-    .sort(
-      (a, b) =>
-        a[1].number - b[1].number
-    )
-    .forEach(
-      ([id, electorate]) => {
-
-        const option =
-          document.createElement("option");
-
-        option.value = id;
-
-        option.textContent =
-          electorate.number +
-          ". " +
-          electorate.name;
-
-        electorateSelect.appendChild(option);
-
-      }
-    );
-
-  }
-
-
-  // ============================================================
-  // LOAD ELECTORATE
-  // ============================================================
-
-  window.loadElectorate = async function() {
-
-    const id =
-      electorateSelect.value;
-
-
-    if (!id) {
-
-      alert(
-        "Please select an electorate first."
+    const confirmed =
+      confirm(
+        "Initialise the Square Country 2026 General Election?\n\n" +
+        "This will create the election settings, five parties, " +
+        "13 electorates and an empty results structure in Firebase."
       );
 
+    if (!confirmed) {
       return;
-
     }
 
 
-    currentElectorate = id;
+    initialiseButton.disabled = true;
 
-
-    const electorate =
-      electionData.electorates[id];
-
-
-    document.getElementById(
-      "candidatePanel"
-    ).style.display = "block";
-
-
-    document.getElementById(
-      "electorateTitle"
-    ).textContent =
-      electorate.number +
-      ". " +
-      electorate.name;
-
-
-    const list =
-      document.getElementById(
-        "candidateList"
-      );
-
-
-    list.innerHTML = "";
-
-
-    const candidates =
-      electorate.candidates || {};
-
-
-    const candidateIds =
-      Object.keys(candidates);
-
-
-    if (candidateIds.length === 0) {
-
-      addCandidate();
-
-      return;
-
-    }
-
-
-    candidateIds.forEach(
-      candidateId => {
-
-        addCandidate(
-          candidates[candidateId]
-        );
-
-      }
-    );
-
-
-    updateWinner();
-
-  };
-
-
-  // ============================================================
-  // ADD CANDIDATE
-  // ============================================================
-
-  window.addCandidate = function(candidate = null) {
-
-    const list =
-      document.getElementById(
-        "candidateList"
-      );
-
-
-    const row =
-      document.createElement("div");
-
-    row.className =
-      "candidate";
-
-
-    const name =
-      candidate?.name || "";
-
-
-    const party =
-      candidate?.party || "";
-
-
-    const votes =
-      candidate?.votes ?? 0;
-
-
-    row.innerHTML = `
-
-      <div>
-        <label>Candidate</label>
-
-        <input
-          type="text"
-          class="candidate-name"
-          placeholder="Candidate name"
-          value="${escapeHtml(name)}">
-      </div>
-
-
-      <div>
-        <label>Party</label>
-
-        <select class="candidate-party">
-
-          <option value="">
-            Independent
-          </option>
-
-          ${Object.entries(parties)
-            .map(
-              ([id, partyData]) => `
-                <option
-                  value="${id}"
-                  ${party === id ? "selected" : ""}>
-                  ${partyData.name}
-                </option>
-              `
-            )
-            .join("")}
-
-        </select>
-      </div>
-
-
-      <div>
-        <label>Votes</label>
-
-        <input
-          type="number"
-          min="0"
-          step="1"
-          class="candidate-votes"
-          value="${Number(votes)}"
-          oninput="updateWinner()">
-      </div>
-
-
-      <button
-        class="remove"
-        onclick="this.parentElement.remove(); updateWinner();"
-        title="Remove candidate">
-
-        ×
-
-      </button>
-
-    `;
-
-
-    list.appendChild(row);
-
-    updateWinner();
-
-  };
-
-
-  // ============================================================
-  // SAVE ELECTORATE
-  // ============================================================
-
-  window.saveElectorate = async function() {
-
-    if (!currentElectorate) {
-
-      alert(
-        "Please select an electorate."
-      );
-
-      return;
-
-    }
-
-
-    const rows =
-      document.querySelectorAll(
-        "#candidateList .candidate"
-      );
-
-
-    const candidates = {};
-
-
-    let candidateNumber = 1;
-
-
-    rows.forEach(row => {
-
-      const name =
-        row.querySelector(
-          ".candidate-name"
-        ).value.trim();
-
-
-      const party =
-        row.querySelector(
-          ".candidate-party"
-        ).value;
-
-
-      const votes =
-        Number(
-          row.querySelector(
-            ".candidate-votes"
-          ).value
-        ) || 0;
-
-
-      if (!name) {
-        return;
-      }
-
-
-      const id =
-        "candidate-" +
-        candidateNumber;
-
-
-      candidates[id] = {
-
-        name: name,
-
-        party: party || "independent",
-
-        votes: votes
-
-      };
-
-
-      candidateNumber++;
-
-    });
-
-
-    if (
-      Object.keys(candidates).length === 0
-    ) {
-
-      alert(
-        "Please enter at least one candidate."
-      );
-
-      return;
-
-    }
-
-
-    const candidateEntries =
-      Object.entries(candidates);
-
-
-    candidateEntries.sort(
-      (a, b) =>
-        b[1].votes - a[1].votes
-    );
-
-
-    const winner =
-      candidateEntries[0][1];
-
-
-    const winnerId =
-      candidateEntries[0][0];
-
-
-    const electoratePath =
-      "election2026/electorates/" +
-      currentElectorate;
+    initialiseButton.textContent =
+      "Initialising...";
 
 
     try {
 
-      await update(
-        ref(database, electoratePath),
-        {
+      // --------------------------------------
+      // PARTIES
+      // --------------------------------------
 
-          candidates: candidates,
+      const parties = {
 
-          winner: {
+        liberty: {
+          name: "Liberty",
+          abbreviation: "LIB",
+          partyVote: 0,
+          seats: 0
+        },
 
-            id: winnerId,
+        freedoms: {
+          name: "Freedoms",
+          abbreviation: "FRE",
+          partyVote: 0,
+          seats: 0
+        },
 
-            name: winner.name,
+        greens: {
+          name: "Greens",
+          abbreviation: "GRE",
+          partyVote: 0,
+          seats: 0
+        },
 
-            party: winner.party,
+        innovation: {
+          name: "Innovation",
+          abbreviation: "INN",
+          partyVote: 0,
+          seats: 0
+        },
 
-            votes: winner.votes
+        scFirst: {
+          name: "SC First",
+          abbreviation: "SCF",
+          partyVote: 0,
+          seats: 0
+        }
+
+      };
+
+
+      // --------------------------------------
+      // ELECTORATES
+      // --------------------------------------
+
+      const electorateNames = [
+
+        "Western Beaches",
+        "Square City",
+        "Surish Bridge",
+        "Masterton Central",
+        "Earlington",
+        "New Dublin",
+        "Wellingborough",
+        "Ertonmont",
+        "Doncastle",
+        "Cunningham",
+        "Queenstown",
+        "Kingsford",
+        "Uma no machi"
+
+      ];
+
+
+      const electorates = {};
+
+
+      electorateNames.forEach(
+        (name, index) => {
+
+          const id =
+            name
+              .toLowerCase()
+              .replace(/[^a-z0-9]+/g, "-")
+              .replace(/^-|-$/g, "");
+
+          electorates[id] = {
+
+            name: name,
+
+            number: index + 1,
+
+            seats: 1,
+
+            candidates: {},
+
+            votes: {},
+
+            winner: null
+
+          };
+
+        }
+      );
+
+
+      // --------------------------------------
+      // COMPLETE DATABASE
+      // --------------------------------------
+
+      const electionData = {
+
+        settings: {
+
+          name:
+            "2026 General Election",
+
+          year:
+            2026,
+
+          system:
+            "MMP",
+
+          totalSeats:
+            26,
+
+          electorateSeats:
+            13,
+
+          listSeats:
+            13,
+
+          threshold:
+            4,
+
+          initialized:
+            true,
+
+          initializedAt:
+            new Date().toISOString()
+
+        },
+
+
+        parties: parties,
+
+
+        electorates: electorates,
+
+
+        results: {
+
+          final: false,
+
+          partyVoteTotal: 0,
+
+          electorateVoteTotal: 0,
+
+          seatsAllocated: {},
+
+          electorateWinners: {},
+
+          mmp: {
+
+            totalSeats: 26,
+
+            threshold: 4,
+
+            calculated: false
 
           }
 
         }
-      );
-
-
-      electionData.electorates[
-        currentElectorate
-      ].candidates =
-        candidates;
-
-
-      electionData.electorates[
-        currentElectorate
-      ].winner = {
-
-        id: winnerId,
-
-        name: winner.name,
-
-        party: winner.party,
-
-        votes: winner.votes
 
       };
 
 
-      showStatus(
-        "Electorate results saved successfully ✓",
+      // --------------------------------------
+      // WRITE TO FIREBASE
+      // --------------------------------------
+
+      await set(
+        ref(database, "election2026"),
+        electionData
+      );
+
+
+      // --------------------------------------
+      // SUCCESS
+      // --------------------------------------
+
+      showMessage(
+        "Election database successfully initialised. The 2026 election structure has been created in Firebase.",
         "success"
       );
 
 
-      updateStatistics();
+      initialiseButton.textContent =
+        "Election Initialised ✓";
 
-      updateWinner();
+
+      databaseInfo.textContent =
+        "13 electorates, 5 parties and the 26-seat Parliament structure have been created.";
 
 
     } catch (error) {
 
       console.error(error);
 
-      showStatus(
-        "Could not save electorate: " +
+      showMessage(
+        "The election could not be initialised: " +
         error.message,
         "error"
       );
 
+      initialiseButton.disabled = false;
+
+      initialiseButton.textContent =
+        "Initialise Election";
+
     }
 
   };
 
 
-  // ============================================================
-  // WINNER
-  // ============================================================
+  // ==========================================
+  // MESSAGE SYSTEM
+  // ==========================================
 
-  window.updateWinner = function() {
+  function showMessage(message, type) {
 
-    const winnerBox =
-      document.getElementById(
-        "winnerBox"
-      );
+    const box =
+      document.getElementById("message");
 
+    box.textContent =
+      message;
 
-    const rows =
-      document.querySelectorAll(
-        "#candidateList .candidate"
-      );
-
-
-    if (rows.length === 0) {
-
-      winnerBox.style.display = "none";
-
-      return;
-
-    }
-
-
-    let winner = null;
-
-
-    rows.forEach(row => {
-
-      const name =
-        row.querySelector(
-          ".candidate-name"
-        ).value.trim();
-
-
-      const party =
-        row.querySelector(
-          ".candidate-party"
-        ).value;
-
-
-      const votes =
-        Number(
-          row.querySelector(
-            ".candidate-votes"
-          ).value
-        ) || 0;
-
-
-      if (
-        name &&
-        (!winner || votes > winner.votes)
-      ) {
-
-        winner = {
-
-          name: name,
-
-          party: party,
-
-          votes: votes
-
-        };
-
-      }
-
-    });
-
-
-    if (!winner) {
-
-      winnerBox.style.display = "none";
-
-      return;
-
-    }
-
-
-    const partyName =
-      winner.party &&
-      parties[winner.party]
-        ? parties[winner.party].name
-        : "Independent";
-
-
-    winnerBox.innerHTML = `
-
-      <strong>Current winner:</strong>
-
-      ${escapeHtml(winner.name)}
-
-      —
-
-      ${escapeHtml(partyName)}
-
-      with
-
-      <strong>
-        ${winner.votes.toLocaleString()}
-      </strong>
-
-      votes.
-
-    `;
-
-
-    winnerBox.style.display = "block";
-
-  };
-
-
-  // ============================================================
-  // PARTY VOTE INPUTS
-  // ============================================================
-
-  function buildPartyVoteInputs() {
-
-    const container =
-      document.getElementById(
-        "partyVotes"
-      );
-
-
-    container.innerHTML = "";
-
-
-    Object.entries(parties)
-      .forEach(
-        ([id, party]) => {
-
-          const existing =
-            electionData.parties?.[id]
-              ?.partyVote || 0;
-
-
-          const row =
-            document.createElement("div");
-
-
-          row.className =
-            "party-vote-row";
-
-
-          row.innerHTML = `
-
-            <div>
-
-              <span class="party-name">
-                ${party.name}
-              </span>
-
-              <span class="party-code">
-                ${party.abbreviation}
-              </span>
-
-            </div>
-
-
-            <input
-              type="number"
-              min="0"
-              step="1"
-              class="party-vote-input"
-              data-party="${id}"
-              value="${existing}"
-              oninput="updatePartySummary()">
-
-          `;
-
-
-          container.appendChild(row);
-
-        }
-      );
+    box.className =
+      "message " + type;
 
   }
 
 
-  // ============================================================
-  // SAVE PARTY VOTE
-  // ============================================================
-
-  window.savePartyVote = async function() {
-
-    const inputs =
-      document.querySelectorAll(
-        ".party-vote-input"
-      );
-
-
-    const updates = {};
-
-
-    inputs.forEach(input => {
-
-      const party =
-        input.dataset.party;
-
-
-      const votes =
-        Number(input.value) || 0;
-
-
-      updates[
-        "election2026/parties/" +
-        party +
-        "/partyVote"
-      ] = votes;
-
-    });
-
-
-    try {
-
-      await update(
-        ref(database),
-        updates
-      );
-
-
-      inputs.forEach(input => {
-
-        const party =
-          input.dataset.party;
-
-
-        const votes =
-          Number(input.value) || 0;
-
-
-        if (
-          electionData.parties &&
-          electionData.parties[party]
-        ) {
-
-          electionData.parties[
-            party
-          ].partyVote =
-            votes;
-
-        }
-
-      });
-
-
-      showStatus(
-        "Nationwide party vote saved successfully ✓",
-        "success"
-      );
-
-
-      updatePartySummary();
-
-    } catch (error) {
-
-      console.error(error);
-
-      showStatus(
-        "Could not save party vote: " +
-        error.message,
-        "error"
-      );
-
-    }
-
-  };
-
-
-  // ============================================================
-  // PARTY SUMMARY
-  // ============================================================
-
-  window.updatePartySummary = function() {
-
-    const inputs =
-      document.querySelectorAll(
-        ".party-vote-input"
-      );
-
-
-    let total = 0;
-
-
-    const values = {};
-
-
-    inputs.forEach(input => {
-
-      const votes =
-        Number(input.value) || 0;
-
-
-      values[
-        input.dataset.party
-      ] = votes;
-
-
-      total += votes;
-
-    });
-
-
-    document.getElementById(
-      "partyTotal"
-    ).textContent =
-      total.toLocaleString();
-
-
-    const threshold =
-      Math.ceil(total * 0.04);
-
-
-    document.getElementById(
-      "thresholdVotes"
-    ).textContent =
-      threshold.toLocaleString();
-
-
-    let eligible = 0;
-
-
-    Object.values(values)
-      .forEach(votes => {
-
-        if (
-          total > 0 &&
-          (votes / total) >= 0.04
-        ) {
-
-          eligible++;
-
-        }
-
-      });
-
-
-    document.getElementById(
-      "eligibleParties"
-    ).textContent =
-      eligible;
-
-
-    const summary =
-      document.getElementById(
-        "partySummary"
-      );
-
-
-    summary.innerHTML = "";
-
-
-    Object.entries(parties)
-      .forEach(
-        ([id, party]) => {
-
-          const votes =
-            values[id] || 0;
-
-
-          const percentage =
-            total > 0
-              ? (votes / total) * 100
-              : 0;
-
-
-          const qualifies =
-            percentage >= 4;
-
-
-          const row =
-            document.createElement("tr");
-
-
-          row.innerHTML = `
-
-            <td>
-              <strong>
-                ${party.name}
-              </strong>
-              <small>
-                (${party.abbreviation})
-              </small>
-            </td>
-
-            <td>
-              ${votes.toLocaleString()}
-            </td>
-
-            <td class="percentage">
-              ${percentage.toFixed(2)}%
-            </td>
-
-            <td>
-              ${
-                qualifies
-                  ? "✓ Eligible"
-                  : "Below 4%"
-              }
-            </td>
-
-          `;
-
-
-          summary.appendChild(row);
-
-        }
-      );
-
-  };
-
-
-  // ============================================================
-  // STATISTICS
-  // ============================================================
-
-  function updateStatistics() {
-
-    if (!electionData) {
-      return;
-    }
-
-
-    let completed = 0;
-
-
-    Object.values(
-      electionData.electorates || {}
-    )
-    .forEach(
-      electorate => {
-
-        if (
-          electorate.winner &&
-          electorate.candidates &&
-          Object.keys(
-            electorate.candidates
-          ).length > 0
-        ) {
-
-          completed++;
-
-        }
-
-      }
-    );
-
-
-    document.getElementById(
-      "electoratesCompleted"
-    ).textContent =
-      completed + " / 13";
-
-  }
-
-
-  // ============================================================
-  // HTML ESCAPING
-  // ============================================================
-
-  function escapeHtml(value) {
-
-    return String(value)
-      .replaceAll("&", "&amp;")
-      .replaceAll("<", "&lt;")
-      .replaceAll(">", "&gt;")
-      .replaceAll('"', "&quot;")
-      .replaceAll("'", "&#039;");
-
-  }
-
-
-  // ============================================================
+  // ==========================================
   // START
-  // ============================================================
+  // ==========================================
 
-  loadDatabase();
+  checkDatabase();
 
 </script>
 
