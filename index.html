@@ -73,6 +73,228 @@
       margin: 0 auto;
     }
 
+
+    /* Poll closing countdown */
+
+    .poll-countdown {
+      margin-top: 27px;
+      max-width: 510px;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(237, 106, 22, 0.17);
+      border-radius: 17px;
+      box-shadow: 0 10px 28px rgba(113, 66, 37, 0.07);
+      backdrop-filter: blur(8px);
+    }
+
+    .poll-countdown-heading {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      margin-bottom: 17px;
+    }
+
+    .poll-countdown-icon {
+      width: 39px;
+      height: 39px;
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+      color: var(--orange-dark);
+      background: var(--orange-light);
+      border-radius: 11px;
+    }
+
+    .poll-countdown-icon svg {
+      width: 19px;
+      height: 19px;
+    }
+
+    .poll-countdown-heading > div:nth-child(2) {
+      min-width: 0;
+    }
+
+    .poll-countdown-heading strong {
+      display: block;
+      font-family: "Manrope", sans-serif;
+      font-size: 13px;
+      font-weight: 800;
+      line-height: 1.4;
+    }
+
+    .poll-countdown-heading > div:nth-child(2) span {
+      display: block;
+      color: var(--muted);
+      font-size: 10px;
+      margin-top: 2px;
+    }
+
+    .countdown-live {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-left: auto;
+      padding: 6px 8px;
+      border-radius: 6px;
+      background: #fff0e5;
+      color: var(--orange-dark);
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: 0.8px;
+    }
+
+    .countdown-live-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--orange);
+      border-radius: 50%;
+      animation: countdownPulse 1.5s ease-in-out infinite;
+    }
+
+    .countdown-units {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .countdown-unit {
+      min-width: 0;
+      padding: 12px 4px 10px;
+      text-align: center;
+      background: #fff8f2;
+      border: 1px solid #f8e7da;
+      border-radius: 10px;
+    }
+
+    .countdown-unit strong {
+      display: block;
+      color: #292d35;
+      font-family: "Manrope", sans-serif;
+      font-size: clamp(22px, 2.4vw, 30px);
+      font-weight: 800;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: -1px;
+      line-height: 1.2;
+    }
+
+    .countdown-unit span {
+      display: block;
+      margin-top: 5px;
+      color: #85818a;
+      font-size: 9px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+    }
+
+    .countdown-separator {
+      color: #e5a77e;
+      font-size: 19px;
+      font-weight: 800;
+      margin-top: -12px;
+    }
+
+    .countdown-footer {
+      display: flex;
+      align-items: flex-start;
+      gap: 7px;
+      margin-top: 14px;
+      padding-top: 12px;
+      border-top: 1px solid #f0e8e2;
+      color: #77727b;
+      font-size: 10px;
+      line-height: 1.6;
+    }
+
+    .countdown-footer svg {
+      width: 14px;
+      height: 14px;
+      flex-shrink: 0;
+      margin-top: 1px;
+      color: var(--orange);
+    }
+
+    .poll-countdown.closed {
+      background: #f0faf4;
+      border-color: #ccebd9;
+    }
+
+    .poll-countdown.closed .poll-countdown-icon {
+      color: #168354;
+      background: #dcf5e6;
+    }
+
+    .poll-countdown.closed .countdown-live {
+      color: #147344;
+      background: #dcf5e6;
+    }
+
+    .poll-countdown.closed .countdown-live-dot {
+      background: #168354;
+      animation: none;
+    }
+
+    .poll-countdown.closed .countdown-unit {
+      background: #f7fcf9;
+      border-color: #dcefe3;
+    }
+
+    .poll-countdown.closed .countdown-unit strong {
+      color: #168354;
+    }
+
+    .poll-countdown.closed .countdown-footer svg {
+      color: #168354;
+    }
+
+    @keyframes countdownPulse {
+      0%, 100% {
+        opacity: 1;
+        box-shadow: 0 0 0 0 rgba(237, 106, 22, 0.25);
+      }
+      50% {
+        opacity: 0.65;
+        box-shadow: 0 0 0 4px rgba(237, 106, 22, 0.08);
+      }
+    }
+
+    @media (max-width: 760px) {
+      .poll-countdown {
+        max-width: none;
+        padding: 17px;
+        margin-top: 24px;
+      }
+
+      .countdown-units {
+        gap: 5px;
+      }
+
+      .countdown-unit {
+        padding: 11px 2px 9px;
+      }
+
+      .countdown-unit strong {
+        font-size: clamp(21px, 6vw, 28px);
+      }
+
+      .countdown-unit span {
+        font-size: 8px;
+        letter-spacing: 0.3px;
+      }
+
+      .countdown-separator {
+        font-size: 15px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .countdown-live-dot {
+        animation: none;
+      }
+    }
+
+
     /* Announcement bar */
 
     .announcement {
@@ -1557,11 +1779,57 @@
               <i data-feather="check-circle"></i>
               Cast your vote
             </a>
-            <a href="live-updates.html" class="btn btn-outline">
+            <a href="elections/2026/live-updates.html" class="btn btn-outline">
               <i data-feather="calendar"></i>
               Live Election updates
             </a>
           </div>
+
+
+          <!-- Poll closing countdown -->
+          <div class="poll-countdown" id="pollCountdown" aria-label="Countdown to polls closing">
+            <div class="poll-countdown-heading">
+              <div class="poll-countdown-icon">
+                <i data-feather="clock"></i>
+              </div>
+              <div>
+                <strong id="countdownTitle">Polls close in</strong>
+                <span>Saturday, 17 October · 7:00 PM</span>
+              </div>
+              <span class="countdown-live">
+                <span class="countdown-live-dot"></span>
+                LIVE
+              </span>
+            </div>
+
+            <div class="countdown-units" id="countdownUnits">
+              <div class="countdown-unit">
+                <strong id="countdownDays">00</strong>
+                <span>Days</span>
+              </div>
+              <div class="countdown-separator">:</div>
+              <div class="countdown-unit">
+                <strong id="countdownHours">00</strong>
+                <span>Hours</span>
+              </div>
+              <div class="countdown-separator">:</div>
+              <div class="countdown-unit">
+                <strong id="countdownMinutes">00</strong>
+                <span>Minutes</span>
+              </div>
+              <div class="countdown-separator">:</div>
+              <div class="countdown-unit">
+                <strong id="countdownSeconds">00</strong>
+                <span>Seconds</span>
+              </div>
+            </div>
+
+            <div class="countdown-footer" id="countdownFooter">
+              <i data-feather="info"></i>
+              <span>Make sure your vote is submitted before polls close.</span>
+            </div>
+          </div>
+
         </div>
 
         <aside class="election-card" aria-label="2026 General Election information">
@@ -1605,7 +1873,7 @@
             </div>
           </div>
 
-          <a href="election-information.html" class="election-card-link">
+          <a href="elections/2026/election-information.html" class="election-card-link">
             Explore election information
             <i data-feather="arrow-up-right"></i>
           </a>
@@ -1732,7 +2000,7 @@
                 Find out how to prepare, learn about the voting process
                 and make sure you are ready to participate.
               </p>
-              <a href="election-information.html" class="text-link">
+              <a href="elections/2026/election-information.html" class="text-link">
                 Read election information
                 <i data-feather="arrow-up-right"></i>
               </a>
@@ -1831,10 +2099,10 @@
 
         <div class="footer-column">
           <h4>Voting</h4>
-          <a href="voting.html">How to vote</a>
-          <a href="enrol.html">Enrolment information</a>
+          <a href="vote/how-to-vote.html">How to vote</a>
+          <a href="enrolling/enrolment.html">Enrolment information</a>
           <a href="parties.html">Parties & candidates</a>
-          <a href="results.html">Election results</a>
+          <a href="elections/results.html">Election results</a>
         </div>
 
         <div class="footer-column">
@@ -1849,7 +2117,7 @@
           <h4>Get in touch</h4>
           <a href="contact.html">Contact us</a>
           <a href="accessibility.html">Accessibility</a>
-          <a href="privacy.html">Privacy statement</a>
+          <a href="privacy.html">PIA Requests</a>
           <a href="login.html">Staff portal</a>
         </div>
 
@@ -1882,7 +2150,7 @@
       <div class="search-body">
         <p>Quick links</p>
 
-        <a class="search-result" href="voting.html" data-search="how to vote voting guide">
+        <a class="search-result" href="vote/how-to-vote.html" data-search="how to vote voting guide">
           <i data-feather="check-square"></i>
           <div>
             <strong>How to vote</strong>
@@ -1890,7 +2158,7 @@
           </div>
         </a>
 
-        <a class="search-result" href="enrol.html" data-search="enrol enrolment voter registration">
+        <a class="search-result" href="enrolling/enrolment.html" data-search="enrol enrolment voter registration">
           <i data-feather="user-check"></i>
           <div>
             <strong>Enrol to vote</strong>
@@ -1906,7 +2174,7 @@
           </div>
         </a>
 
-        <a class="search-result" href="results.html" data-search="election results parliament">
+        <a class="search-result" href="elections/results.html" data-search="election results parliament">
           <i data-feather="bar-chart-2"></i>
           <div>
             <strong>Election results</strong>
@@ -2018,7 +2286,64 @@
         hideSearch();
       }
     });
+
+
+
+    // Countdown to polls closing: 17 October 2026, 7:00 PM Square Country time
+    const pollClosingTime = new Date("2026-10-17T19:00:00+13:00").getTime();
+
+    const pollCountdown = document.getElementById("pollCountdown");
+    const countdownTitle = document.getElementById("countdownTitle");
+    const countdownUnits = document.getElementById("countdownUnits");
+    const countdownFooter = document.getElementById("countdownFooter");
+    const countdownLive = pollCountdown.querySelector(".countdown-live");
+
+    function updatePollCountdown() {
+      const remaining = pollClosingTime - Date.now();
+
+      if (remaining <= 0) {
+        pollCountdown.classList.add("closed");
+        countdownTitle.textContent = "Polling has closed";
+        countdownLive.innerHTML =
+          '<span class="countdown-live-dot"></span> CLOSED';
+
+        countdownUnits.innerHTML = `
+          <div class="countdown-unit" style="grid-column: 1 / -1;">
+            <strong style="font-size: 25px;">7:00 PM</strong>
+            <span>Polls closed · 17 October 2026</span>
+          </div>
+        `;
+
+        countdownFooter.innerHTML = `
+          <i data-feather="check-circle"></i>
+          <span>Polls have closed. Follow the election updates for results and announcements.</span>
+        `;
+
+        feather.replace();
+        clearInterval(countdownTimer);
+        return;
+      }
+
+      const days = Math.floor(remaining / 86400000);
+      const hours = Math.floor((remaining % 86400000) / 3600000);
+      const minutes = Math.floor((remaining % 3600000) / 60000);
+      const seconds = Math.floor((remaining % 60000) / 1000);
+
+      document.getElementById("countdownDays").textContent =
+        String(days).padStart(2, "0");
+      document.getElementById("countdownHours").textContent =
+        String(hours).padStart(2, "0");
+      document.getElementById("countdownMinutes").textContent =
+        String(minutes).padStart(2, "0");
+      document.getElementById("countdownSeconds").textContent =
+        String(seconds).padStart(2, "0");
+    }
+
+    updatePollCountdown();
+    const countdownTimer = setInterval(updatePollCountdown, 1000);
+
   </script>
+
 
 </body>
 </html>
