@@ -607,23 +607,6 @@
       transform: translateY(-2px);
     }
 
-    /* Disabled Cast Your Vote button */
-.btn-primary.vote-disabled,
-.btn-primary.vote-disabled:hover {
-  background: #d1d5db;
-  color: #585c65;
-  border-color: #d1d5db;
-  box-shadow: none;
-  cursor: not-allowed;
-  transform: none;
-  opacity: 1;
-  pointer-events: none;
-}
-
-.btn-primary.vote-disabled svg {
-  color: #6b7280;
-}
-
     .btn-outline {
       background: rgba(255,255,255,0.65);
       color: var(--ink);
@@ -1719,20 +1702,6 @@
 <body>
   <a class="skip-link" href="#main">Skip to main content</a>
 
-  <!-- Announcement -->
-  <div class="announcement">
-    <div class="container announcement-inner">
-      <div class="announcement-left">
-        <span class="announcement-dot"></span>
-        <span>Square Country General Election · 17 October 2026</span>
-      </div>
-      <a class="announcement-link" href="elections/2026/election-information.html">
-        Election information
-        <i data-feather="arrow-up-right"></i>
-      </a>
-    </div>
-  </div>
-
   <!-- Navigation -->
   <header class="navbar">
     <div class="container nav-inner">
@@ -1792,66 +1761,21 @@
           </p>
 
           <div class="hero-buttons">
-            <button class="btn btn-primary vote-disabled" type="button" disabled aria-disabled="true" title="Voting is currently unavailable">
-            <i data-feather="check-circle"></i>
-            Cast your vote
-            </button>
-            <a href="elections/2026/live-updates.html" class="btn btn-outline">
-              <i data-feather="calendar"></i>
-              Live Election updates
+            <a href="2026-results/preliminary-results.html" class="btn btn-primary">
+              <i data-feather="bar-chart-2"></i>
+              View 2026 Election Results
             </a>
-          </div>
-
-
-          <!-- Poll closing countdown -->
-          <div class="poll-countdown" id="pollCountdown" aria-label="Countdown to polls closing">
-            <div class="poll-countdown-heading">
-              <div class="poll-countdown-icon">
-                <i data-feather="clock"></i>
-              </div>
-              <div>
-                <strong id="countdownTitle">Polls close in</strong>
-                <span>Saturday, 17 October · 7:00 PM</span>
-              </div>
-              <span class="countdown-live">
-                <span class="countdown-live-dot"></span>
-                LIVE
-              </span>
-            </div>
-
-            <div class="countdown-units" id="countdownUnits">
-              <div class="countdown-unit">
-                <strong id="countdownDays">00</strong>
-                <span>Days</span>
-              </div>
-              <div class="countdown-separator">:</div>
-              <div class="countdown-unit">
-                <strong id="countdownHours">00</strong>
-                <span>Hours</span>
-              </div>
-              <div class="countdown-separator">:</div>
-              <div class="countdown-unit">
-                <strong id="countdownMinutes">00</strong>
-                <span>Minutes</span>
-              </div>
-              <div class="countdown-separator">:</div>
-              <div class="countdown-unit">
-                <strong id="countdownSeconds">00</strong>
-                <span>Seconds</span>
-              </div>
-            </div>
-
-            <div class="countdown-footer" id="countdownFooter">
-              <i data-feather="info"></i>
-              <span>Make sure your vote is submitted before polls close.</span>
-            </div>
+            <a href="enrolling/enrolment.html" class="btn btn-outline">
+              <i data-feather="user-check"></i>
+              Enrol to vote
+            </a>
           </div>
 
         </div>
 
         <aside class="election-card" aria-label="2026 General Election information">
           <div class="election-card-top">
-            <span class="card-label">The next general election</span>
+            <span class="card-label">2026 general election</span>
             <span class="status-pill">
               <span></span>
               Election 2026
@@ -1864,8 +1788,8 @@
           </div>
 
           <p class="election-card-description">
-            Square Country goes to the polls. Get informed about the
-            election, understand your voting options and make your voice heard.
+            Square Country's 2026 General Election has concluded. The Liberty Party has secured the highest numbers of votes,
+            and David Campbell has conceded.
           </p>
 
           <div class="election-divider"></div>
@@ -1876,7 +1800,7 @@
             </div>
             <div class="detail-text">
               <strong>General election</strong>
-              <span>Choose your electorate representative and party</span>
+              <span>Electorate representatives and parties chosen</span>
             </div>
           </div>
 
@@ -1886,12 +1810,12 @@
             </div>
             <div class="detail-text">
               <strong>Across Square Country</strong>
-              <span>Electorates throughout the country</span>
+              <span>New and returning electorates MPs</span>
             </div>
           </div>
 
-          <a href="elections/2026/election-information.html" class="election-card-link">
-            Explore election information
+          <a href="2026-results/preliminary-results.html" class="election-card-link">
+            View preliminary results
             <i data-feather="arrow-up-right"></i>
           </a>
         </aside>
