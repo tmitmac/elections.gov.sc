@@ -687,6 +687,11 @@
     scFirst: {
       name: "SC First",
       abbreviation: "SCF"
+    },
+
+    liberalReform: {
+      name: "Liberal Reform Party",
+      abbreviation: "LRP"
     }
 
   };
@@ -770,6 +775,8 @@
       electionData =
         snapshot.val();
 
+        await ensureLiberalReformParty();
+
 
       showStatus(
         "Database connected — election data loaded ✓",
@@ -799,6 +806,30 @@
     }
 
   }
+
+  async function ensureLiberalReformParty() {
+  const partyRef = ref(
+    database,
+    "election2026/parties/liberalReform"
+  );
+
+  const snapshot = await get(partyRef);
+
+  if (!snapshot.exists()) {
+    await set(partyRef, {
+      name: "Liberal Reform Party",
+      abbreviation: "LRP",
+      partyVote: 0,
+      seats: 0
+    });
+  }
+
+  // Keep the local copy in sync with Firebase.
+  const updatedSnapshot = await get(partyRef);
+
+  electionData.parties = electionData.parties || {};
+  electionData.parties.liberalReform = updatedSnapshot.val();
+}
 
 
   // ============================================================
